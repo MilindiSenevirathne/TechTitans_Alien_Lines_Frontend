@@ -16,30 +16,13 @@ import { en, registerTranslation } from 'react-native-paper-dates';
 import SearchField from '../components/input/SearchField';
 import NavBar from '../components/navbar/NavBar';
 import { CommonButton } from '../components/common/CommonButton';
+import customTheme from '../components/styles/theme';
 registerTranslation('en', en);
 
 export default function HomePage({ navigation }) {
-  const theme = {
-    ...DefaultTheme,
-    myOwnProperty: true,
-
-    colors: {
-      ...DefaultTheme.colors,
-      primary: '#4C0259',
-      onPrimaryContainer: '#ffffff',
-      onSecondaryContainer: '#ffffff',
-      surfaceVariant: '#ffffff',
-      onSurfaceVariant: '#000000cc',
-      secondary: '#CA4255',
-      fieldColor: '#D3D1D1',
-      elevation: {
-        level2: '#ffffff',
-      },
-    },
-  };
   return (
-    <PaperProvider theme={theme}>
-      <ThemeProvider theme={theme}>
+    <PaperProvider theme={customTheme}>
+      <ThemeProvider theme={customTheme}>
         <View style={styles.container}>
           <ScrollView>
             <NavBar isLogged={true}/>
@@ -104,7 +87,7 @@ export default function HomePage({ navigation }) {
                 <SearchField />
               </View>
             </View>
-            <CommonButton lable={'Press Here'} commonBtnPress={()=>navigation.navigate('Details')}/>
+            <CommonButton lable={'Press Here'} commonBtnPress={()=>navigation.navigate('MyBookings')}/>
           </ScrollView>
         </View>
       </ThemeProvider>
