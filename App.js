@@ -22,15 +22,15 @@ export default function App() {
 
     colors: {
       ...DefaultTheme.colors,
-      primary: '#4C0259',
-      onPrimaryContainer: '#ffffff',
-      onSecondaryContainer: '#ffffff',
-      surfaceVariant: '#ffffff',
-      onSurfaceVariant: '#000000cc',
-      secondary: '#CA4255',
-      fieldColor: '#D3D1D1',
+      primary: "#4C0259",
+      onPrimaryContainer: "#ffffff",
+      onSecondaryContainer: "#ffffff",
+      surfaceVariant: "#ffffff",
+      onSurfaceVariant: "#000000cc",
+      secondary: "#CA4255",
+      fieldColor: "#D3D1D1",
       elevation: {
-        level2: '#ffffff',
+        level2: "#ffffff",
       },
     },
   };
