@@ -7,7 +7,7 @@ const LoadingPage = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-      navigation.navigate('Home');
+      navigation.navigate('Landing');
     }, 3000);
   }, []);
 
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   loadingGif: {
-    width: 400,
-    height: 400,
+    width: 307,
+    height: 417,
   },
 });
 
