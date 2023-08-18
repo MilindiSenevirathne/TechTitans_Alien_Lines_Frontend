@@ -1,69 +1,51 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Text, View, Alert, Modal, Animated, ScrollView } from "react-native";
-import { Button } from "react-native-paper";
+import { TouchableOpacity, Text, View, Alert, Modal, Animated, ScrollView, SafeAreaView, StyleSheet, Image } from "react-native";
+import RBSheet from "react-native-raw-bottom-sheet";
 
-const CommonModal = ({ mainTopic, subTopic, isButtonAvailable, buttonLabel, icon, commonBtnPress = () => { }, onClose = () => {}, containerHeight, content }) => {
-
-    const[visible,setVisible]=useState(true)
-
-    const renderModal = () => {
-        <Modal visible={visible}
-        animationType='none'
-        transparent
-
-        onRequestClose={()=>{setVisible(false)}}
-        onPress={()=>{setVisible(false)}}
-      >
-        <View 
-        >
-          <Text
-           
-          />
-          <Animated.View
-            style={[
-              { height: containerHeight },
-              {
-                borderTopLeftRadius: 16,
-                borderTopEndRadius: 16,
-                backgroundColor: "#ffffff",
-                minHeight: '30%',
-                overflow: 'hidden'
-
-              }
-            ]}
-          >
-            {/* {this._renderTitle()}
-            {this._renderMessage()} */}
-            {/* {this.renderSearchBox()} */}
-            <ScrollView scrollEnabled={true} style={{ flex: 1, width: "100%", paddingHorizontal: 12, marginTop: 15 }}>
-              {/* {this._renderOptions()} */}
-              {content}
-            </ScrollView>
-            <View style={{
-              marginLeft: 25,
-              marginRight: 25,
-              marginTop: 15,
-              height: 0.5
-              , backgroundColor: '#dfe5ee'
-            }} />
-            {/* {this._renderCancelButton()} */}
-          </Animated.View>
+const CommonModal = ({ containerHeight, content, onOpen, onClose, secondTitle, firstTitle, bottom }) => {
+  return (
+    <RBSheet
+      closeOnDragDown={true}
+      closeOnPressMask={false}
+      animationType="fade"
+      openDuration={400}
+      closeDuration={400}
+      height={containerHeight}
+      keyboardAvoidingViewEnabled={true}
+      customStyles={{
+        wrapper: {
+          backgroundColor: 'rgba(217,217,217,0.8)',
+        },
+        draggableIcon: {
+          backgroundColor: "#000"
+        },
+        container: {
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30
+        }
+      }}
+      ref={onOpen}
+    >
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 20 }}>
+        <Text style={{ fontSize: 20, fontWeight: '700' }}>{firstTitle}</Text>
+        <TouchableOpacity onPress={onClose}>
+          <Image source={require('../../images/Multiply.png')} style={{ height: 20, width: 20 }} />
+        </TouchableOpacity>
+      </View>
+      {secondTitle && (
+        <View style={{ marginLeft: 20 }}>
+          <Text style={{ color: '#4C0259', fontSize: 14, fontWeight: '500' }}>{secondTitle}</Text>
         </View>
-      </Modal>
-    }
-
-    return (
-        <View style={{
-            marginTop: 5,
-            justifyContent: "center",
-            alignContent: "center",
-            alignItems: "center",
-            paddingBottom: 15,
-            width: "100%"
-        }}>
-            {renderModal()}
-        </View>
-    );
+      )}
+      <View style={{padding:20}}>
+      {content}
+      </View>
+      <View style={{ position: 'absolute', width: '110%', bottom: 0, left: '-5%' }}>
+        {bottom}
+      </View>
+    </RBSheet>
+  );
 };
 
 export { CommonModal };
+
