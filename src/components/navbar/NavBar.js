@@ -59,6 +59,7 @@ export default function NavBar({ isLogged }) {
       resizeMode: 'contain',
     },
   });
+  
 
   if (isLogged) {
     return (
