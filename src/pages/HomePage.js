@@ -4,10 +4,8 @@ import TextField from '../components/input/TextField';
 import * as React from 'react';
 import { PaperProvider, Searchbar } from 'react-native-paper';
 import {
-  DarkTheme,
   DefaultTheme,
   Provider,
-  Surface,
   ThemeProvider,
 } from 'react-native-paper';
 import DropdownField from '../components/input/DropdownField';
@@ -21,8 +19,6 @@ registerTranslation('en', en);
 
 export default function HomePage({ navigation }) {
   return (
-    <PaperProvider theme={customTheme}>
-      <ThemeProvider theme={customTheme}>
         <View style={styles.container}>
           <ScrollView>
             <NavBar isLogged={true}/>
@@ -90,8 +86,6 @@ export default function HomePage({ navigation }) {
             <CommonButton lable={'Press Here'} commonBtnPress={()=>navigation.navigate('MyBookings')}/>
           </ScrollView>
         </View>
-      </ThemeProvider>
-    </PaperProvider>
   );
 }
 
