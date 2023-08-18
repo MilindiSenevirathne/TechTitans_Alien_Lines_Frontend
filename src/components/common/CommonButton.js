@@ -31,7 +31,7 @@ const CommonButton = ({ lable, icon, commonBtnPress = () => { }, backgroundColor
                 <TouchableOpacity
                     style={{
                         height: 35,
-                        width: "65%",
+                        width: "200%",
                         backgroundColor: '#DFE6F2',
 
                         // borderRadius: 10,
