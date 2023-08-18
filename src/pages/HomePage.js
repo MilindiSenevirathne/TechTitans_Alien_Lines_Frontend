@@ -14,6 +14,7 @@ import { en, registerTranslation } from 'react-native-paper-dates';
 import SearchField from '../components/input/SearchField';
 import NavBar from '../components/navbar/NavBar';
 import { CommonButton } from '../components/common/CommonButton';
+import customTheme from '../components/styles/theme';
 registerTranslation('en', en);
 
 export default function HomePage({ navigation }) {
@@ -82,7 +83,7 @@ export default function HomePage({ navigation }) {
                 <SearchField />
               </View>
             </View>
-            <CommonButton lable={'Press Here'} commonBtnPress={()=>navigation.navigate('Details')}/>
+            <CommonButton lable={'Press Here'} commonBtnPress={()=>navigation.navigate('MyBookings')}/>
           </ScrollView>
         </View>
   );

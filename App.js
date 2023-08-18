@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View } from 'react-native';
 import HomePage from './src/pages/HomePage';
+import MyBookings from './src/pages/MyBookings';
 import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
 
@@ -45,6 +46,7 @@ export default function App() {
               <Stack.Screen name="Loading" component={LoadingPage} />
               <Stack.Screen name="Home" component={HomePage} />
               <Stack.Screen name="Landing" component={LandingPage} />
+              <Stack.Screen name='MyBookings' component={MyBookings}/>
             </Stack.Navigator>
           </NavigationContainer>
         </View>
