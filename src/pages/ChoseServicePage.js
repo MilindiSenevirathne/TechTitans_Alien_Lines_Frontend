@@ -1,18 +1,23 @@
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import { Image, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 import { en, registerTranslation } from "react-native-paper-dates";
-import NavBar from '../components/navbar/NavBar';
+import NavBar from "../components/navbar/NavBar";
 registerTranslation("en", en);
-
 
 export default function ChooseServices({ navigation }) {
   return (
     <>
-      <View style={{height: '85%'}}>
+      <View style={{ height: "85%" }}>
         <ScrollView>
-        <NavBar isLogged={true}/>
+          <NavBar isLogged={true} />
           <View style={styles.container}>
             <StatusBar hidden />
 
@@ -32,10 +37,14 @@ export default function ChooseServices({ navigation }) {
                   </Text>
                 </View>
                 <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("../images/next.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("ExtraBaggage")}
+                  >
+                    <Image
+                      source={require("../images/next.png")}
+                      style={{ height: 30, width: 30 }}
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
             </Card>
@@ -108,7 +117,6 @@ export default function ChooseServices({ navigation }) {
                 </View>
               </View>
             </Card>
-           
           </View>
         </ScrollView>
       </View>
@@ -200,7 +208,7 @@ const styles = StyleSheet.create({
   card: {
     width: 320,
     marginBottom: 20,
-    backgroundColor: 'white'
+    backgroundColor: "white",
   },
   viewContainer: {
     flexDirection: "row",
