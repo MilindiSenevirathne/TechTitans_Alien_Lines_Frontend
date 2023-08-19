@@ -91,10 +91,14 @@ export default function ChooseServices({ navigation }) {
                   </Text>
                 </View>
                 <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("../images/next.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("SpecialMeals")}
+                  >
+                    <Image
+                      source={require("../images/next.png")}
+                      style={{ height: 30, width: 30 }}
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
             </Card>
