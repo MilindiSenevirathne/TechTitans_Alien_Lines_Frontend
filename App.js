@@ -16,6 +16,7 @@ import ChooseServices from './src/pages/ChoseServicePage';
 import ExtraBaggage from './src/pages/ExtraBaggagePage';
 import Seatbooking from './src/pages/SeatsBookingPage';
 import SpecialMeals from './src/pages/SpecialMealsPage';
+import Assistance from './src/pages/AssistancePage';
 import customTheme from './src/components/styles/theme';
 
 const Stack = createStackNavigator();
@@ -38,6 +39,7 @@ export default function App() {
               <Stack.Screen name='ExtraBaggage' component={ExtraBaggage} />
               <Stack.Screen name='Seatbooking' component={Seatbooking} />
               <Stack.Screen name='SpecialMeals' component={SpecialMeals} />
+              <Stack.Screen name='Assistance' component={Assistance} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>
