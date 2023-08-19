@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, Modal, Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native'; // Use these hooks instead
 import { useTheme, RadioButton } from 'react-native-paper';
+import { CommonButton } from '../components/common/CommonButton';
+
 const BookingPage = () => {
 
-    const theme = useTheme();
     const route = useRoute();
     const { from, to, date } = route.params;
     const [selectedSpaceship, setSelectedSpaceship] = useState(null);
@@ -12,36 +13,59 @@ const BookingPage = () => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedPackage, setSelectedPackage] = useState(null);
 
+    const getTimeFromDateString = (dateString) => {
+        const dateObject = new Date(dateString);
+        const hours = dateObject.getHours();
+        const minutes = dateObject.getMinutes();
+
+        // Convert hours and minutes to AM/PM format
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+        const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+        return `${formattedHours}:${formattedMinutes} ${ampm}`;
+    };
+
+    const calculateMinPrice = (rates) => {
+        if (rates.length === 0) {
+            return 0; // Return 0 if there are no rates
+        }
+
+        const prices = rates.map(rate => rate.price);
+        const minPrice = Math.min(...prices);
+
+        return minPrice;
+    };
+
     const handleShuttleDetailsClick = (spaceship) => {
         setSelectedSpaceship(spaceship);
         setModalVisible(true);
     };
 
-    const handleSelectPackage = (value) => {
-        setSelectedPackage(value);
-        showAlert(value);
+    const handleSelectPackage = () => {
+        showAlert(selectedPackage);
     }
 
     const showAlert = (value) => {
         Alert.alert(
-          'Alert Title',
-          `${value}`,
-          [
-            {
-                text: 'Cancel',
-              style: 'cancel', // This makes the button appear differently (e.g., grayed out)
-            },
-            {
-              text: 'OK',
-              onPress: () => {
-                // Perform an action when OK is pressed
-                console.log('OK Pressed');
-              },
-            },
-          ],
-          { cancelable: false } // Prevents dismissing the alert by tapping outside
+            'Alert Title',
+            `${value}`,
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel', // This makes the button appear differently (e.g., grayed out)
+                },
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        // Perform an action when OK is pressed
+                        console.log('OK Pressed');
+                    },
+                },
+            ],
+            { cancelable: false } // Prevents dismissing the alert by tapping outside
         );
-      };
+    };
 
 
 
@@ -49,88 +73,88 @@ const BookingPage = () => {
     // Sample spaceship data
     const spaceshipData = [
         {
-            id: 1,
-            name: 'Starship One',
-            departureTime: '10:00 AM',
-            prices: {
-                minPrice: 50000,
-                packages: [
-                    { name: 'Basic', price: 50000 },
-                    { name: 'Classic', price: 60000 },
-                    { name: 'Plus', price: 65000 },
-                    { name: 'Flex', price: 70000 }
-                ]
-            }
+            id: 111,
+            departureDateTime: "2023-08-20T00:00:00",
+            arrivalDateTime: "2023-08-20T00:00:00",
+            shuttleId: {
+                id: "4",
+                name: "Shuttle#1",
+                shuttleType: "LPT",
+                maxCapacity: 40,
+                imageUrl: "sss"
+            },
+            departureStationId: {
+                id: 22,
+                name: "Solar",
+                planet: "Mars"
+            },
+            arrivalStationId: {
+                id: 11,
+                name: "Aries",
+                planet: "Saturn"
+            },
+            spaceShuttleScheduleRates: [
+                {
+                    id: 1,
+                    name: "Basic",
+                    price: 10000.0,
+                    spaceShuttleScheduleId: 111
+                },
+                {
+                    id: 2,
+                    name: "Economic",
+                    price: 8000.0,
+                    spaceShuttleScheduleId: 111
+                },
+                {
+                    id: 3,
+                    name: "Business",
+                    price: 40000.0,
+                    spaceShuttleScheduleId: 111
+                }
+            ]
         },
         {
-            id: 2,
-            name: 'Galactic Cruiser',
-            departureTime: '11:30 AM',
-            prices: {
-                minPrice: 55000,
-                packages: [
-                    { name: 'Basic', price: 55000 },
-                    { name: 'Classic', price: 65000 },
-                    { name: 'Plus', price: 70000 },
-                    { name: 'Flex', price: 75000 }
-                ]
-            }
-        },
-        {
-            id: 3,
-            name: 'Starship One',
-            departureTime: '11:00 AM',
-            prices: {
-                minPrice: 52000,
-                packages: [
-                    { name: 'Basic', price: 52000 },
-                    { name: 'Classic', price: 62000 },
-                    { name: 'Plus', price: 67000 },
-                    { name: 'Flex', price: 72000 }
-                ]
-            }
-        },
-        {
-            id: 4,
-            name: 'Starship One',
-            departureTime: '11:00 AM',
-            prices: {
-                minPrice: 50000,
-                packages: [
-                    { name: 'Basic', price: 50000 },
-                    { name: 'Classic', price: 60000 },
-                    { name: 'Plus', price: 65000 },
-                    { name: 'Flex', price: 70000 }
-                ]
-            }
-        },
-        {
-            id: 5,
-            name: 'Galactic Cruiser',
-            departureTime: '12:30 AM',
-            prices: {
-                minPrice: 55000,
-                packages: [
-                    { name: 'Basic', price: 55000 },
-                    { name: 'Classic', price: 65000 },
-                    { name: 'Plus', price: 70000 },
-                    { name: 'Flex', price: 75000 }
-                ]
-            }
-        },
-        {
-            id: 6,
-            name: 'Starship One',
-            departureTime: '9:00 AM',
-            prices: {
-                minPrice: 52000,
-                packages: [
-                    { name: 'Basic', price: 52000 },
-                    { name: 'Classic', price: 62000 },
-                    { name: 'Plus', price: 67000 },
-                    { name: 'Flex', price: 72000 }
-                ]
-            }
+            id: 113,
+            departureDateTime: "2023-08-20T00:10:00",
+            arrivalDateTime: "2023-08-20T00:18:00",
+            shuttleId: {
+                id: "4",
+                name: "Shuttle#1",
+                shuttleType: "LPT",
+                maxCapacity: 40,
+                imageUrl: "sss"
+            },
+            departureStationId: {
+                id: 22,
+                name: "Solar",
+                planet: "Mars"
+            },
+            arrivalStationId: {
+                id: 11,
+                name: "Aries",
+                planet: "Saturn"
+            },
+            spaceShuttleScheduleRates: [
+                {
+                    id: 1,
+                    name: "Basic",
+                    price: 10000.0,
+                    spaceShuttleScheduleId: 111
+                },
+                {
+                    id: 2,
+                    name: "Economic",
+                    price: 20000.0,
+                    spaceShuttleScheduleId: 111
+                },
+                {
+                    id: 3,
+                    name: "Business",
+                    price: 40000.0,
+                    spaceShuttleScheduleId: 111
+                }
+            ]
         },
     ];
 
@@ -181,7 +205,7 @@ const BookingPage = () => {
                                 flexDirection: 'column',
                                 justifyContent: 'space-between',
                             }}>
-                                <Text style={{ fontWeight: 'bold', marginBottom: 8 }}> {spaceship.name} </Text>
+                                <Text style={{ fontWeight: 'bold', marginBottom: 8 }}> {spaceship.shuttleId.name} </Text>
                                 <TouchableOpacity onPress={() => handleShuttleDetailsClick(spaceship)}>
                                     <Text style={{ fontWeight: 'bold', color: '#00C9BF', textDecorationLine: 'underline' }}> Shuttle Details </Text>
                                 </TouchableOpacity>
@@ -193,8 +217,8 @@ const BookingPage = () => {
                             flexDirection: 'column',
                             justifyContent: 'space-between',
                         }}>
-                            <Text style={{ fontWeight: 'bold', marginBottom: 8 }}> from ${spaceship.prices.minPrice} </Text>
-                            <Text style={{ fontWeight: 'bold' }}> {spaceship.departureTime} </Text>
+                            <Text style={{ fontWeight: 'bold', marginBottom: 8 }}> from ${calculateMinPrice(spaceship.spaceShuttleScheduleRates)} </Text>
+                            <Text style={{ fontWeight: 'bold' }}> {getTimeFromDateString(spaceship.departureDateTime)} </Text>
                         </View>
 
                     </View>
@@ -219,6 +243,7 @@ const BookingPage = () => {
                         borderBottomLeftRadius: 0,
                         borderBottomRightRadius: 0,
                         padding: 40,
+                        paddingBottom: 20,
                         width: '100%',
                         zIndex: 1,
                     }}>
@@ -248,9 +273,9 @@ const BookingPage = () => {
                                     <Text>View Shuttle Details</Text>
                                 </TouchableOpacity>
                                 <View>
-                                    <RadioButton.Group onValueChange={(value) => handleSelectPackage(value)} value={selectedPackage}>
-                                        {selectedSpaceship.prices.packages.map((packageItem) => (
-                                            <View key={packageItem.name} style={{
+                                    <RadioButton.Group onValueChange={(value) => setSelectedPackage(value)} value={selectedPackage}>
+                                        {selectedSpaceship.spaceShuttleScheduleRates.map((packageItem) => (
+                                            <View key={packageItem.id} style={{
                                                 flexDirection: 'row',
                                                 alignItems: 'center',
                                                 backgroundColor: '#F4F3F3',
@@ -276,7 +301,7 @@ const BookingPage = () => {
                                                         flexDirection: 'column',
                                                         justifyContent: 'center',
                                                     }}>
-                                                        <Text style={{ fontWeight: 'bold'}}>{packageItem.name}</Text>
+                                                        <Text style={{ fontWeight: 'bold' }}>{packageItem.name}</Text>
                                                     </View>
                                                 </View>
                                                 <View style={{
@@ -289,6 +314,11 @@ const BookingPage = () => {
                                             </View>
                                         ))}
                                     </RadioButton.Group>
+                                </View>
+                                <View style={{
+                                    marginTop: 20,
+                                }}>
+                                    <CommonButton lable={'Select'} commonBtnPress={() => handleSelectPackage()} />
                                 </View>
                             </View>
                         )}
