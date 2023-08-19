@@ -12,6 +12,7 @@ import HomePage from './src/pages/HomePage';
 import MyBookings from './src/pages/MyBookings';
 import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
+import PassengerDetails from './src/pages/PassengerDetails';
 import customTheme from './src/components/styles/theme';
 
 const Stack = createStackNavigator();
@@ -23,13 +24,14 @@ export default function App() {
         <View style={{ flex: 1, width: '100%', height: '100%' }}>
           <NavigationContainer>
             <Stack.Navigator
-              initialRouteName="Landing"
+              initialRouteName="Home"
               screenOptions={{ headerShown: false }}
             >
               <Stack.Screen name="Loading" component={LoadingPage} />
               <Stack.Screen name="Home" component={HomePage} />
               <Stack.Screen name="Landing" component={LandingPage} />
               <Stack.Screen name='MyBookings' component={MyBookings}/>
+              <Stack.Screen name='PassengerDetails' component={PassengerDetails}/>
             </Stack.Navigator>
           </NavigationContainer>
         </View>
