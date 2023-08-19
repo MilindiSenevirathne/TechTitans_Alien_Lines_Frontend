@@ -6,7 +6,7 @@ import {
   ThemeProvider,
 } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View } from 'react-native';
 import HomePage from './src/pages/HomePage';
 import BookingPage from './src/pages/BookingPage';
@@ -14,8 +14,10 @@ import MyBookings from './src/pages/MyBookings';
 import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
 import customTheme from './src/components/styles/theme';
+import SideNavbar from './src/components/navbar/SideNavBar';
 
-const Stack = createStackNavigator();
+//const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
@@ -23,16 +25,17 @@ export default function App() {
       <ThemeProvider theme={customTheme}>
         <View style={{ flex: 1, width: '100%', height: '100%' }}>
           <NavigationContainer>
-            <Stack.Navigator
-              initialRouteName="Home"
-              screenOptions={{ headerShown: false }}
+    
+          <Drawer.Navigator drawerContent={props => <SideNavbar {...props}/>}
+             initialRouteName="Loading"
+              screenOptions={{ headerShown: false , drawerPosition: 'right'}}
             >
-              <Stack.Screen name="Loading" component={LoadingPage} />
-              <Stack.Screen name="Home" component={HomePage} />
-              <Stack.Screen name="BookingPage" component={BookingPage} />
-              <Stack.Screen name="Landing" component={LandingPage} />
-              <Stack.Screen name='MyBookings' component={MyBookings}/>
-            </Stack.Navigator>
+              <Drawer.Screen name="Loading" component={LoadingPage} />
+              <Drawer.Screen name="Home" component={HomePage} />
+              <Drawer.Screen name="BookingPage" component={BookingPage} />
+              <Drawer.Screen name="Landing" component={LandingPage} />
+              <Drawer.Screen name='MyBookings' component={MyBookings}/>
+            </Drawer.Navigator>
           </NavigationContainer>
         </View>
       </ThemeProvider>

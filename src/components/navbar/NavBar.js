@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useTheme } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
-export default function NavBar({ isLogged }) {
+export default function NavBar({ isLogged}) {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   const styles = StyleSheet.create({
     container: {
@@ -11,7 +13,7 @@ export default function NavBar({ isLogged }) {
       flexDirection: 'row',
       backgroundColor: theme.colors.primary,
       justifyContent: 'center',
-      width: 360,
+      width: "100%",
     },
     logoImageContainer: {
       flex: 4,
@@ -77,10 +79,12 @@ export default function NavBar({ isLogged }) {
           />
         </View>
         <View style={styles.menuIconContainer}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Image
             source={require('../../images/menu.png')}
             style={styles.menuIcon}
           />
+          </TouchableOpacity>
         </View>
       </View>
     );
