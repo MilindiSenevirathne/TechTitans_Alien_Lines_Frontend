@@ -12,6 +12,8 @@ import HomePage from './src/pages/HomePage';
 import MyBookings from './src/pages/MyBookings';
 import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
+import MyProfile from './src/pages/ProfilePage';
+import ProfileEdit from './src/pages/ProfileEdit'
 
 const Stack = createStackNavigator();
 
@@ -31,7 +33,7 @@ export default function App() {
       fieldColor: "#D3D1D1",
       elevation: {
         level2: "#ffffff",
-      },
+      }
     },
   };
   return (
@@ -47,6 +49,8 @@ export default function App() {
               <Stack.Screen name="Home" component={HomePage} />
               <Stack.Screen name="Landing" component={LandingPage} />
               <Stack.Screen name='MyBookings' component={MyBookings}/>
+              <Stack.Screen name="MyProfile" component={MyProfile} />
+              <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>

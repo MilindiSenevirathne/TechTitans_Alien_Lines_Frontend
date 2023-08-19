@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useTheme } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 export default function NavBar({ isLogged }) {
   const theme = useTheme();
@@ -60,6 +61,12 @@ export default function NavBar({ isLogged }) {
     },
   });
   
+  const navigation = useNavigation();
+
+  const handleProfileImageClick = () => {
+    navigation.navigate('MyProfile'); 
+  };
+
 
   if (isLogged) {
     return (
@@ -70,12 +77,15 @@ export default function NavBar({ isLogged }) {
             style={styles.logoImage}
           />
         </View>
-        <View style={styles.profileImageContainer}>
+        <TouchableOpacity
+          style={styles.profileImageContainer}
+          onPress={handleProfileImageClick} // Call the function when the image is clicked
+        >
           <Image
-            source={require('../../images/profile.jpg')}
+            source={require('../../images/profile.png')}
             style={styles.profileImage}
           />
-        </View>
+        </TouchableOpacity>
         <View style={styles.menuIconContainer}>
           <Image
             source={require('../../images/menu.png')}
