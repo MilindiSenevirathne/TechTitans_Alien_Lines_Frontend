@@ -12,35 +12,18 @@ import HomePage from './src/pages/HomePage';
 import MyBookings from './src/pages/MyBookings';
 import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
+import customTheme from './src/components/styles/theme';
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const theme = {
-    ...DefaultTheme,
-    myOwnProperty: true,
-
-    colors: {
-      ...DefaultTheme.colors,
-      primary: "#4C0259",
-      onPrimaryContainer: "#ffffff",
-      onSecondaryContainer: "#ffffff",
-      surfaceVariant: "#ffffff",
-      onSurfaceVariant: "#000000cc",
-      secondary: "#CA4255",
-      fieldColor: "#D3D1D1",
-      elevation: {
-        level2: "#ffffff",
-      },
-    },
-  };
   return (
-    <PaperProvider theme={theme}>
-      <ThemeProvider theme={theme}>
+    <PaperProvider theme={customTheme}>
+      <ThemeProvider theme={customTheme}>
         <View style={{ flex: 1, width: '100%', height: '100%' }}>
           <NavigationContainer>
             <Stack.Navigator
-              initialRouteName="Loading"
+              initialRouteName="Landing"
               screenOptions={{ headerShown: false }}
             >
               <Stack.Screen name="Loading" component={LoadingPage} />
