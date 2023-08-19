@@ -14,6 +14,7 @@ import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
 import ChooseServices from './src/pages/ChoseServicePage';
 import ExtraBaggage from './src/pages/ExtraBaggagePage';
+import Seatbooking from './src/pages/SeatsBookingPage'
 import customTheme from './src/components/styles/theme';
 
 const Stack = createStackNavigator();
@@ -34,10 +35,12 @@ export default function App() {
               <Stack.Screen name='MyBookings' component={MyBookings}/>
               <Stack.Screen name='ChooseServices' component={ChooseServices} />
               <Stack.Screen name='ExtraBaggage' component={ExtraBaggage} />
+              <Stack.Screen name='Seatbooking' component={Seatbooking} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>
       </ThemeProvider>
     </PaperProvider>
+    
   );
 }
