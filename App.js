@@ -13,6 +13,11 @@ import BookingPage from './src/pages/BookingPage';
 import MyBookings from './src/pages/MyBookings';
 import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
+import ChooseServices from './src/pages/ChoseServicePage';
+import ExtraBaggage from './src/pages/ExtraBaggagePage';
+import Seatbooking from './src/pages/SeatsBookingPage';
+import SpecialMeals from './src/pages/SpecialMealsPage';
+import Assistance from './src/pages/AssistancePage';
 import customTheme from './src/components/styles/theme';
 
 const Stack = createStackNavigator();
@@ -32,10 +37,16 @@ export default function App() {
               <Stack.Screen name="BookingPage" component={BookingPage} />
               <Stack.Screen name="Landing" component={LandingPage} />
               <Stack.Screen name='MyBookings' component={MyBookings}/>
+              <Stack.Screen name='ChooseServices' component={ChooseServices} />
+              <Stack.Screen name='ExtraBaggage' component={ExtraBaggage} />
+              <Stack.Screen name='Seatbooking' component={Seatbooking} />
+              <Stack.Screen name='SpecialMeals' component={SpecialMeals} />
+              <Stack.Screen name='Assistance' component={Assistance} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>
       </ThemeProvider>
     </PaperProvider>
+    
   );
 }
