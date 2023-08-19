@@ -15,9 +15,13 @@ import SearchField from '../components/input/SearchField';
 import NavBar from '../components/navbar/NavBar';
 import { CommonButton } from '../components/common/CommonButton';
 import customTheme from '../components/styles/theme';
+import SuccessErrorModal from '../components/common/SuccessErrorModal';
 registerTranslation('en', en);
 
 export default function HomePage({ navigation }) {
+
+  const modalShow = React.useRef(null)
+
   return (
         <View style={styles.container}>
           <ScrollView>
@@ -84,6 +88,7 @@ export default function HomePage({ navigation }) {
               </View>
             </View>
             <CommonButton lable={'Press Here'} commonBtnPress={()=>navigation.navigate('MyBookings')}/>
+            {/* <SuccessErrorModal isError={true} title={'Payment Successful'} message={'klnknd vcscjhcscvh'} visible={true}/> */}
           </ScrollView>
         </View>
   );

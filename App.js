@@ -23,7 +23,7 @@ export default function App() {
         <View style={{ flex: 1, width: '100%', height: '100%' }}>
           <NavigationContainer>
             <Stack.Navigator
-              initialRouteName="Landing"
+              initialRouteName="Home"
               screenOptions={{ headerShown: false }}
             >
               <Stack.Screen name="Loading" component={LoadingPage} />
