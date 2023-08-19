@@ -83,7 +83,7 @@ export default function HomePage({ navigation }) {
                 <SearchField />
               </View>
             </View>
-            <CommonButton lable={'Press Here'} commonBtnPress={()=>navigation.navigate('MyBookings')}/>
+            <CommonButton lable={'Press Here'} commonBtnPress={()=>navigation.navigate('ChooseServices')}/>
           </ScrollView>
         </View>
   );

@@ -3,14 +3,16 @@ import * as React from "react";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 import { en, registerTranslation } from "react-native-paper-dates";
+import NavBar from '../components/navbar/NavBar';
 registerTranslation("en", en);
 
 
-export default function ChooseServices() {
+export default function ChooseServices({ navigation }) {
   return (
     <>
-      <View>
+      <View style={{height: '85%'}}>
         <ScrollView>
+        <NavBar isLogged={true}/>
           <View style={styles.container}>
             <StatusBar hidden />
 
@@ -19,7 +21,7 @@ export default function ChooseServices() {
               <View style={styles.viewContainer}>
                 <View style={{ padding: 20 }}>
                   <Image
-                    source={require("./src/images/briefcase.png")}
+                    source={require("../images/briefcase.png")}
                     style={{ height: 30, width: 30 }}
                   />
                 </View>
@@ -31,7 +33,7 @@ export default function ChooseServices() {
                 </View>
                 <View style={{ padding: 20 }}>
                   <Image
-                    source={require("./src/images/next.png")}
+                    source={require("../images/next.png")}
                     style={{ height: 30, width: 30 }}
                   />
                 </View>
@@ -42,7 +44,7 @@ export default function ChooseServices() {
               <View style={styles.viewContainer}>
                 <View style={{ padding: 20 }}>
                   <Image
-                    source={require("./src/images/seat.png")}
+                    source={require("../images/seat.png")}
                     style={{ height: 30, width: 30 }}
                   />
                 </View>
@@ -54,7 +56,7 @@ export default function ChooseServices() {
                 </View>
                 <View style={{ padding: 20 }}>
                   <Image
-                    source={require("./src/images/next.png")}
+                    source={require("../images/next.png")}
                     style={{ height: 30, width: 30 }}
                   />
                 </View>
@@ -65,7 +67,7 @@ export default function ChooseServices() {
               <View style={styles.viewContainer}>
                 <View style={{ padding: 20 }}>
                   <Image
-                    source={require("./src/images/cup-of-drink.png")}
+                    source={require("../images/cup-of-drink.png")}
                     style={{ height: 30, width: 30 }}
                   />
                 </View>
@@ -77,7 +79,7 @@ export default function ChooseServices() {
                 </View>
                 <View style={{ padding: 20 }}>
                   <Image
-                    source={require("./src/images/next.png")}
+                    source={require("../images/next.png")}
                     style={{ height: 30, width: 30 }}
                   />
                 </View>
@@ -88,7 +90,7 @@ export default function ChooseServices() {
               <View style={styles.viewContainer}>
                 <View style={{ padding: 20 }}>
                   <Image
-                    source={require("./src/images/disabled.png")}
+                    source={require("../images/disabled.png")}
                     style={{ height: 30, width: 30 }}
                   />
                 </View>
@@ -100,12 +102,13 @@ export default function ChooseServices() {
                 </View>
                 <View style={{ padding: 20 }}>
                   <Image
-                    source={require("./src/images/next.png")}
+                    source={require("../images/next.png")}
                     style={{ height: 30, width: 30 }}
                   />
                 </View>
               </View>
             </Card>
+           
           </View>
         </ScrollView>
       </View>
@@ -133,8 +136,8 @@ export default function ChooseServices() {
           }}
         >
           <Image
-            source={require("./src/images/upload.png")}
-            style={{ height: 20, width: 20, marginRight: 5 }}
+            source={require("../images/upload.png")}
+            style={{ height: 15, width: 15, marginRight: 5 }}
           />
           <View style={{ marginLeft: 5 }}>
             <Text
@@ -182,7 +185,7 @@ export default function ChooseServices() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     width: 360,
@@ -197,6 +200,7 @@ const styles = StyleSheet.create({
   card: {
     width: 320,
     marginBottom: 20,
+    backgroundColor: 'white'
   },
   viewContainer: {
     flexDirection: "row",
