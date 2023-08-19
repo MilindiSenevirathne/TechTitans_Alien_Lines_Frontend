@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View } from 'react-native';
 import HomePage from './src/pages/HomePage';
+import BookingPage from './src/pages/BookingPage';
 import MyBookings from './src/pages/MyBookings';
 import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
@@ -28,11 +29,12 @@ export default function App() {
         <View style={{ flex: 1, width: '100%', height: '100%' }}>
           <NavigationContainer>
             <Stack.Navigator
-              initialRouteName="ChooseServices"
+              initialRouteName="Home"
               screenOptions={{ headerShown: false }}
             >
               <Stack.Screen name="Loading" component={LoadingPage} />
               <Stack.Screen name="Home" component={HomePage} />
+              <Stack.Screen name="BookingPage" component={BookingPage} />
               <Stack.Screen name="Landing" component={LandingPage} />
               <Stack.Screen name='MyBookings' component={MyBookings}/>
               <Stack.Screen name='ChooseServices' component={ChooseServices} />
