@@ -23,7 +23,7 @@ const LandingPage = ({ navigation }) => {
             flex: 1,
             backgroundColor: item.backgroundColor,
             alignItems: 'center',
-            paddingBottom: 100,
+            paddingBottom: 50,
           }}
         >
           <Image style={styles.introImageStyle} source={item.image} />
@@ -40,7 +40,6 @@ const LandingPage = ({ navigation }) => {
         <View
           style={{
             flex: 1,
-            backgroundColor: item.backgroundColor,
             alignItems: 'center',
           }}
         >
@@ -48,8 +47,8 @@ const LandingPage = ({ navigation }) => {
           <Image style={styles.ImageStyle} source={item.image} />
           <Text style={styles.TextStyle}>{item.text}</Text>
           <View style={styles.ButtonContainer}>
-          <CommonButton lable={'Login'} commonBtnPress={()=>navigation.navigate('Home')} backgroundColor='#fffffff' fontColor='#4C0259'/>
-          <CommonButton lable={'Get Started'} commonBtnPress={()=>navigation.navigate('Home')} backgroundColor='#fffffff' fontColor='#4C0259'/>
+          <CommonButton lable={'Login'} commonBtnPress={()=>navigation.navigate('Home')} backgroundColor='#ffffff' fontColor='#ffffff' borderColor='#ffffff'/>
+          <CommonButton lable={'Get Started'} commonBtnPress={()=>navigation.navigate('Home')} backgroundColor='#ffffff' fontColor='#4C0259'/>
           </View>
         </View>
       );
@@ -64,6 +63,7 @@ const LandingPage = ({ navigation }) => {
         showSkipButton={false}
         showNextButton={false}
         showDoneButton={false}
+        style={{backgroundColor:'#4C0259'}}
       />
     </>
   );
@@ -83,20 +83,22 @@ const styles = StyleSheet.create({
   },
   introImageStyle: {
     resizeMode: 'cover',
+    height: 470,
+    width: '100%'
   },
   logoImage: {
     width: 400,
-    height: 50,
+    height: 66,
     justifyContent: 'center',
     resizeMode: 'contain',
-    marginTop: 20,
+    marginTop: 10,
   },
   introTextStyle: {
-    marginTop: 120,
-    fontSize: 28,
+    marginTop: 40,
+    fontSize: 35,
     fontWeight: 'bold',
     color: 'white',
-    textAlign: 'center',
+    textAlign: 'left',
   },
   introTitleStyle: {
     marginTop: 120,
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   ButtonContainer: {
-    marginTop: 60,
+    marginTop: 30,
     width: 300
   }
 });
@@ -136,7 +138,7 @@ const slides = [
     key: 's2',
     title: 'The best assistant for your travel with Alien Lines',
     text: 'We’re happy to share our best tips for destinations where you can relax. But you find the nicest city trips as well!',
-    image: require('../images/landingBackground2.png'),
+    image: require('../images/landingBackg2.png'),
     backgroundColor: '#4C0259',
   },
 ];
