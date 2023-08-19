@@ -1,23 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, Button } from 'react-native';
-import TextField from '../components/input/TextField';
-import * as React from 'react';
-import { PaperProvider, Searchbar } from 'react-native-paper';
-import {
-    DefaultTheme,
-    Provider,
-    ThemeProvider,
-} from 'react-native-paper';
-import DropdownField from '../components/input/DropdownField';
-import CalenderField from '../components/input/CalendarField';
-import { en, registerTranslation } from 'react-native-paper-dates';
-import SearchField from '../components/input/SearchField';
-import NavBar from '../components/navbar/NavBar';
-import { CommonButton } from '../components/common/CommonButton';
-import customTheme from '../components/styles/theme';
-import SuccessErrorModal from '../components/common/SuccessErrorModal';
-registerTranslation('en', en);
 import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import * as React from 'react';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { en, registerTranslation } from 'react-native-paper-dates';
+import { CommonButton } from '../components/common/CommonButton';
+import CalenderField from '../components/input/CalendarField';
+import DropdownField from '../components/input/DropdownField';
+import SearchField from '../components/input/SearchField';
+import TextField from '../components/input/TextField';
+import NavBar from '../components/navbar/NavBar';
+registerTranslation('en', en);
 
 export default function HomePage({ navigation }) {
 
