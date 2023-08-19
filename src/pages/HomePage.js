@@ -1,13 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import TextField from '../components/input/TextField';
 import * as React from 'react';
 import { PaperProvider, Searchbar } from 'react-native-paper';
 import {
-    DarkTheme,
     DefaultTheme,
     Provider,
-    Surface,
     ThemeProvider,
 } from 'react-native-paper';
 import DropdownField from '../components/input/DropdownField';
@@ -16,110 +14,94 @@ import { en, registerTranslation } from 'react-native-paper-dates';
 import SearchField from '../components/input/SearchField';
 import NavBar from '../components/navbar/NavBar';
 import { CommonButton } from '../components/common/CommonButton';
+import customTheme from '../components/styles/theme';
+import SuccessErrorModal from '../components/common/SuccessErrorModal';
+registerTranslation('en', en);
 import { useNavigation } from '@react-navigation/native';
 
-registerTranslation('en', en);
-
 export default function HomePage({ navigation }) {
+
+    const modalShow = React.useRef(null)
+    //   for testing booking page
     const nav = useNavigation();
 
     const navigateToSpaceships = () => {
-      nav.navigate('BookingPage', { from: 'Los Angeles, Earth', to: 'Ares Prime, Mars', date: '2023-08-19' });
+        nav.navigate('BookingPage', { from: 'Los Angeles, Earth', to: 'Ares Prime, Mars', date: '2023-08-19' });
     };
-  
-    const theme = {
-        ...DefaultTheme,
-        myOwnProperty: true,
-
-        colors: {
-            ...DefaultTheme.colors,
-            primary: '#4C0259',
-            onPrimaryContainer: '#ffffff',
-            onSecondaryContainer: '#ffffff',
-            surfaceVariant: '#ffffff',
-            onSurfaceVariant: '#000000cc',
-            secondary: '#CA4255',
-            fieldColor: '#D3D1D1',
-            elevation: {
-                level2: '#ffffff',
-            },
-        },
-    };
+    //    for testing booking page
     return (
-        <PaperProvider theme={theme}>
-            <ThemeProvider theme={theme}>
+        <View style={styles.container}>
+            <ScrollView>
+                <NavBar isLogged={true} />
+
+                <Text style={styles.text}>Navbar before login</Text>
+                <NavBar isLogged={false} />
+
                 <View style={styles.container}>
-                    <ScrollView>
-                        <NavBar isLogged={true} />
+                    <Text>Sample Text Input</Text>
+                    <StatusBar style="auto" />
+                    <View style={styles.textfield}>
+                        <TextField label="Email" placeholder="Enter Email" />
+                    </View>
+                    <View style={styles.textfield}>
+                        <TextField label="Email" placeholder="Enter Email" />
+                    </View>
 
-                        <Text style={styles.text}>Navbar before login</Text>
-                        <NavBar isLogged={false} />
+                    <Text>Sample Dropdown Input</Text>
+                    <View style={styles.textfield}>
+                        <DropdownField
+                            list={[
+                                {
+                                    label: 'Male',
+                                    value: 'male',
+                                },
+                                {
+                                    label: 'Female',
+                                    value: 'female',
+                                },
+                            ]}
+                            label="Gender"
+                        />
+                    </View>
+                    <View style={styles.textfield}>
+                        <DropdownField
+                            list={[
+                                {
+                                    label: 'Male',
+                                    value: 'male',
+                                },
+                                {
+                                    label: 'Female',
+                                    value: 'female',
+                                },
+                            ]}
+                            label="Gender"
+                        />
+                    </View>
+                    <Text>Sample Calendar Input</Text>
+                    <View style={styles.textfield}>
+                        <CalenderField label="Birthday" />
+                    </View>
+                    <View style={styles.textfield}>
+                        <CalenderField label="Birthday" />
+                    </View>
 
-                        <View style={styles.container}>
-                            <Text>Sample Text Input</Text>
-                            <StatusBar style="auto" />
-                            <View style={styles.textfield}>
-                                <TextField label="Email" placeholder="Enter Email" />
-                            </View>
-                            <View style={styles.textfield}>
-                                <TextField label="Email" placeholder="Enter Email" />
-                            </View>
-
-                            <Text>Sample Dropdown Input</Text>
-                            <View style={styles.textfield}>
-                                <DropdownField
-                                    list={[
-                                        {
-                                            label: 'Male',
-                                            value: 'male',
-                                        },
-                                        {
-                                            label: 'Female',
-                                            value: 'female',
-                                        },
-                                    ]}
-                                    label="Gender"
-                                />
-                            </View>
-                            <View style={styles.textfield}>
-                                <DropdownField
-                                    list={[
-                                        {
-                                            label: 'Male',
-                                            value: 'male',
-                                        },
-                                        {
-                                            label: 'Female',
-                                            value: 'female',
-                                        },
-                                    ]}
-                                    label="Gender"
-                                />
-                            </View>
-                            <Text>Sample Calendar Input</Text>
-                            <View style={styles.textfield}>
-                                <CalenderField label="Birthday" />
-                            </View>
-                            <View style={styles.textfield}>
-                                <CalenderField label="Birthday" />
-                            </View>
-
-                            <Text>Sample Search Bar</Text>
-                            <View style={styles.textfield}>
-                                <SearchField />
-                            </View>
-                            <View style={styles.textfield}>
-                                <SearchField />
-                            </View>
-                        </View>
-                        <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('Details')} />
-                        <View>
-                            <Button title="View Spaceships" onPress={navigateToSpaceships} />
-                        </View>
-                    </ScrollView>
+                    <Text>Sample Search Bar</Text>
+                    <View style={styles.textfield}>
+                        <SearchField />
+                    </View>
+                    <View style={styles.textfield}>
+                        <SearchField />
+                    </View>
                 </View>
-            </ThemeProvider>
-        </PaperProvider>
+                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('MyBookings')} />
+
+                {/*for testing booking page  */}
+                <Button title="Booking page" onPress={navigateToSpaceships} />
+
+                {/* <SuccessErrorModal isError={true} title={'Payment Successful'} message={'klnknd vcscjhcscvh'} visible={true}/> */}
+            </ScrollView>
+        </View>
     );
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, Text, View, Alert } from "react-native";
 import { Button } from "react-native-paper";
 
-const CommonButton = ({ lable, icon, commonBtnPress = () => { }, backgroundColor, shadowColor, fontColor, disabled, isCapitalize = true, isShowCoformation = false, conformationMessage = 'Are you sure?' }) => {
+const CommonButton = ({ lable, icon, commonBtnPress = () => { }, backgroundColor, borderColor, fontColor, disabled, isCapitalize = true, isShowCoformation = false, conformationMessage = 'Are you sure?' }) => {
 
     const showConformation = () => {
         if (isShowCoformation) {
@@ -31,7 +31,7 @@ const CommonButton = ({ lable, icon, commonBtnPress = () => { }, backgroundColor
                 <TouchableOpacity
                     style={{
                         height: 35,
-                        width: "200%",
+                        width: "75%",
                         backgroundColor: '#DFE6F2',
 
                         // borderRadius: 10,
@@ -66,12 +66,14 @@ const CommonButton = ({ lable, icon, commonBtnPress = () => { }, backgroundColor
                 <TouchableOpacity
                     style={{
                         height: 35,
-                        width: "65%",
-                        backgroundColor: '#CA4255',
+                        width: "75%",
+                        backgroundColor: borderColor ? 'none' : backgroundColor ?? '#CA4255',
                         alignSelf: "center",
                         justifyContent: "center",
                         alignItems: "center",
-                        borderRadius: 20
+                        borderRadius: 20,
+                        borderColor: borderColor,
+                        borderWidth: borderColor && 1
                     }}
                     disabled={disabled}
                     onPress={() => showConformation()}
@@ -84,7 +86,7 @@ const CommonButton = ({ lable, icon, commonBtnPress = () => { }, backgroundColor
                         <Text style={{
                             fontFamily: 'inter',
                             fontSize: 15,
-                            fontWeight: '500',
+                            fontWeight: '700',
                             color: fontColor ?? '#FFFFFF',
                             textTransform: isCapitalize ? "capitalize" : "none",
                         }}>
