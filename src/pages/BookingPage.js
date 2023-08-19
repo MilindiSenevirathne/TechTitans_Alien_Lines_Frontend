@@ -140,6 +140,7 @@ const BookingPage = () => {
             paddingLeft: 25,
             paddingRight: 25,
             paddingTop: 10,
+            marginTop: 20,
         }} >
             {/* header */}
             <View>
