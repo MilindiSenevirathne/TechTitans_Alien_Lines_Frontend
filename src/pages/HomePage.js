@@ -48,80 +48,6 @@ export default function HomePage({ navigation }) {
     });
   };
 
-  const navigateTosummary = () => {
-    nav.navigate("SummaryPage", {
-      summary: {
-        id: 111,
-        departureDateTime: "2023-08-20T00:00:00",
-        arrivalDateTime: "2024-09-20T00:00:00",
-        shuttleId: {
-          id: "4",
-          name: "Shuttle#1",
-          shuttleType: "LPT",
-          maxCapacity: 40,
-          imageUrl: "sss",
-        },
-        departureStationId: {
-          id: 22,
-          name: "Solar",
-          planet: "Mars",
-        },
-        arrivalStationId: {
-          id: 11,
-          name: "Aries",
-          planet: "Saturn",
-        },
-        spaceShuttleScheduleRates: [
-          {
-            id: 1,
-            name: "Basic",
-            price: 10000.0,
-            spaceShuttleScheduleId: 111,
-          },
-          {
-            id: 2,
-            name: "Economic",
-            price: 20000.0,
-            spaceShuttleScheduleId: 111,
-          },
-          {
-            id: 3,
-            name: "Business",
-            price: 40000.0,
-            spaceShuttleScheduleId: 111,
-          },
-        ],
-        spaceShuttleScheduleServices: [
-          {
-            id: 2,
-            name: "Personalised Foods",
-            description: "Customised food options",
-            price: 7000.0,
-            spaceShuttleScheduleId: 111,
-          },
-          {
-            id: 1,
-            name: "Extra Oxygen",
-            description: "Provide extra oxygen",
-            price: 5000.0,
-            spaceShuttleScheduleId: 111,
-          },
-        ],
-      },
-      selectedPackage: {
-        id: 2,
-        name: "Economic",
-        price: 20000.0,
-        spaceShuttleScheduleId: 111,
-      },
-      userdetails: {
-        firstName: "Sachin",
-        lastName: "Tendulkar",
-        email: "",
-      },
-    });
-  };
-
   useEffect(() => {
     fetch("http://alienlines.eastus.cloudapp.azure.com:3000/api/space-station/")
       .then((response) => response.json())
@@ -438,7 +364,7 @@ export default function HomePage({ navigation }) {
                 <CommonButton
                   style={styles.searchButton}
                   lable={"Search"}
-                  commonBtnPress={() => navigation.navigate("MyBookings")}
+                  commonBtnPress={() => navigateToSpaceships()}
                 />
               </>
             )}
