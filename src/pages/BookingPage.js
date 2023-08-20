@@ -1,5 +1,5 @@
-import { useState, useEffect} from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, Modal, Alert } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
 import { CommonButton } from '../components/common/CommonButton';
@@ -20,107 +20,28 @@ const BookingPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState(null);
     // Sample spaceship data
-    const [spaceshipData, setSpaceshipData] = useState([
-        {
-            id: 111,
-            departureDateTime: "2023-08-20T00:00:00",
-            arrivalDateTime: "2024-08-20T00:00:00",
-            shuttleId: {
-                id: "4",
-                name: "Shuttle#1",
-                shuttleType: "LPT",
-                maxCapacity: 40,
-                imageUrl: "sss"
-            },
-            departureStationId: {
-                id: 22,
-                name: "Solar",
-                planet: "Mars"
-            },
-            arrivalStationId: {
-                id: 11,
-                name: "Aries",
-                planet: "Saturn"
-            },
-            spaceShuttleScheduleRates: [
-                {
-                    id: 1,
-                    name: "Basic",
-                    price: 10000.0,
-                    spaceShuttleScheduleId: 111
-                },
-                {
-                    id: 2,
-                    name: "Economic",
-                    price: 8000.0,
-                    spaceShuttleScheduleId: 111
-                },
-                {
-                    id: 3,
-                    name: "Business",
-                    price: 40000.0,
-                    spaceShuttleScheduleId: 111
-                }
-            ]
-        },
-        {
-            id: 113,
-            departureDateTime: "2023-08-20T00:10:00",
-            arrivalDateTime: "2024-05-20T00:18:00",
-            shuttleId: {
-                id: "4",
-                name: "Shuttle#1",
-                shuttleType: "LPT",
-                maxCapacity: 40,
-                imageUrl: "sss"
-            },
-            departureStationId: {
-                id: 22,
-                name: "Solar",
-                planet: "Mars"
-            },
-            arrivalStationId: {
-                id: 11,
-                name: "Aries",
-                planet: "Saturn"
-            },
-            spaceShuttleScheduleRates: [
-                {
-                    id: 1,
-                    name: "Basic",
-                    price: 10000.0,
-                    spaceShuttleScheduleId: 111
-                },
-                {
-                    id: 2,
-                    name: "Economic",
-                    price: 20000.0,
-                    spaceShuttleScheduleId: 111
-                },
-                {
-                    id: 3,
-                    name: "Business",
-                    price: 40000.0,
-                    spaceShuttleScheduleId: 111
-                }
-            ]
-        },
-    ]);
+    const [spaceshipData, setSpaceshipData] = useState([]);
 
-    // useEffect(() => {
-    //     getSpaceshipList();
-    //   }, []);
+    useEffect(() => {
+        getSpaceShuttleData();
+    }, []);
 
 
     const calculateMinPrice = (rates) => {
         if (rates.length === 0) {
-            return 0; 
+            return 0;
         }
         const prices = rates.map(rate => rate.price);
         const minPrice = Math.min(...prices);
         return minPrice;
     };
-    
+
+    const selectPackage = () => {
+        const selectedPackageItem = selectedSpaceship.spaceShuttleScheduleRates.find(
+            (packageItem) => packageItem.name === selectedPackage
+          );        
+          return selectedPackageItem;
+    }
 
     const handleShuttleDetailsClick = async (spaceship) => {
         setSelectedSpaceship(spaceship);
@@ -132,11 +53,36 @@ const BookingPage = () => {
         setData(newData); // Update data
     };
 
-    const getSpaceshipList = async () => {
-        isLoading(true);
-        // {{SSS_Url}}/space-shuttle/search?shuttleType={shuttleType}&passengerCount=3&departureDate=2023-08-20&departureId=22&arrivalDate=2023-08-22&arrivalId=11
-        isLoading(false);
-    };
+    async function getSpaceShuttleData() {
+        setIsLoading(true); // Start loading
+
+        const baseURL = 'http://alienlines.eastus.cloudapp.azure.com:3000/api/space-shuttle/search';
+        const queryParams = new URLSearchParams({
+            shuttleType: shuttleType,
+            passengerCount: passengerCount,
+            departureDate: departureDate,
+            departureId: departureId,
+            arrivalDate: arrivalDate,
+            arrivalId: arrivalId,
+        });
+
+        const url = `${baseURL}?${queryParams}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setSpaceshipData(data.departureList);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        } finally {
+            setIsLoading(false); // Stop loading
+        }
+    }
 
     const timeline = (spaceship) => {
         return [
@@ -162,35 +108,15 @@ const BookingPage = () => {
     };
 
     const handleSelectPackage = () => {
-        showAlert(selectedPackage);
+        let rate = selectPackage();
+        console.log('Selected package:', rate);
+        console.log('Selected spaceship:', selectedSpaceship);
     }
 
-    const showAlert = (value) => {
-        Alert.alert(
-            'Alert Title',
-            `${value}`,
-            [
-                {
-                    text: 'Cancel',
-                    style: 'cancel', // This makes the button appear differently (e.g., grayed out)
-                },
-                {
-                    text: 'OK',
-                    onPress: () => {
-                        // Perform an action when OK is pressed
-                        console.log('OK Pressed');
-                    },
-                },
-            ],
-            { cancelable: false } // Prevents dismissing the alert by tapping outside
-        );
-    };
-
-    
     return (
         <View>
             {isLoading ? (
-                <Loading/>
+                <Loading />
             ) : (
                 <ScrollView style={{
                     paddingLeft: 25,
