@@ -22,113 +22,133 @@ export default function ChooseServices({ navigation }) {
             <StatusBar hidden />
 
             <Text style={styles.mainTitle}>Choose Services</Text>
-            <Card style={styles.card}>
-              <View style={styles.viewContainer}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("../images/briefcase.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
-                </View>
-                <View style={styles.settingContainer}>
-                  <Text style={styles.title}>Extra baggage</Text>
-                  <Text style={styles.subtitle}>
-                    Book MyBaggage Online with 30% Discount
-                  </Text>
-                </View>
-                <View style={{ padding: 20 }}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate("ExtraBaggage")}
-                  >
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ExtraBaggage")}
+              activeOpacity={1}
+            >
+              <Card style={styles.card}>
+                <View style={styles.viewContainer}>
+                  <View style={{ padding: 20 }}>
                     <Image
-                      source={require("../images/next.png")}
+                      source={require("../images/briefcase.png")}
                       style={{ height: 30, width: 30 }}
                     />
-                  </TouchableOpacity>
+                  </View>
+                  <View style={styles.settingContainer}>
+                    <Text style={styles.title}>Extra baggage</Text>
+                    <Text style={styles.subtitle}>
+                      Book MyBaggage Online with 30% Discount
+                    </Text>
+                  </View>
+                  <View style={{ padding: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("ExtraBaggage")}
+                    >
+                      <Image
+                        source={require("../images/next.png")}
+                        style={{ height: 30, width: 30 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </Card>
+              </Card>
+            </TouchableOpacity>
 
-            <Card style={styles.card}>
-              <View style={styles.viewContainer}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("../images/seat.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
-                </View>
-                <View style={styles.settingContainer}>
-                  <Text style={styles.title}>Seats</Text>
-                  <Text style={styles.subtitle}>
-                    Choose your favourite place now
-                  </Text>
-                </View>
-                <View style={{ padding: 20 }}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("Seatbooking")}
-                  >
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Seatbooking")}
+              activeOpacity={1}
+            >
+              <Card style={styles.card}>
+                <View style={styles.viewContainer}>
+                  <View style={{ padding: 20 }}>
                     <Image
-                      source={require("../images/next.png")}
+                      source={require("../images/seat.png")}
                       style={{ height: 30, width: 30 }}
                     />
-                  </TouchableOpacity>
+                  </View>
+                  <View style={styles.settingContainer}>
+                    <Text style={styles.title}>Seats</Text>
+                    <Text style={styles.subtitle}>
+                      Choose your favourite place now
+                    </Text>
+                  </View>
+                  <View style={{ padding: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("Seatbooking")}
+                    >
+                      <Image
+                        source={require("../images/next.png")}
+                        style={{ height: 30, width: 30 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </Card>
+              </Card>
+            </TouchableOpacity>
 
-            <Card style={styles.card}>
-              <View style={styles.viewContainer}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("../images/cup-of-drink.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
-                </View>
-                <View style={styles.settingContainer}>
-                  <Text style={styles.title}>Special meals</Text>
-                  <Text style={styles.subtitle}>
-                    Choose a meal based on your needs
-                  </Text>
-                </View>
-                <View style={{ padding: 20 }}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("SpecialMeals")}
-                  >
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SpecialMeals")}
+              activeOpacity={1}
+            >
+              <Card style={styles.card}>
+                <View style={styles.viewContainer}>
+                  <View style={{ padding: 20 }}>
                     <Image
-                      source={require("../images/next.png")}
+                      source={require("../images/cup-of-drink.png")}
                       style={{ height: 30, width: 30 }}
                     />
-                  </TouchableOpacity>
+                  </View>
+                  <View style={styles.settingContainer}>
+                    <Text style={styles.title}>Special meals</Text>
+                    <Text style={styles.subtitle}>
+                      Choose a meal based on your needs
+                    </Text>
+                  </View>
+                  <View style={{ padding: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("SpecialMeals")}
+                    >
+                      <Image
+                        source={require("../images/next.png")}
+                        style={{ height: 30, width: 30 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </Card>
+              </Card>
+            </TouchableOpacity>
 
-            <Card style={styles.card}>
-              <View style={styles.viewContainer}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("../images/disabled.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
-                </View>
-                <View style={styles.settingContainer}>
-                  <Text style={styles.title}>Assistance</Text>
-                  <Text style={styles.subtitle}>
-                    Need help during the journey?
-                  </Text>
-                </View>
-                <View style={{ padding: 20 }}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("Assistance")}
-                  >
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Assistance")}
+              activeOpacity={1}
+            >
+              <Card style={styles.card}>
+                <View style={styles.viewContainer}>
+                  <View style={{ padding: 20 }}>
                     <Image
-                      source={require("../images/next.png")}
+                      source={require("../images/disabled.png")}
                       style={{ height: 30, width: 30 }}
                     />
-                  </TouchableOpacity>
+                  </View>
+                  <View style={styles.settingContainer}>
+                    <Text style={styles.title}>Assistance</Text>
+                    <Text style={styles.subtitle}>
+                      Need help during the journey?
+                    </Text>
+                  </View>
+                  <View style={{ padding: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("Assistance")}
+                    >
+                      <Image
+                        source={require("../images/next.png")}
+                        style={{ height: 30, width: 30 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </Card>
+              </Card>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>

@@ -18,7 +18,7 @@ export default function HomePage({ navigation }) {
     const nav = useNavigation();
 
     const navigateToSpaceships = () => {
-        nav.navigate('BookingPage', { from: 'Los Angeles, Earth', to: 'Ares Prime, Mars', date: '2023-08-19' });
+        nav.navigate('BookingPage', { shuttleType:'LPT', passengerCount: 3, departureDate:'2023-08-20', departureId:22, arrivalDate:'2023-08-20', arrivalId:11, from: 'Los Angeles, Earth', to:'Ares Prime, Mars' });
     };
     //    for testing booking page
     return (
@@ -86,7 +86,7 @@ export default function HomePage({ navigation }) {
                         <SearchField />
                     </View>
                 </View>
-                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('MyBookings')} />
+                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('ChooseServices')} />
 
                 {/*for testing booking page  */}
                 <Button title="Booking page" onPress={navigateToSpaceships} />
@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: 40,
         width: 360,
     },
     textfield: {
