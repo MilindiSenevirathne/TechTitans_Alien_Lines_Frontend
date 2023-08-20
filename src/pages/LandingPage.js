@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   Button,
+  TouchableOpacity,
 } from 'react-native';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
@@ -47,8 +48,26 @@ const LandingPage = ({ navigation }) => {
           <Image style={styles.ImageStyle} source={item.image} />
           <Text style={styles.TextStyle}>{item.text}</Text>
           <View style={styles.ButtonContainer}>
-          <CommonButton lable={'Login'} commonBtnPress={()=>navigation.navigate('Home')} backgroundColor='#ffffff' fontColor='#ffffff' borderColor='#ffffff'/>
-          <CommonButton lable={'Get Started'} commonBtnPress={()=>navigation.navigate('Home')} backgroundColor='#ffffff' fontColor='#4C0259'/>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{
+              display: 'flex',
+              alignSelf: 'center',
+              backgroundColor: 'rgba(255, 255, 255, 0)',
+              borderRadius: 20,
+              borderColor: '#FFFFFF',
+              borderWidth: 1,
+              padding: 8,
+              width: 220,
+              marginBottom: 10,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Text style={{
+                fontSize: 15,
+                fontWeight: '600',
+                color: '#FFFFFF'
+              }}> Login </Text>
+            </TouchableOpacity>
+            <CommonButton lable={'Get Started'} commonBtnPress={() => navigation.navigate('Home')} backgroundColor='#ffffff' fontColor='#4C0259' />
           </View>
         </View>
       );
@@ -63,7 +82,7 @@ const LandingPage = ({ navigation }) => {
         showSkipButton={false}
         showNextButton={false}
         showDoneButton={false}
-        style={{backgroundColor:'#4C0259'}}
+        style={{ backgroundColor: '#4C0259' }}
       />
     </>
   );
@@ -102,7 +121,7 @@ const styles = StyleSheet.create({
   },
   introTitleStyle: {
     marginTop: 120,
-    marginHorizontal:20,
+    marginHorizontal: 20,
     fontSize: 25,
     color: 'white',
     textAlign: 'center',
@@ -118,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: 80,
     fontSize: 16,
     color: 'white',
-    marginHorizontal:20,
+    marginHorizontal: 20,
     textAlign: 'center',
   },
   ButtonContainer: {
