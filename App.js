@@ -18,7 +18,7 @@ import LoadingPage from './src/pages/LoadingPage';
 import MyBookings from './src/pages/MyBookings';
 import PassengerDetails from './src/pages/PassengerDetails';
 import Seatbooking from './src/pages/SeatsBookingPage';
-import SpecialMeals from './src/pages/SpecialMealsPage';=
+import SpecialMeals from './src/pages/SpecialMealsPage';
 import Assistance from './src/pages/AssistancePage';
 import customTheme from './src/components/styles/theme';
 import SideNavbar from './src/components/navbar/SideNavBar';
