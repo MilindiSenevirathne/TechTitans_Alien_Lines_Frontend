@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View } from 'react-native';
 import {
   PaperProvider,
@@ -17,10 +17,13 @@ import LoadingPage from './src/pages/LoadingPage';
 import MyBookings from './src/pages/MyBookings';
 import PassengerDetails from './src/pages/PassengerDetails';
 import Seatbooking from './src/pages/SeatsBookingPage';
-import SpecialMeals from './src/pages/SpecialMealsPage';
-registerTranslation('en', en);
+import SpecialMeals from './src/pages/SpecialMealsPage';=
+import Assistance from './src/pages/AssistancePage';
+import customTheme from './src/components/styles/theme';
+import SideNavbar from './src/components/navbar/SideNavBar';
 
-const Stack = createStackNavigator();
+//const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
@@ -28,10 +31,12 @@ export default function App() {
       <ThemeProvider theme={customTheme}>
         <View style={{ flex: 1, width: '100%', height: '100%' }}>
           <NavigationContainer>
-            <Stack.Navigator
-              initialRouteName="Home"
-              screenOptions={{ headerShown: false }}
+    
+          <Drawer.Navigator drawerContent={props => <SideNavbar {...props}/>}
+             initialRouteName="Loading"
+              screenOptions={{ headerShown: false , drawerPosition: 'right'}}
             >
+
               <Stack.Screen name="Loading" component={LoadingPage} />
               <Stack.Screen name="Home" component={HomePage} />
               <Stack.Screen name="BookingPage" component={BookingPage} />
@@ -43,7 +48,8 @@ export default function App() {
               <Stack.Screen name='Seatbooking' component={Seatbooking} />
               <Stack.Screen name='SpecialMeals' component={SpecialMeals} />
               <Stack.Screen name='Assistance' component={Assistance} />
-            </Stack.Navigator>
+         
+            </Drawer.Navigator>
           </NavigationContainer>
         </View>
       </ThemeProvider>

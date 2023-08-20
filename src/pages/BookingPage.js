@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, Modal, Alert } from 'react-native';
-import { useRoute } from '@react-navigation/native'; // Use these hooks instead
-import { useTheme, RadioButton } from 'react-native-paper';
+import { useRoute } from '@react-navigation/native'; 
+import { RadioButton } from 'react-native-paper';
 import { CommonButton } from '../components/common/CommonButton';
+import Timeline from 'react-native-timeline-flatlist'
 
 const BookingPage = () => {
 
     const route = useRoute();
-    const { from, to, date } = route.params;
+    const { shuttleType, passengerCount, departureDate, departureId, arrivalDate, arrivalId, from, to} = route.params;
     const [selectedSpaceship, setSelectedSpaceship] = useState(null);
-    const [chooseRate, setChooseRate] = useState(true);
+    const [chooseRate, setChooseRate] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedPackage, setSelectedPackage] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState(null);
 
     const getTimeFromDateString = (dateString) => {
         const dateObject = new Date(dateString);
@@ -37,9 +40,69 @@ const BookingPage = () => {
         return minPrice;
     };
 
-    const handleShuttleDetailsClick = (spaceship) => {
+    function calculateTimeDifference(startDateTime, endDateTime) {
+        const startDate = new Date(startDateTime);
+        const endDate = new Date(endDateTime);
+
+        const timeDifference = endDate - startDate;
+
+        const millisecondsPerDay = 24 * 60 * 60 * 1000;
+        const millisecondsPerHour = 60 * 60 * 1000;
+
+        const days = Math.floor(timeDifference / millisecondsPerDay);
+        const hours = Math.floor((timeDifference % millisecondsPerDay) / millisecondsPerHour);
+        const minutes = Math.floor((timeDifference % millisecondsPerHour) / (60 * 1000))
+        const formattedHours = hours.toString().padStart(2, '0');
+        const formattedDays = days.toString().padStart(3, '0');
+        const formattedMinutes = minutes.toString().padStart(2, '0');
+        return `${formattedDays}d ${formattedHours}h ${formattedMinutes}m`;
+    }
+
+    function formatDate(inputDateTime) {
+        const date = new Date(inputDateTime);
+
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+
+        return formattedDate;
+    }
+    const handleShuttleDetailsClick = async (spaceship) => {
         setSelectedSpaceship(spaceship);
+        setChooseRate(false);
         setModalVisible(true);
+        setIsLoading(true); // Start loading
+
+        const newData = timeline(spaceship);
+
+        // Simulate data fetching delay with a timeout
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        setData(newData); // Update data
+        setIsLoading(false);
+
+    };
+
+    const timeline = (spaceship) => {
+        return [
+            {
+                time: getTimeFromDateString(spaceship.departureDateTime),
+                title: spaceship.departureStationId.name,
+                description: '',
+                icon: require('../images/CircledThin.png'),
+            },
+            {
+                time: calculateTimeDifference(spaceship.departureDateTime, spaceship.arrivalDateTime),
+                title: spaceship.shuttleId.name,
+                description: '',
+                icon: require('../images/Spaceship.png'),
+            },
+            {
+                time: getTimeFromDateString(spaceship.arrivalDateTime),
+                title: spaceship.arrivalStationId.name,
+                description: '',
+                icon: require('../images/CircledThin.png'),
+            },
+        ];
     };
 
     const handleSelectPackage = () => {
@@ -67,15 +130,12 @@ const BookingPage = () => {
         );
     };
 
-
-
-
     // Sample spaceship data
     const spaceshipData = [
         {
             id: 111,
             departureDateTime: "2023-08-20T00:00:00",
-            arrivalDateTime: "2023-08-20T00:00:00",
+            arrivalDateTime: "2024-08-20T00:00:00",
             shuttleId: {
                 id: "4",
                 name: "Shuttle#1",
@@ -117,7 +177,7 @@ const BookingPage = () => {
         {
             id: 113,
             departureDateTime: "2023-08-20T00:10:00",
-            arrivalDateTime: "2023-08-20T00:18:00",
+            arrivalDateTime: "2024-05-20T00:18:00",
             shuttleId: {
                 id: "4",
                 name: "Shuttle#1",
@@ -325,27 +385,45 @@ const BookingPage = () => {
 
                         {/* Shuttle Details */}
                         {selectedSpaceship && !chooseRate && (
-                            <View style={{ marginTop: 10 }}>
-                                <Text>Shuttle details:</Text>
-                                <TouchableOpacity onPress={() => setChooseRate(true)} style={{
-                                    backgroundColor: '#D3D1D1',
-                                    width: 'fit-content',
-                                    padding: 5,
-                                    borderRadius: 50,
-                                    marginTop: 10,
-                                    marginBottom: 25,
-                                    width: 150,
-                                    alignItems: 'center',
+                            <View style={{
+                                marginTop: 10
+                            }}>
+                                <Text style={{
+                                    fontWeight: 'bold',
+                                    color: '#CA4255',
+                                    marginLeft:20,
+                                }}>{formatDate(selectedSpaceship.departureDateTime)}</Text>
+                                <Text style={{ marginBottom: -33 }}>
+                                    <Timeline
+                                        data={data}
+                                        timeContainerStyle={{ minWidth: 100 }}
+                                        innerCircle={'icon'}
+                                        circleSize={20}
+                                        circleColor='white'
+                                        lineColor='black'
+                                        titleStyle={{ marginTop: -10, fontSize: 15, fontWeight: 'bold' }}
+                                    />
+                                </Text>
+                                <Text style={{
+                                    fontWeight: 'bold',
+                                    color: '#CA4255',
+                                    marginLeft:20,
+                                }}>{formatDate(selectedSpaceship.arrivalDateTime)}</Text>
+
+                                <View style={{
+                                    marginTop: 20,
                                 }}>
-                                    <Text>View Shuttle Details</Text>
-                                </TouchableOpacity>
+                                    <CommonButton lable={'Choose Rate'} commonBtnPress={() => setChooseRate(true)} />
+                                </View>
                             </View>
                         )}
                     </View>
                 </View>
             </Modal>
-        </ScrollView>
+
+        </ScrollView >
     );
 };
+
 
 export default BookingPage;
