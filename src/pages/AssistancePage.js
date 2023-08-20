@@ -3,11 +3,12 @@ import { useState } from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { en, registerTranslation } from "react-native-paper-dates";
-import ToggleSwitch from "toggle-switch-react-native";
+import Toggle from "react-native-toggle-input";
 import DropdownField from "../components/input/DropdownField";
 registerTranslation("en", en);
 
 export default function Assistance({ navigation }) {
+  const [toggle, setToggle] = React.useState(false);
   const [isSpecialAssistanceOn, setIsSpecialAssistanceOn] = useState(false);
   const [isVisualImpairmentOn, setIsVisualImpairmentOn] = useState(false);
   const [isHearingImpairmentOn, setIsHearingImpairmentOn] = useState(false);
@@ -55,12 +56,11 @@ export default function Assistance({ navigation }) {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Text style={{ fontSize: 18 }}>Special assistance</Text>
-            <ToggleSwitch
-              isOn={isSpecialAssistanceOn}
-              onColor="#4C0259"
-              offColor="#e0e0e0"
-              labelStyle={{ color: "black", fontWeight: "900" }}
-              onToggle={(isOn) => setIsSpecialAssistanceOn(isOn)}
+
+            <Toggle
+              color={"#4C0259"}
+              toggle={isSpecialAssistanceOn}
+              setToggle={(isOn) => setIsSpecialAssistanceOn(isOn)}
             />
           </View>
 
@@ -104,12 +104,11 @@ export default function Assistance({ navigation }) {
           <Text style={{ fontSize: 18, marginRight: 10 }}>
             Passenger with visual impairment
           </Text>
-          <ToggleSwitch
-            isOn={isVisualImpairmentOn}
-            onColor="#4C0259"
-            offColor="#e0e0e0"
-            labelStyle={{ color: "black", fontWeight: "900" }}
-            onToggle={(isOn) => setIsVisualImpairmentOn(isOn)}
+
+          <Toggle
+            color={"#4C0259"}
+            toggle={isVisualImpairmentOn}
+            setToggle={(isOn) => setIsVisualImpairmentOn(isOn)}
           />
         </View>
         <View></View>
@@ -130,12 +129,11 @@ export default function Assistance({ navigation }) {
           <Text style={{ fontSize: 18 }}>
             Passenger with hearing impairment
           </Text>
-          <ToggleSwitch
-            isOn={isHearingImpairmentOn}
-            onColor="#4C0259"
-            offColor="#e0e0e0"
-            labelStyle={{ color: "black", fontWeight: "900" }}
-            onToggle={(isOn) => setIsHearingImpairmentOn(isOn)}
+
+          <Toggle
+            color={"#4C0259"}
+            toggle={isHearingImpairmentOn}
+            setToggle={(isOn) => setIsHearingImpairmentOn(isOn)}
           />
         </View>
       </View>
