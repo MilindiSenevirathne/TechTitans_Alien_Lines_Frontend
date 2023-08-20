@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, Modal, Alert, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native'; // Use these hooks instead
-import { useTheme, RadioButton } from 'react-native-paper';
+import { View, Text, Image, ScrollView, TouchableOpacity, Modal, Alert } from 'react-native';
+import { useRoute } from '@react-navigation/native'; 
+import { RadioButton } from 'react-native-paper';
 import { CommonButton } from '../components/common/CommonButton';
 import Timeline from 'react-native-timeline-flatlist'
 
