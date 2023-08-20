@@ -73,10 +73,12 @@ export default function NavBar({ isLogged}) {
           />
         </View>
         <View style={styles.profileImageContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate('MyProfile')}>
           <Image
             source={require('../../images/profile.jpg')}
             style={styles.profileImage}
           />
+          </TouchableOpacity>
         </View>
         <View style={styles.menuIconContainer}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
