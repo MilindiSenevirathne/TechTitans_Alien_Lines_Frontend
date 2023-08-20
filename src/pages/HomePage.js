@@ -86,7 +86,7 @@ export default function HomePage({ navigation }) {
                         <SearchField />
                     </View>
                 </View>
-                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('MyBookings')} />
+                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('ChooseServices')} />
 
                 {/*for testing booking page  */}
                 <Button title="Booking page" onPress={navigateToSpaceships} />
