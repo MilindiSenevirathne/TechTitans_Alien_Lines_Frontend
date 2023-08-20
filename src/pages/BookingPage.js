@@ -8,7 +8,7 @@ import Timeline from 'react-native-timeline-flatlist'
 const BookingPage = () => {
 
     const route = useRoute();
-    const { from, to, date } = route.params;
+    const { shuttleType, passengerCount, departureDate, departureId, arrivalDate, arrivalId, from, to} = route.params;
     const [selectedSpaceship, setSelectedSpaceship] = useState(null);
     const [chooseRate, setChooseRate] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
