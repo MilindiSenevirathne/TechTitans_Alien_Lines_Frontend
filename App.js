@@ -7,7 +7,6 @@ import {
 } from 'react-native-paper';
 import { en, registerTranslation } from 'react-native-paper-dates';
 import customTheme from './src/components/styles/theme';
-import Assistance from './src/pages/AssistancePage';
 import BookingPage from './src/pages/BookingPage';
 import ChooseServices from './src/pages/ChoseServicePage';
 import ExtraBaggage from './src/pages/ExtraBaggagePage';
@@ -20,7 +19,7 @@ import PassengerDetails from './src/pages/PassengerDetails';
 import Seatbooking from './src/pages/SeatsBookingPage';
 import SpecialMeals from './src/pages/SpecialMealsPage';
 import Assistance from './src/pages/AssistancePage';
-import customTheme from './src/components/styles/theme';
+import DestinationDetails from "./src/pages/DestinationDetails";
 import SideNavbar from './src/components/navbar/SideNavBar';
 import PaymentIdPage from './src/pages/PaymentIdPage';
 
@@ -39,19 +38,20 @@ export default function App() {
               screenOptions={{ headerShown: false , drawerPosition: 'right'}}
             >
 
-              <Stack.Screen name="Loading" component={LoadingPage} />
-              <Stack.Screen name="Home" component={HomePage} />
-              <Stack.Screen name="BookingPage" component={BookingPage} />
-              <Stack.Screen name="Landing" component={LandingPage} />
-              <Stack.Screen name='MyBookings' component={MyBookings}/>
-              <Stack.Screen name='PassengerDetails' component={PassengerDetails}/>
-              <Stack.Screen name='MyWalletPage' component={MyWalletPage}/>
-              <Stack.Screen name='ChooseServices' component={ChooseServices} />
-              <Stack.Screen name='ExtraBaggage' component={ExtraBaggage} />
-              <Stack.Screen name='Seatbooking' component={Seatbooking} />
-              <Stack.Screen name='SpecialMeals' component={SpecialMeals} />
-              <Stack.Screen name='Assistance' component={Assistance} />
-              <Stack.Screen name='PaymentIdPage' component={PaymentIdPage} />
+              <Drawer.Screen name="Loading" component={LoadingPage} />
+              <Drawer.Screen name="Home" component={HomePage} />
+              <Drawer.Screen name="BookingPage" component={BookingPage} />
+              <Drawer.Screen name="Landing" component={LandingPage} />
+              <Drawer.Screen name='MyBookings' component={MyBookings}/>
+              <Drawer.Screen name='PassengerDetails' component={PassengerDetails}/>
+              <Drawer.Screen name='MyWalletPage' component={MyWalletPage}/>
+              <Drawer.Screen name='ChooseServices' component={ChooseServices} />
+              <Drawer.Screen name='ExtraBaggage' component={ExtraBaggage} />
+              <Drawer.Screen name='Seatbooking' component={Seatbooking} />
+              <Drawer.Screen name='SpecialMeals' component={SpecialMeals} />
+              <Drawer.Screen name='Assistance' component={Assistance} />
+              <Drawer.Screen name='DestinationDetails' component={DestinationDetails} />
+              <Drawer.Screen name='PaymentIdPage' component={PaymentIdPage} />
          
             </Drawer.Navigator>
           </NavigationContainer>
