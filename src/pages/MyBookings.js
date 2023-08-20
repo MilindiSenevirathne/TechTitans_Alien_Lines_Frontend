@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import NavBar from "../components/navbar/NavBar";
 import { Text, TouchableOpacity, View, Image, FlatList, SafeAreaView, ActivityIndicator } from "react-native";
 import { PaperProvider, ThemeProvider, DefaultTheme } from "react-native-paper";
@@ -76,7 +76,6 @@ export default function MyBookings({ navigation }) {
             }
 
             const data = await response.json();
-            setData(data)
             console.log ('data', data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -142,7 +141,7 @@ export default function MyBookings({ navigation }) {
                 </View>
                 <View style={{ flexDirection: 'row', }}>
                     <View style={{ paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: '30%' }}>
-                        <Image source={item.image ? item.image : require('../images/noimage.png')} style={{ borderRadius: 10, height: 88, width: 88 }} />
+                        {/* <Image source={item.image ? item.image : require('../images/noimage.png')} style={{ borderRadius: 10, height: 88, width: 88 }} /> */}
                     </View>
                     <View style={{ width: '70%', marginLeft: 15, padding: 7 }}>
                         <View style={{ flexDirection: 'row' }}>
@@ -179,7 +178,7 @@ export default function MyBookings({ navigation }) {
             <SafeAreaView style={{ flex: 1, alignSelf: 'center', width: '90%' }}>
                 {(isPending && tripsPending.length == 0) || (!isPending && tripsUpcoming.length == 0) ? (
                     <View style={{ justifyContent: 'center', marginTop: '30%' }}>
-                        <Image source={require('../images/noData.png')} style={{ height: 250, width: 250, alignSelf: 'center' }} />
+                        {/* <Image source={require('../images/noData.png')} style={{ height: 250, width: 250, alignSelf: 'center' }} /> */}
                         <Text style={{ fontSize: 18, fontWeight: '700', marginTop: 10, alignSelf: 'center' }}>No Data to Display</Text>
                     </View>
                 ) : (
