@@ -18,67 +18,74 @@ export default function HomePage({ navigation }) {
     const nav = useNavigation();
 
     const navigateToSpaceships = () => {
-        nav.navigate('BookingPage', { shuttleType:'LPT', passengerCount: 3, departureDate:'2023-08-20', departureId:22, arrivalDate:'2023-08-20', arrivalId:11, from: 'Los Angeles, Earth', to:'Ares Prime, Mars' });
+        nav.navigate('BookingPage', { shuttleType: 'LPT', passengerCount: 3, departureDate: '2023-08-20', departureId: 22, arrivalDate: '2023-08-20', arrivalId: 11, from: 'Los Angeles, Earth', to: 'Ares Prime, Mars' });
     };
-    const navigateTosummary= () => {
-        nav.navigate('SummaryPage', { summary:{
-            "id": 111,
-            "departureDateTime": "2023-08-20T00:00:00",
-            "arrivalDateTime": "2024-09-20T00:00:00",
-            "shuttleId": {
-                "id": "4",
-                "name": "Shuttle#1",
-                "shuttleType": "LPT",
-                "maxCapacity": 40,
-                "imageUrl": "sss"
-            },
-            "departureStationId": {
-                "id": 22,
-                "name": "Solar",
-                "planet": "Mars"
-            },
-            "arrivalStationId": {
-                "id": 11,
-                "name": "Aries",
-                "planet": "Saturn"
-            },
-            "spaceShuttleScheduleRates": [
-                {
-                    "id": 1,
-                    "name": "Basic",
-                    "price": 10000.0,
-                    "spaceShuttleScheduleId": 111
+    const navigateTosummary = () => {
+        nav.navigate('SummaryPage', {
+            summary: {
+                "id": 111,
+                "departureDateTime": "2023-08-20T00:00:00",
+                "arrivalDateTime": "2024-09-20T00:00:00",
+                "shuttleId": {
+                    "id": "4",
+                    "name": "Shuttle#1",
+                    "shuttleType": "LPT",
+                    "maxCapacity": 40,
+                    "imageUrl": "sss"
                 },
-                {
-                    "id": 2,
-                    "name": "Economic",
-                    "price": 20000.0,
-                    "spaceShuttleScheduleId": 111
+                "departureStationId": {
+                    "id": 22,
+                    "name": "Solar",
+                    "planet": "Mars"
                 },
-                {
-                    "id": 3,
-                    "name": "Business",
-                    "price": 40000.0,
-                    "spaceShuttleScheduleId": 111
-                }
-            ],
-            "spaceShuttleScheduleServices": [
-                {
-                    "id": 2,
-                    "name": "Personalised Foods",
-                    "description": "Customised food options",
-                    "price": 7000.0,
-                    "spaceShuttleScheduleId": 111
+                "arrivalStationId": {
+                    "id": 11,
+                    "name": "Aries",
+                    "planet": "Saturn"
                 },
-                {
-                    "id": 1,
-                    "name": "Extra Oxygen",
-                    "description": "Provide extra oxygen",
-                    "price": 5000.0,
-                    "spaceShuttleScheduleId": 111
-                }
-            ]
-        }});
+                "spaceShuttleScheduleRates": [
+                    {
+                        "id": 1,
+                        "name": "Basic",
+                        "price": 10000.0,
+                        "spaceShuttleScheduleId": 111
+                    },
+                    {
+                        "id": 2,
+                        "name": "Economic",
+                        "price": 20000.0,
+                        "spaceShuttleScheduleId": 111
+                    },
+                    {
+                        "id": 3,
+                        "name": "Business",
+                        "price": 40000.0,
+                        "spaceShuttleScheduleId": 111
+                    }
+                ],
+                "spaceShuttleScheduleServices": [
+                    {
+                        "id": 2,
+                        "name": "Personalised Foods",
+                        "description": "Customised food options",
+                        "price": 7000.0,
+                        "spaceShuttleScheduleId": 111
+                    },
+                    {
+                        "id": 1,
+                        "name": "Extra Oxygen",
+                        "description": "Provide extra oxygen",
+                        "price": 5000.0,
+                        "spaceShuttleScheduleId": 111
+                    }
+                ]
+            }, selectedPackage: {
+                "id": 2,
+                "name": "Economic",
+                "price": 20000.0,
+                "spaceShuttleScheduleId": 111
+            }
+        });
     };
     //    for testing booking page
     return (
