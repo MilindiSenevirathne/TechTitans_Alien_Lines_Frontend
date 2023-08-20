@@ -168,12 +168,14 @@ const SummaryPage = () => {
               <Text style={styles.text}>Spaceship fees </Text>
               <Text style={styles.text}>${formattedNumber(selectedPackage.price)}</Text>
             </View>
-            {summary.spaceShuttleScheduleServices.map((service) => (
-              <View key={service.id} style={styles.flexbox}>
-                <Text style={styles.text}>{service.name}</Text>
-                <Text style={styles.text}>${formattedNumber(service.price)}</Text>
-              </View>
-            ))}
+            {summary.spaceShuttleScheduleServices && summary.spaceShuttleScheduleServices.length > 0 && (
+              summary.spaceShuttleScheduleServices.map((service) => (
+                <View key={service.id} style={styles.flexbox}>
+                  <Text style={styles.text}>{service.name}</Text>
+                  <Text style={styles.text}>${formattedNumber(service.price)}</Text>
+                </View>
+              ))
+            )}
           </View>
 
           <View style={styles.line}></View>
