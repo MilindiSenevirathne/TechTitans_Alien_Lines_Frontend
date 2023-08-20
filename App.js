@@ -21,6 +21,7 @@ import SpecialMeals from './src/pages/SpecialMealsPage';
 import Assistance from './src/pages/AssistancePage';
 import DestinationDetails from "./src/pages/DestinationDetails";
 import SideNavbar from './src/components/navbar/SideNavBar';
+import SummaryPage from './src/pages/SummaryPage';
 import PaymentIdPage from './src/pages/PaymentIdPage';
 
 //const Drawer = createDrawerNavigator();
@@ -50,9 +51,9 @@ export default function App() {
               <Drawer.Screen name='Seatbooking' component={Seatbooking} />
               <Drawer.Screen name='SpecialMeals' component={SpecialMeals} />
               <Drawer.Screen name='Assistance' component={Assistance} />
+              <Drawer.Screen name='SummaryPage' component={SummaryPage} />
               <Drawer.Screen name='DestinationDetails' component={DestinationDetails} />
               <Drawer.Screen name='PaymentIdPage' component={PaymentIdPage} />
-         
             </Drawer.Navigator>
           </NavigationContainer>
         </View>
