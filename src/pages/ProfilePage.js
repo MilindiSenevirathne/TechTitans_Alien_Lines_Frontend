@@ -92,7 +92,9 @@ export default function MyProfile({navigation, route}) {
         <PaperProvider theme={customTheme}>
             <ThemeProvider theme={customTheme}>
                 <SafeAreaView style={{flex: 1}}>
+                    <View style={{height:100}}>
                     <NavBar isLogged={true} />
+                    </View>
                     {isLoading ? (
                         <Loading />
                     ) : (
