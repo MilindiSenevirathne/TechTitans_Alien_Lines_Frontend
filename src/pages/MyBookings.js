@@ -3,55 +3,11 @@ import NavBar from "../components/navbar/NavBar";
 import { Text, TouchableOpacity, View, Image, FlatList, SafeAreaView, ActivityIndicator } from "react-native";
 import { PaperProvider, ThemeProvider, DefaultTheme } from "react-native-paper";
 import customTheme from "../components/styles/theme";
-
-// const data = [
-//     {
-//         "id": 5,
-//         "userId": 4,
-//         "shuttle_name": "Ares Prime",
-//         "shuttle_type": "FTL",
-//         "no_passengers": 2,
-//         "_from": "New York",
-//         "_to": "Mars Square",
-//         "dep_date": "2023-08-22T05:30:00.000+00:00",
-//         "return_date": "2023-10-05T05:30:00.000+00:00",
-//         "journey_rate": 500000.0,
-//         "total_price": 645000.0,
-//         "services": [
-//             "Foods & Refreshments",
-//             "Wheel Chair Assistance"
-//         ],
-//         "passengers": [
-//             {
-//                 "id": 5,
-//                 "name": "Nuwan",
-//                 "surename": "Abeysekara",
-//                 "dob": "1995-02-25T05:30:00.000+00:00",
-//                 "nationality": "Sri Lankan",
-//                 "doc_type": "Passport",
-//                 "doc_no": "W111222",
-//                 "email": "nuwan@gmail.com",
-//                 "phone_no": "0798882221"
-//             },
-//             {
-//                 "id": 6,
-//                 "name": "Saman",
-//                 "surename": "Aponsu",
-//                 "dob": "1998-10-02T06:00:00.000+00:00",
-//                 "nationality": "Sri Lankan",
-//                 "doc_type": "Passport",
-//                 "doc_no": "W485369",
-//                 "email": "aponsu@gmail.com",
-//                 "phone_no": "0785556664"
-//             }
-//         ]
-//     }
-// ]
-
+import Loading from '../components/common/Loading';
 
 export default function MyBookings({ navigation }) {
 
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState(data);
 
     const [isPending, setPending] = useState(true)
@@ -67,8 +23,9 @@ export default function MyBookings({ navigation }) {
     }, []);
 
     async function getSpaceShuttleData() {
+        setIsLoading(true);
         const url = 'http://alienlines.eastus.cloudapp.azure.com:3000/api/booking';
-        
+
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -76,10 +33,13 @@ export default function MyBookings({ navigation }) {
             }
 
             const data = await response.json();
-            console.log ('data', data);
+            setData(data);
+            console.log('data', data);
         } catch (error) {
             console.error('Error fetching data:', error);
             throw error;
+        } finally {
+            setIsLoading(false); // Stop loading
         }
     }
 
@@ -192,21 +152,27 @@ export default function MyBookings({ navigation }) {
         )
     }
 
-    // if (loading) {
-    //     return (
-    //         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    //             <ActivityIndicator size="large" color="#0000ff" />
-    //         </View>
-    //     );
-    // }
-
     return (
-        <PaperProvider theme={customTheme}>
-            <ThemeProvider theme={customTheme}>
-                {renderTitle()}
-                {renderOptions()}
-                {renderBookingDetails()}
-            </ThemeProvider>
-        </PaperProvider>
+        <View style={{
+            height: '100%',
+        }} >
+            <View style={{
+                height: 100,
+            }} >
+                <NavBar isLogged={true} />
+            </View>
+
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <PaperProvider theme={customTheme}>
+                    <ThemeProvider theme={customTheme}>
+                        {renderTitle()}
+                        {renderOptions()}
+                        {renderBookingDetails()}
+                    </ThemeProvider>
+                </PaperProvider>
+            )}
+        </View>
     )
 }
