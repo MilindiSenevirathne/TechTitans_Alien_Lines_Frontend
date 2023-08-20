@@ -8,8 +8,9 @@ import Loading from '../components/common/Loading';
 import { getTimeFromDateString } from '../utils/timeUtils.js';
 import { formatDate } from '../utils/dateUtils.js';
 import { calculateTimeDifference } from '../utils/timeDifferUtils.js';
+import NavBar from '../components/navbar/NavBar';
 
-const BookingPage = () => {
+const BookingPage = ({ navigation }) => {
 
     const route = useRoute();
     const { shuttleType, passengerCount, departureDate, departureId, arrivalDate, arrivalId, from, to } = route.params;
@@ -39,8 +40,8 @@ const BookingPage = () => {
     const selectPackage = () => {
         const selectedPackageItem = selectedSpaceship.spaceShuttleScheduleRates.find(
             (packageItem) => packageItem.name === selectedPackage
-          );        
-          return selectedPackageItem;
+        );
+        return selectedPackageItem;
     }
 
     const handleShuttleDetailsClick = async (spaceship) => {
@@ -114,7 +115,15 @@ const BookingPage = () => {
     }
 
     return (
-        <View>
+        <View style={{
+            height: '100%',
+        }} >
+            <View style={{
+                height: 100,
+            }} >
+                <NavBar isLogged={true} />
+            </View>
+
             {isLoading ? (
                 <Loading />
             ) : (
