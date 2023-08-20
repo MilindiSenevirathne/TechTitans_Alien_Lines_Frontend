@@ -84,6 +84,11 @@ export default function HomePage({ navigation }) {
                 "name": "Economic",
                 "price": 20000.0,
                 "spaceShuttleScheduleId": 111
+            },
+            userdetails:{
+                "firstName": "Sachin",
+                "lastName": "Tendulkar",
+                "email": "",
             }
         });
     };
@@ -153,7 +158,7 @@ export default function HomePage({ navigation }) {
                         <SearchField />
                     </View>
                 </View>
-                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('ChooseServices')} />
+                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('PaymentIdPage')} />
 
                 {/*for testing booking page  */}
                 <Button title="Booking page" onPress={navigateToSpaceships} />
