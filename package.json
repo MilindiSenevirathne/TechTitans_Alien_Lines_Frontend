@@ -9,10 +9,12 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^18.1.2",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-native-fontawesome": "^0.3.0",
     "@gorhom/bottom-sheet": "^4.4.7",
+    "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/drawer": "^6.6.3",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",
@@ -30,10 +32,14 @@
     "react-native-paper-dropdown": "^1.0.7",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "~3.3.0",
+    "react-native-safe-area-context": "^4.7.1",
+    "react-native-safe-area-view": "^1.1.1",
+    "react-native-screens": "^3.24.0",
     "react-native-svg": "^13.11.0",
     "react-native-timeline-flatlist": "^0.8.0",
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "~0.19.6",
+    "react-navigation": "^4.4.4",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "toggle-switch-react-native": "^3.3.0"
   },

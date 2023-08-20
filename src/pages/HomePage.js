@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { en, registerTranslation } from "react-native-paper-dates";
 import { CommonButton } from "../components/common/CommonButton";
+import { CommonModal } from "../components/common/CommonModal";
 import CalenderField from "../components/input/CalendarField";
 import DropdownField from "../components/input/DropdownField";
 import SearchField from "../components/input/SearchField";
@@ -32,15 +33,43 @@ export default function HomePage({ navigation }) {
     });
   };
 
+  //modal visibility
+  const [isFromModalVisible, setFromModalVisible] = React.useState(false);
+const [isToModalVisible, setToModalVisible] = React.useState(false);
+const [selectedFromStation, setSelectedFromStation] = React.useState(null);
+const [selectedToStation, setSelectedToStation] = React.useState(null);
+
+const openFromModal = () => {
+    setFromModalVisible(true);
+  };
+  
+  const closeFromModal = () => {
+    setFromModalVisible(false);
+  };
+  
+  const openToModal = () => {
+    setToModalVisible(true);
+  };
+  
+  const closeToModal = () => {
+    setToModalVisible(false);
+  };
+  
+
+
   //collapsible card
   const [isCardExpanded, setCardExpanded] = React.useState(false);
-  const [arrowImageSource, setArrowImageSource] = React.useState(require('../images/dropdownDownArrow.png'));
+  const [arrowImageSource, setArrowImageSource] = React.useState(
+    require("../images/dropdownDownArrow.png")
+  );
 
   const toggleCardExpansion = () => {
-      setCardExpanded(!isCardExpanded);
-      setArrowImageSource(
-          isCardExpanded ? require('../images/dropdownDownArrow.png') : require('../images/dropdownUpArrow.png')
-      );
+    setCardExpanded(!isCardExpanded);
+    setArrowImageSource(
+      isCardExpanded
+        ? require("../images/dropdownDownArrow.png")
+        : require("../images/dropdownUpArrow.png")
+    );
   };
   //    for testing booking page
   return (
@@ -57,6 +86,7 @@ export default function HomePage({ navigation }) {
           />
         </View>
 
+        {/* Collapsible Card for Spaceship booking */}
         <TouchableOpacity
           onPress={toggleCardExpansion}
           style={styles.cardContainer}
@@ -69,13 +99,38 @@ export default function HomePage({ navigation }) {
                 style={styles.cardIcon}
               />
               <Text style={styles.cardTitle}>Book a Space Shuttle</Text>
-              <Image source={arrowImageSource} style={{ width: 20, height: 20 }} />
+              <Image source={arrowImageSource} style={styles.dropdownArrow} />
             </View>
             {/* Collapsible Content */}
             {isCardExpanded && (
               <>
                 {/* CommonDropdown Component for Mode Selection */}
+                <View style={styles.dropDownField}>
+                  <DropdownField
+                    list={[
+                      {
+                        label: "FTL Drive",
+                        value: "ftlD",
+                      },
+                      {
+                        label: "Space Elevator",
+                        value: "spaceE",
+                      },
+                      {
+                        label: "Space Cruise",
+                        value: "spaceC",
+                      },
+                      {
+                        label: "Teleport",
+                        value: "teleport",
+                      },
+                    ]}
+                    label="Travelling Mode"
+                  />
+                </View>
                 {/* CommonDropdown Component for From and To Selection */}
+
+                
                 <CalenderField label="Departure Date" />
                 <CalenderField label="Return Date" />
                 <CommonButton
@@ -87,42 +142,8 @@ export default function HomePage({ navigation }) {
           </View>
         </TouchableOpacity>
 
-        <View style={styles.cardContainer}>
-          <View style={styles.card}>
-            {/* Form Elements */}
-            <Text style={styles.cardTitle}>Book a Space Shuttle</Text>
-            <View style={styles.textfield}>
-              <DropdownField
-                list={[
-                  {
-                    label: "FTL Drive",
-                    value: "ftlD",
-                  },
-                  {
-                    label: "Space Elevator",
-                    value: "spaceE",
-                  },
-                  {
-                    label: "Space Cruise",
-                    value: "spaceC",
-                  },
-                  {
-                    label: "Teleport",
-                    value: "teleport",
-                  },
-                ]}
-                label="Travelling Mode"
-              />
-            </View>
-            {/* CommonDropdown Component for From and To Selection */}
-            <CalenderField label="Departure Date" />
-            <CalenderField label="Return Date" />
-            <CommonButton
-              label="Book Now"
-              commonBtnPress={() => navigation.navigate("BookingPage")}
-            />
-          </View>
-        </View>
+
+
 
         <View style={styles.container}>
           <Text>Sample Text Input</Text>
@@ -207,10 +228,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: 300,
   },
+  dropDownField: {
+    marginTop: 10,
+    marginBottom: 10,
+    width: '100%',
+  },
   imageContainer: {
     alignItems: "center",
     marginTop: 10,
-    borderRadius: 20, 
+    borderRadius: 20,
     overflow: "hidden",
   },
   roundedImage: {
@@ -221,39 +247,40 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-},
-card: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom:20
+  },
+  card: {
     width: 300,
     borderRadius: 20,
     padding: 20,
-    backgroundColor: 'white',
-    shadowColor: '#000',
+    backgroundColor: "white",
+    shadowColor: "#000",
     shadowOffset: {
-        width: 0,
-        height: 2,
+      width: 0,
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-},
-cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center'
-},
-cardIcon: {
+  },
+  cardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  cardIcon: {
     width: 20,
     height: 20,
     marginRight: 10,
-},
-cardTitle: {
+  },
+  cardTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     flex: 1,
-},
-dropdownArrow: {
-    width: 16,
-    height: 16,
-},
+  },
+  dropdownArrow: {
+    width: 20,
+    height: 20,
+  },
 });

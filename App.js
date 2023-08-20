@@ -32,7 +32,7 @@ export default function App() {
           <NavigationContainer>
     
           <Drawer.Navigator drawerContent={props => <SideNavbar {...props}/>}
-             initialRouteName="Loading"
+             initialRouteName="Home"
               screenOptions={{ headerShown: false , drawerPosition: 'right'}}
             >
               <Drawer.Screen name="Loading" component={LoadingPage} />
