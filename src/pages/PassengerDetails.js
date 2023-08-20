@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView,   TouchableOpacity,} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, TouchableOpacity, SafeAreaView,} from 'react-native';
 import TextField from '../components/input/TextField';
 import { PaperProvider, Searchbar, Button } from 'react-native-paper';
 import {
@@ -143,19 +143,20 @@ export default function PassegerDetails({ navigation }) {
             value: 'zm',
         },
         ];
-     
+
 
   return (
+      <SafeAreaView style={{flex: 1}}>
     <View style={styles.container}>
     <ScrollView>
       <NavBar isLogged={true}/>
-                      
+
       <Card style={styles.card}>
         <View style={styles.miniContainer}>
         <View style={styles.textContainer}>
         <Text style={{fontSize:20, fontWeight:'800'}}>Adult</Text>
         </View>
-    
+
         <StatusBar style="auto" />
         <View style={styles.textfield}>
         <DropdownField
@@ -183,7 +184,7 @@ export default function PassegerDetails({ navigation }) {
         <View style={styles.textfield}>
           <TextField label="Surname" placeholder="Enter Surname" />
         </View>
-    
+
         <View style={styles.textfield}>
           <CalenderField label="Date of Birth" />
         </View>
@@ -194,7 +195,7 @@ export default function PassegerDetails({ navigation }) {
           label="Nationality"
         />
         </View>
-       
+
         <View style={styles.textfield}>
         <DropdownField
            list={[
@@ -214,10 +215,10 @@ export default function PassegerDetails({ navigation }) {
         <View style={styles.textfield}>
           <TextField label="Document Number" placeholder="Document Number" />
         </View>
-       
+
       </View>
-      </Card>             
-                  
+      </Card>
+
       <Card style={styles.card}>
       <View style={styles.miniContainer}>
       <View style={styles.textContainer}>
@@ -225,12 +226,12 @@ export default function PassegerDetails({ navigation }) {
       <Text style={{fontSize:14, fontWeight:'400'}}>We will send a ticket to this email.</Text>
       <Text style={{fontSize:14, fontWeight:'400'}}>Phone number is required for communication in case of changes</Text>
       </View>
-      
+
       <View style={styles.textfield}>
           <TextField label="Email" placeholder="Email" />
         </View>
-       
-        <PhoneInput 
+
+        <PhoneInput
             defaultValue={phoneNumber}
             defaultCode="US"
             layout="first"
@@ -240,7 +241,7 @@ export default function PassegerDetails({ navigation }) {
                 setPhoneNumber(text);
               }}
           />
-          
+
         </View>
         </Card>
         <View style={styles.bottomContainer}>
@@ -251,7 +252,7 @@ export default function PassegerDetails({ navigation }) {
             <Text style={{fontSize:12, fontWeight:'500', marginBottom:10}}>$645000</Text>
           </View>
         </TouchableOpacity>
-        
+
         </View>
         <View style={styles.rightButtonContainer}>
         <TouchableOpacity style={styles.button} onPress={this._onPressButton}>
@@ -259,14 +260,14 @@ export default function PassegerDetails({ navigation }) {
             <Text style={styles.buttonTitle}>Continue</Text>
           </View>
         </TouchableOpacity>
-        
+
               </View>
-       
+
       </View>
 
     </ScrollView>
   </View>
-
+      </SafeAreaView>
   );
 }
 
@@ -296,7 +297,7 @@ container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 25,
-   
+
   },
   inputContainer:{
     flex: 1,
@@ -319,7 +320,7 @@ container: {
   card: {
     padding: 15,
     paddingTop: 25,
-    elevation: 10, 
+    elevation: 10,
     borderRadius: 40,
     borderColor: '#D3D1D1',
     width: 360,
@@ -329,33 +330,33 @@ container: {
     padding: 17,
   },
   leftButtonContainer: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     backgroundColor:'#fff',
     width: '40%',
     borderRadius: 5,
   },
   rightButtonContainer: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     backgroundColor:'#fff',
     width: '40%',
     borderRadius: 5,
   },
   button: {
-    backgroundColor: 'white', 
+    backgroundColor: 'white',
     width: '100%',
     borderRadius: 5,
     padding: 15,
     alignItems: 'center',
   },
   buttonTitle: {
-    fontSize: 15, 
-    fontWeight: 'bold', 
+    fontSize: 15,
+    fontWeight: 'bold',
     color: 'black',
     width: '100%',
     padding: 10,
   },
   inputButton: {
-    backgroundColor: 'red', 
+    backgroundColor: 'red',
     width: '80%',
     borderRadius: 5,
     alignItems: 'center',

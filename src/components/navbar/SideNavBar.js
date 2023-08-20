@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Image, SafeAreaView} from 'react-native';
 
 const SideNavbar = ({ navigation }) => {
   return (
+      <SafeAreaView style={{flex: 1}}>
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.logoImageContainer}>
@@ -77,6 +78,7 @@ const SideNavbar = ({ navigation }) => {
         </View>
       </View>
     </View>
+      </SafeAreaView>
   );
 };
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView , Image} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Image, SafeAreaView} from 'react-native';
 import * as React from 'react';
 import { en, registerTranslation } from 'react-native-paper-dates';
 import NavBar from '../components/navbar/NavBar';
@@ -7,10 +7,11 @@ registerTranslation('en', en);
 export default function PaymentIdPage({ navigation }) {
 
   return (
+      <SafeAreaView style={{flex: 1}}>
     <View style={styles.container}>
     <ScrollView>
       <NavBar isLogged={true}/>
-                      
+
       <View style={styles.miniContainer}>
         <Text style={{fontSize:30, fontWeight:'700', color:'#00305e'}}>Payment</Text>
         </View>
@@ -25,6 +26,7 @@ export default function PaymentIdPage({ navigation }) {
         </View>
           </ScrollView>
         </View>
+      </SafeAreaView>
   );
 }
 
@@ -46,8 +48,8 @@ const styles = StyleSheet.create({
         flex:1,
         width: 220,
         height: 220,
-        borderRadius: 120, 
-        backgroundColor: '#00305e', 
+        borderRadius: 120,
+        backgroundColor: '#00305e',
         alignItems: 'center',
         justifyContent: 'center',
       },

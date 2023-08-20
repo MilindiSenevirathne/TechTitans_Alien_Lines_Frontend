@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import {Image, SafeAreaView, StyleSheet, TouchableOpacity, View} from "react-native";
 import { Button, Text } from "react-native-paper";
 import { en, registerTranslation } from "react-native-paper-dates";
 import DropdownField from "../components/input/DropdownField";
@@ -81,7 +81,7 @@ export default function SpecialMeals({ navigation }) {
     },
   ];
   return (
-    <>
+      <SafeAreaView style={{flex: 1}}>
       <View style={{ height: "85%", backgroundColor: "white" }}>
         <View
           style={{
@@ -214,7 +214,7 @@ export default function SpecialMeals({ navigation }) {
           </Text>
         </Button>
       </View>
-    </>
+      </SafeAreaView>
   );
 }
 

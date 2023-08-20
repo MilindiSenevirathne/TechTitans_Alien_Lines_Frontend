@@ -141,9 +141,11 @@ export default function MyBookings({ navigation }) {
     return (
         <PaperProvider theme={customTheme}>
             <ThemeProvider theme={customTheme}>
+                <SafeAreaView style={{flex: 1}}>
                 {renderTitle()}
                 {renderOptions()}
                 {renderBookingDetails()}
+                </SafeAreaView>
             </ThemeProvider>
         </PaperProvider>
     )

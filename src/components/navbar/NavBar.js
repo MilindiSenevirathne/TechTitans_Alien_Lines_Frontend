@@ -14,6 +14,7 @@ export default function NavBar({ isLogged}) {
       backgroundColor: theme.colors.primary,
       justifyContent: 'center',
       width: "100%",
+      minHeight: 60
     },
     logoImageContainer: {
       flex: 4,

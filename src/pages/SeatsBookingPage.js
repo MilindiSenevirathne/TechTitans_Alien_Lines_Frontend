@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import {View, Text, TouchableOpacity, StyleSheet, Image, SafeAreaView} from "react-native";
 import { Button } from "react-native-paper";
 
 export default function Seatbooking({ navigation }) {
@@ -101,7 +101,7 @@ export default function Seatbooking({ navigation }) {
   };
 
   return (
-    <>
+      <SafeAreaView style={{flex: 1}}>
       <View>
         <View
           style={{
@@ -206,7 +206,7 @@ export default function Seatbooking({ navigation }) {
           </Text>
         </Button>
       </View>
-    </>
+      </SafeAreaView>
   );
 }
 
@@ -227,10 +227,10 @@ function DrawGrid(props) {
                 {
                   backgroundColor:
                     props.selected.indexOf(row) > -1
-                      ? "#CA4255" 
+                      ? "#CA4255"
                       : props.reserved.indexOf(row) > -1
-                      ? "#F88E9D" 
-                      : "#e0e0e0", 
+                      ? "#F88E9D"
+                      : "#e0e0e0",
                 },
               ]}
               key={row}

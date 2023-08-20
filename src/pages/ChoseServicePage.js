@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
+    Image, SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 import { en, registerTranslation } from "react-native-paper-dates";
@@ -14,7 +14,7 @@ registerTranslation("en", en);
 
 export default function ChooseServices({ navigation }) {
   return (
-    <>
+      <SafeAreaView style={{flex: 1}}>
       <View style={{ height: "85%" }}>
         <ScrollView>
           <NavBar isLogged={true} />
@@ -218,7 +218,7 @@ export default function ChooseServices({ navigation }) {
           </Text>
         </Button>
       </View>
-    </>
+      </SafeAreaView>
   );
 }
 

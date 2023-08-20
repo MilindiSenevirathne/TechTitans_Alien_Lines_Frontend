@@ -1,5 +1,5 @@
 import { useState, useEffect} from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, Modal, Alert } from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity, Modal, Alert, SafeAreaView} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
 import { CommonButton } from '../components/common/CommonButton';
@@ -217,7 +217,7 @@ const BookingPage = () => {
 
     
     return (
-        <View>
+        <SafeAreaView style={{flex: 1}}>
             {isLoading ? (
                 <Loading/>
             ) : (
@@ -424,7 +424,7 @@ const BookingPage = () => {
 
                 </ScrollView >
             )}
-        </View>
+        </SafeAreaView>
     );
 };
 

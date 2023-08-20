@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import NavBar from "../components/navbar/NavBar";
-import { Text, StyleSheet, View, Image, FlatList, SafeAreaView } from "react-native";
-import { PaperProvider, ThemeProvider, DefaultTheme } from "react-native-paper";
+import {Text, StyleSheet, View, Image, FlatList, SafeAreaView} from "react-native";
+import {PaperProvider, ThemeProvider, DefaultTheme} from "react-native-paper";
 import customTheme from "../components/styles/theme";
-import { CommonButton } from '../components/common/CommonButton';
+import {CommonButton} from '../components/common/CommonButton';
 import CalenderField from '../components/input/CalendarField';
-import { TextInput, useTheme } from 'react-native-paper';
-import { DatePickerInput } from 'react-native-paper-dates';
+import {TextInput, useTheme} from 'react-native-paper';
+import {DatePickerInput} from 'react-native-paper-dates';
 
-export default function ProfileEdit({ navigation, route }) {
+export default function ProfileEdit({navigation, route}) {
     const [userName, setUserName] = useState(route.params.userName);
     const [email, setEmail] = useState(route.params.email);
     const [phone, setPhone] = useState(route.params.phone);
@@ -19,7 +19,7 @@ export default function ProfileEdit({ navigation, route }) {
     const renderProfileImage = () => {
         return (
             <View style={styles.container}>
-                <Image source={require('../images/profileCover.png')} style={styles.content} />
+                <Image source={require('../images/profileCover.png')} style={styles.content}/>
                 <Image
                     source={require('../images/profile.png')}
                     style={styles.profileImage}
@@ -93,14 +93,14 @@ export default function ProfileEdit({ navigation, route }) {
                     marginTop: 20,
                     width: '90%',
                     alignSelf: 'center'
-                }} >
+                }}>
                     <DatePickerInput
                         locale="en"
                         label={"Date of Birth"}
                         value={dob}
                         onChangeText={(dob) => setDob(dob)}
                         inputMode="start"
-                        style={{ width: 200 }}
+                        style={{width: 200}}
                         mode="flat"
                         underlineColor='#ffffff'
                     />
@@ -122,14 +122,14 @@ export default function ProfileEdit({ navigation, route }) {
                         }}
                     />
                 </View>
-                <View style={{ marginTop: 30 }}>
-                    <CommonButton lable={'Save'} commonBtnPress={() => navigation.navigate('MyProfile')} />
+                <View style={{marginTop: 30}}>
+                    <CommonButton lable={'Save'} commonBtnPress={() => navigation.navigate('MyProfile')}/>
                 </View>
             </View>
         )
     }
 
-    const EditInput = ({ label, value, setValue }) => {
+    const EditInput = ({label, value, setValue}) => {
         return (
             <View style={styles.textfield}>
                 <TextInput
@@ -154,13 +154,14 @@ export default function ProfileEdit({ navigation, route }) {
     return (
         <PaperProvider theme={customTheme}>
             <ThemeProvider theme={customTheme}>
-                {renderProfileImage()}
-                {renderProfileDetails()}
+                <SafeAreaView style={{flex: 1}}>
+                    {renderProfileImage()}
+                    {renderProfileDetails()}
+                </SafeAreaView>
             </ThemeProvider>
         </PaperProvider>
     )
 }
-
 
 
 const styles = StyleSheet.create({

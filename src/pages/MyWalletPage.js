@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 import TextField from '../components/input/TextField';
 import * as React from 'react';
 import { PaperProvider, Searchbar } from 'react-native-paper';
@@ -24,18 +24,19 @@ export default function MyWalletPage({ navigation }) {
   const modalShow = React.useRef(null)
 
   return (
+      <SafeAreaView style={{flex: 1}}>
     <View style={styles.container}>
     <ScrollView>
       <NavBar isLogged={true}/>
-                      
+
       <Card style={styles.card}>
       <View style={styles.textContainer}>
         <Text style={{fontSize:50, fontWeight:'700'}}>$ 371,000</Text>
         <Text style={{fontSize:20, fontWeight:'500', marginTop:15}}>Wallet Balance</Text>
         </View>
         </Card>
-       
-       
+
+
         <View style={styles.topupContainer}>
         <Text style={{fontSize:25, fontWeight:'500',color:'#828282'}}>Top up your wallet</Text>
         </View>
@@ -50,12 +51,13 @@ export default function MyWalletPage({ navigation }) {
           <TextField label="CVV" placeholder="CVV" />
         </View>
         </View>
-    
+
         <CommonButton lable={'Topup Wallet'} commonBtnPress={()=>navigation.navigate('MyBookings')}/>
-         
-           
+
+
           </ScrollView>
         </View>
+      </SafeAreaView>
   );
 }
 
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
       height: 4,
     },
     backgroundColor: '#fff',
-    borderRadius: 0, 
+    borderRadius: 0,
   },
   miniContainer: {
     flex: 1,
@@ -108,6 +110,6 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     marginTop: 28,
     marginBottom: 5,
-    
+
   },
 });

@@ -2,11 +2,11 @@ import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { useState } from "react";
 import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
+    Image, SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 import { en, registerTranslation } from "react-native-paper-dates";
@@ -29,7 +29,7 @@ export default function ExtraBaggage({ navigation }) {
   const totalAmount = count > 0 ? (count * 89.1).toFixed(2) + " $" : "free";
 
   return (
-    <>
+      <SafeAreaView style={{flex: 1}}>
       <View style={{ height: "85%", backgroundColor: "white" }}>
         <View
           style={{
@@ -204,7 +204,7 @@ export default function ExtraBaggage({ navigation }) {
           </Text>
         </Button>
       </View>
-    </>
+      </SafeAreaView>
   );
 }
 

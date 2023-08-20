@@ -24,16 +24,12 @@ export default function DestinationDetails({ navigation }) {
     const [selected, setSelected] = useState(0)
 
     const renderTitle = () => {
-        return (
-            <View>
-                <NavBar isLogged={true} />
-            </View>
-        )
+        return (<NavBar isLogged={true} />)
     }
 
     const renderBookingDetails = () => {
         return (
-            <SafeAreaView style={{flex:1, alignSelf:'center', width:'100%'}}>
+            <View style={{alignSelf:'center', width:'100%'}}>
                 <View
                     style={{width: "100%"}}
                 >
@@ -50,7 +46,7 @@ export default function DestinationDetails({ navigation }) {
                             <View style={{marginTop: 10, display: "flex", flexDirection: "row", alignItems: "center"}}>
                                 {data?.destinationFeatures.map((item, index) => {
                                     return (
-                                        <TouchableOpacity onPress={() => setSelected(index)}>
+                                        <TouchableOpacity onPress={() => setSelected(index)} key={"chip-" +index}>
                                             <View style={selected === index ? styles.chipButtonSelected : styles.chipButton}><Text style={selected === index ? styles.chipButtonSelectedText : styles.chipButtonText}>{item.feature_name}</Text></View>
                                         </TouchableOpacity>
                                     )
@@ -63,15 +59,17 @@ export default function DestinationDetails({ navigation }) {
                         </View>
                     </ScrollView>
                 </View>
-            </SafeAreaView>
+            </View>
         )
     }
 
     return (
         <PaperProvider theme={customTheme}>
             <ThemeProvider theme={customTheme}>
-                {renderTitle()}
-                {renderBookingDetails()}
+                <SafeAreaView style={{flex: 1}}>
+                    {renderTitle()}
+                    {renderBookingDetails()}
+                </SafeAreaView>
             </ThemeProvider>
         </PaperProvider>
     )
