@@ -3,6 +3,8 @@ import NavBar from "../components/navbar/NavBar";
 import { Text, TouchableOpacity, View, Image, FlatList, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { PaperProvider, ThemeProvider, DefaultTheme } from "react-native-paper";
 import customTheme from "../components/styles/theme";
+import {useEffect} from "react";
+import Loading from "../components/common/Loading";
 
 const data = {
     id: 1,
@@ -21,7 +23,42 @@ const data = {
 
 export default function DestinationDetails({ navigation }) {
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState({
+        id: null,
+        name: '',
+        planet: '',
+        destinationImages: [],
+        destinationFeatures: []
+    });
     const [selected, setSelected] = useState(0)
+
+    useEffect(() => {
+        getDestinationData();
+    }, [])
+
+
+    async function getDestinationData() {
+        setIsLoading(true); // Start loading
+
+        const baseURL = 'http://alienlines.eastus.cloudapp.azure.com:3000/api/destination/1';
+
+        try {
+            const response = await fetch(baseURL);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log(data)
+            setData(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        } finally {
+            setIsLoading(false); // Stop loading
+        }
+    }
 
     const renderTitle = () => {
         return (
@@ -37,7 +74,7 @@ export default function DestinationDetails({ navigation }) {
 
                     
                         <View style={{ height: '50%', shadowColor: '#162438', shadowOffset: { width: 0, height: 15 }, shadowOpacity: 0.9, shadowRadius: 20 }}>
-                            <Image source={data?.destinationImages[0]?.imageUrl} style={{ borderBottomLeftRadius: 40, borderBottomRightRadius: 40, height: '100%', width: '100%' }} />
+                            <Image source={require('../images/place2.png')} style={{ borderBottomLeftRadius: 40, borderBottomRightRadius: 40, height: '100%', width: '100%' }} />
                         </View>
                     
 
@@ -48,14 +85,14 @@ export default function DestinationDetails({ navigation }) {
                                 {data?.destinationFeatures.map((item, index) => {
                                     return (
                                         <TouchableOpacity onPress={() => setSelected(index)}>
-                                            <View style={selected === index ? styles.chipButtonSelected : styles.chipButton}><Text style={selected === index ? styles.chipButtonSelectedText : styles.chipButtonText}>{item.feature_name}</Text></View>
+                                            <View style={selected === index ? styles.chipButtonSelected : styles.chipButton}><Text style={selected === index ? styles.chipButtonSelectedText : styles.chipButtonText}>{item.featureName}</Text></View>
                                         </TouchableOpacity>
                                     )
                                 })}
                             </View>
 
                             <View style={{ marginTop: 20 }}>
-                                <Text style={{ fontSize: 17, lineHeight: 25 }}>{data?.destinationFeatures[selected]?.feature_description}</Text>
+                                <Text style={{ fontSize: 17, lineHeight: 25 }}>{data?.destinationFeatures[selected]?.featureDescription}</Text>
                             </View>
                         </View>
                     </ScrollView>
@@ -68,7 +105,11 @@ export default function DestinationDetails({ navigation }) {
         <PaperProvider theme={customTheme}>
             <ThemeProvider theme={customTheme}>
                 {renderTitle()}
-                {renderBookingDetails()}
+                {isLoading ? (
+                    <Loading />
+                ) : (
+                    renderBookingDetails()
+                )}
             </ThemeProvider>
         </PaperProvider>
     )
