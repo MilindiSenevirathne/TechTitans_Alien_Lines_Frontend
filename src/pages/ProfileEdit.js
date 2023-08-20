@@ -7,15 +7,55 @@ import {CommonButton} from '../components/common/CommonButton';
 import CalenderField from '../components/input/CalendarField';
 import {TextInput, useTheme} from 'react-native-paper';
 import {DatePickerInput} from 'react-native-paper-dates';
+import moment from "moment";
+import Loading from "../components/common/Loading";
 
 export default function ProfileEdit({navigation, route}) {
-    const [userName, setUserName] = useState(route.params.userName);
-    const [email, setEmail] = useState(route.params.email);
-    const [phone, setPhone] = useState(route.params.phone);
-    const [dob, setDob] = useState("");
-    const [address, setAddress] = useState(route.params.address);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [name, setName] = useState(route.params?.name);
+    const [surename, setSurename] = useState(route.params?.surename);
+    const [email, setEmail] = useState(route.params?.email);
+    const [phone, setPhone] = useState(route.params?.phone_no);
+    const [DOB, setDOB] = useState(route.params?.dob);
+    const [address, setAddress] = useState(route.params?.address);
     const theme = useTheme();
 
+    const onUpdateData=async () => {
+        setIsLoading(true); // Start loading
+
+        const baseURL = 'http://alienlines.eastus.cloudapp.azure.com:3000/api/user/4';
+
+        const data = {
+            name: name,
+            surename: surename,
+            email: email,
+            phone_no:phone,
+            dob: moment(DOB).format("YYYY-MM-DD"),
+            address: address,
+            img_url: route.params?.img_url
+        }
+
+        console.log(data)
+        try {
+
+            const requestOptions = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify( data )
+            }
+
+            await fetch(baseURL, requestOptions)
+            navigation.navigate('MyProfile')
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        } finally {
+            setIsLoading(false); // Stop loading
+        }
+    }
 
     const renderProfileImage = () => {
         return (
@@ -28,8 +68,8 @@ export default function ProfileEdit({navigation, route}) {
                     />
                 </View>
                 <View>
-                    <Text style={styles.title}>Tanya Edwards</Text>
-                    <Text style={styles.subtitle}>St Fransico, CA</Text>
+                    <Text style={styles.title}>{name} {surename}</Text>
+                    <Text style={styles.subtitle}>{route.params?.address}</Text>
                 </View>
             </View>
         )
@@ -40,9 +80,26 @@ export default function ProfileEdit({navigation, route}) {
             <View>
                 <View style={styles.textfield}>
                     <TextInput
-                        label='UserName'
-                        value={userName}
-                        onChangeText={setUserName}
+                        label='name'
+                        value={name}
+                        onChangeText={setName}
+                        selectionColor={theme.colors.fieldColor}
+                        underlineColor='#ffffff'
+                        activeUnderlineColor={theme.colors.primary}
+                        style={{
+                            backgroundColor: '#ffffff',
+                            borderWidth: 2,
+                            borderColor: theme.colors.fieldColor,
+                            borderRadius: 5,
+                            paddingHorizontal: 10,
+                        }}
+                    />
+                </View>
+                <View style={styles.textfield}>
+                    <TextInput
+                        label='surename'
+                        value={surename}
+                        onChangeText={setSurename}
                         selectionColor={theme.colors.fieldColor}
                         underlineColor='#ffffff'
                         activeUnderlineColor={theme.colors.primary}
@@ -100,8 +157,11 @@ export default function ProfileEdit({navigation, route}) {
                     <DatePickerInput
                         locale="en"
                         label={"Date of Birth"}
-                        value={dob}
-                        onChangeText={(dob) => setDob(dob)}
+                        value={new Date(DOB)}
+                        onChangeText={(dob) => {
+                            console.log(dob)
+                            setDOB(dob)}
+                        }
                         inputMode="start"
                         style={{width: 200}}
                         mode="flat"
@@ -126,7 +186,7 @@ export default function ProfileEdit({navigation, route}) {
                     />
                 </View>
                 <View style={{marginTop: 30}}>
-                    <CommonButton lable={'Save'} commonBtnPress={() => navigation.navigate('MyProfile')}/>
+                    <CommonButton lable={'Save'} commonBtnPress={onUpdateData}/>
                 </View>
             </View>
         )
@@ -159,10 +219,14 @@ export default function ProfileEdit({navigation, route}) {
             <ThemeProvider theme={customTheme}>
                 <SafeAreaView style={{flex: 1}}>
                     <NavBar isLogged={true} />
-                    <ScrollView>
-                        {renderProfileImage()}
-                        {renderProfileDetails()}
-                    </ScrollView>
+                    {isLoading ? (
+                        <Loading />
+                    ) : (
+                        <ScrollView>
+                            {renderProfileImage()}
+                            {renderProfileDetails()}
+                        </ScrollView>
+                    )}
                 </SafeAreaView>
             </ThemeProvider>
         </PaperProvider>

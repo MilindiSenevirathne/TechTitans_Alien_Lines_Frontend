@@ -1,19 +1,53 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import NavBar from "../components/navbar/NavBar";
 import {Text, StyleSheet, TouchableOpacity, View, Image, FlatList, SafeAreaView, ScrollView} from "react-native";
 import {PaperProvider, ThemeProvider, DefaultTheme} from "react-native-paper";
 import customTheme from "../components/styles/theme";
 import {CommonButton} from '../components/common/CommonButton';
+import Loading from "../components/common/Loading";
+import moment from "moment";
 
-export default function MyProfile({navigation}) {
-    const [userName, setUserName] = useState("Tanya Edward");
-    const [email, setEmail] = useState("abc@gmail.com");
-    const [phone, setPhone] = useState("09595");
-    const [dob, setDob] = useState("");
-    const [address, setAddress] = useState("St claire");
+export default function MyProfile({navigation, route}) {
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [userDetails, setUserDetails] = useState({
+        id: null,
+        img_url: "",
+        name: "",
+        surename: "",
+        dob: "",
+        email: "",
+        phone_no: "",
+        address: ""
+    })
+
+    useEffect(() => {
+        getProfileData();
+    }, [])
+
+    async function getProfileData() {
+        setIsLoading(true); // Start loading
+
+        const baseURL = 'http://alienlines.eastus.cloudapp.azure.com:3000/api/user/4';
+
+        try {
+            const response = await fetch(baseURL);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setUserDetails(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        } finally {
+            setIsLoading(false); // Stop loading
+        }
+    }
 
     const handleEditImageClick = () => {
-        navigation.navigate('ProfileEdit', {userName, email, phone, dob, address}); // Navigate to 'MyProfile' screen
+        navigation.navigate('ProfileEdit', userDetails); // Navigate to 'MyProfile' screen
     };
 
     const renderProfileImage = () => {
@@ -32,8 +66,8 @@ export default function MyProfile({navigation}) {
                     />
                 </View>
                 <View>
-                    <Text style={styles.title}>Tanya Edwards</Text>
-                    <Text style={styles.subtitle}>St Fransico, CA</Text>
+                    <Text style={styles.title}>{userDetails?.name} {userDetails?.surename}</Text>
+                    <Text style={styles.subtitle}>{userDetails?.address}</Text>
                 </View>
             </View>
         )
@@ -42,11 +76,11 @@ export default function MyProfile({navigation}) {
     const renderProfileDetails = () => {
         return (
             <View style={styles.container}>
-                <TableRow data1="UserName" data2="Tanya Edwards"/>
-                <TableRow data1="Email" data2="Tanya@gmail.com"/>
-                <TableRow data1="Phone" data2="0715588964"/>
-                <TableRow data1="Date of Birth" data2="March 25, 2130"/>
-                <TableRow data1="Address" data2="6391 Elgin St Celina"/>
+                <TableRow data1="UserName" data2={`${userDetails?.name} ${userDetails?.surename}`}/>
+                <TableRow data1="Email" data2={userDetails?.email}/>
+                <TableRow data1="Phone" data2={userDetails?.phone_no}/>
+                <TableRow data1="Date of Birth" data2={moment(userDetails?.dob).format("YYYY-MM-DD")}/>
+                <TableRow data1="Address" data2={userDetails?.address}/>
                 <View style={{marginTop: 30}}>
                     <CommonButton lable={'Sign Out'} commonBtnPress={() => navigation.navigate('Home')}/>
                 </View>
@@ -59,10 +93,14 @@ export default function MyProfile({navigation}) {
             <ThemeProvider theme={customTheme}>
                 <SafeAreaView style={{flex: 1}}>
                     <NavBar isLogged={true} />
-                    <ScrollView>
-                        {renderProfileImage()}
-                        {renderProfileDetails()}
-                    </ScrollView>
+                    {isLoading ? (
+                        <Loading />
+                    ) : (
+                        <ScrollView>
+                            {renderProfileImage()}
+                            {renderProfileDetails()}
+                        </ScrollView>
+                    )}
                 </SafeAreaView>
             </ThemeProvider>
         </PaperProvider>
