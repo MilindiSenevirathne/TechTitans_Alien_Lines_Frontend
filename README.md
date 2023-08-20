@@ -4,6 +4,9 @@
 
 Welcome to the Aline Lines! This is a mobile application developed using React Native and Expo, allowing for easy development and deployment across iOS and Android platforms.
 
+This is the **Frontend** development repository. You can access the **Backend Repository** using folliwing link.
+[TechTitans_Alien_Lines_Backend](https://drive.google.com/drive/folders/1kjWYtYoXkBbiwQZWLK0q1d56X1Sgup5S?usp=drive_link)
+
 ## Getting Started
 
 Follow these steps to set up and run the project locally on your development machine.
@@ -30,6 +33,8 @@ Follow these steps to set up and run the project locally on your development mac
 ``` npm install ```
 
 ### Running the App
+
+Before running the application make sure to switch to the **dev** branch.
 
 1. Start the development server:
 
