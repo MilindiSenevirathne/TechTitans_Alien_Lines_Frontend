@@ -56,7 +56,9 @@ export default function MyBookings({ navigation }) {
 
     const renderTitle = () => {
         return (
-            <View>
+            <View style={{
+                height: 100,
+            }} >
                 <NavBar isLogged={true} />
                 <View style={{ padding: 15 }}>
                     <Text style={{ color: '#4C0259', fontSize: 18, fontWeight: '700' }}>My Bookings</Text>
@@ -156,12 +158,6 @@ export default function MyBookings({ navigation }) {
         <View style={{
             height: '100%',
         }} >
-            <View style={{
-                height: 100,
-            }} >
-                <NavBar isLogged={true} />
-            </View>
-
             {isLoading ? (
                 <Loading />
             ) : (
