@@ -36,7 +36,7 @@ export default function DestinationDetails({ navigation }) {
             <SafeAreaView style={{ flex: 1, alignSelf: 'center', width: '100%' }}>
 
                     
-                        <View style={{ height: '30%', shadowColor: '#162438', shadowOffset: { width: 0, height: 15 }, shadowOpacity: 0.9, shadowRadius: 20 }}>
+                        <View style={{ height: '50%', shadowColor: '#162438', shadowOffset: { width: 0, height: 15 }, shadowOpacity: 0.9, shadowRadius: 20 }}>
                             <Image source={data?.destinationImages[0]?.imageUrl} style={{ borderBottomLeftRadius: 40, borderBottomRightRadius: 40, height: '100%', width: '100%' }} />
                         </View>
                     
