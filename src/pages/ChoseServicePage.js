@@ -1,111 +1,154 @@
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import { Image, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 import { en, registerTranslation } from "react-native-paper-dates";
+import NavBar from "../components/navbar/NavBar";
 registerTranslation("en", en);
 
-
-export default function ChooseServices() {
+export default function ChooseServices({ navigation }) {
   return (
     <>
-      <View>
+      <View style={{ height: "85%" }}>
         <ScrollView>
+          <NavBar isLogged={true} />
           <View style={styles.container}>
             <StatusBar hidden />
 
             <Text style={styles.mainTitle}>Choose Services</Text>
-            <Card style={styles.card}>
-              <View style={styles.viewContainer}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("./src/images/briefcase.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ExtraBaggage")}
+              activeOpacity={1}
+            >
+              <Card style={styles.card}>
+                <View style={styles.viewContainer}>
+                  <View style={{ padding: 20 }}>
+                    <Image
+                      source={require("../images/briefcase.png")}
+                      style={{ height: 30, width: 30 }}
+                    />
+                  </View>
+                  <View style={styles.settingContainer}>
+                    <Text style={styles.title}>Extra baggage</Text>
+                    <Text style={styles.subtitle}>
+                      Book MyBaggage Online with 30% Discount
+                    </Text>
+                  </View>
+                  <View style={{ padding: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("ExtraBaggage")}
+                    >
+                      <Image
+                        source={require("../images/next.png")}
+                        style={{ height: 30, width: 30 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View style={styles.settingContainer}>
-                  <Text style={styles.title}>Extra baggage</Text>
-                  <Text style={styles.subtitle}>
-                    Book MyBaggage Online with 30% Discount
-                  </Text>
-                </View>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("./src/images/next.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
-                </View>
-              </View>
-            </Card>
+              </Card>
+            </TouchableOpacity>
 
-            <Card style={styles.card}>
-              <View style={styles.viewContainer}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("./src/images/seat.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Seatbooking")}
+              activeOpacity={1}
+            >
+              <Card style={styles.card}>
+                <View style={styles.viewContainer}>
+                  <View style={{ padding: 20 }}>
+                    <Image
+                      source={require("../images/seat.png")}
+                      style={{ height: 30, width: 30 }}
+                    />
+                  </View>
+                  <View style={styles.settingContainer}>
+                    <Text style={styles.title}>Seats</Text>
+                    <Text style={styles.subtitle}>
+                      Choose your favourite place now
+                    </Text>
+                  </View>
+                  <View style={{ padding: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("Seatbooking")}
+                    >
+                      <Image
+                        source={require("../images/next.png")}
+                        style={{ height: 30, width: 30 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View style={styles.settingContainer}>
-                  <Text style={styles.title}>Seats</Text>
-                  <Text style={styles.subtitle}>
-                    Choose your favourite place now
-                  </Text>
-                </View>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("./src/images/next.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
-                </View>
-              </View>
-            </Card>
+              </Card>
+            </TouchableOpacity>
 
-            <Card style={styles.card}>
-              <View style={styles.viewContainer}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("./src/images/cup-of-drink.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SpecialMeals")}
+              activeOpacity={1}
+            >
+              <Card style={styles.card}>
+                <View style={styles.viewContainer}>
+                  <View style={{ padding: 20 }}>
+                    <Image
+                      source={require("../images/cup-of-drink.png")}
+                      style={{ height: 30, width: 30 }}
+                    />
+                  </View>
+                  <View style={styles.settingContainer}>
+                    <Text style={styles.title}>Special meals</Text>
+                    <Text style={styles.subtitle}>
+                      Choose a meal based on your needs
+                    </Text>
+                  </View>
+                  <View style={{ padding: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("SpecialMeals")}
+                    >
+                      <Image
+                        source={require("../images/next.png")}
+                        style={{ height: 30, width: 30 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View style={styles.settingContainer}>
-                  <Text style={styles.title}>Special meals</Text>
-                  <Text style={styles.subtitle}>
-                    Choose a meal based on your needs
-                  </Text>
-                </View>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("./src/images/next.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
-                </View>
-              </View>
-            </Card>
+              </Card>
+            </TouchableOpacity>
 
-            <Card style={styles.card}>
-              <View style={styles.viewContainer}>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("./src/images/disabled.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Assistance")}
+              activeOpacity={1}
+            >
+              <Card style={styles.card}>
+                <View style={styles.viewContainer}>
+                  <View style={{ padding: 20 }}>
+                    <Image
+                      source={require("../images/disabled.png")}
+                      style={{ height: 30, width: 30 }}
+                    />
+                  </View>
+                  <View style={styles.settingContainer}>
+                    <Text style={styles.title}>Assistance</Text>
+                    <Text style={styles.subtitle}>
+                      Need help during the journey?
+                    </Text>
+                  </View>
+                  <View style={{ padding: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("Assistance")}
+                    >
+                      <Image
+                        source={require("../images/next.png")}
+                        style={{ height: 30, width: 30 }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View style={styles.settingContainer}>
-                  <Text style={styles.title}>Assistance</Text>
-                  <Text style={styles.subtitle}>
-                    Need help during the journey?
-                  </Text>
-                </View>
-                <View style={{ padding: 20 }}>
-                  <Image
-                    source={require("./src/images/next.png")}
-                    style={{ height: 30, width: 30 }}
-                  />
-                </View>
-              </View>
-            </Card>
+              </Card>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -133,8 +176,8 @@ export default function ChooseServices() {
           }}
         >
           <Image
-            source={require("./src/images/upload.png")}
-            style={{ height: 20, width: 20, marginRight: 5 }}
+            source={require("../images/upload.png")}
+            style={{ height: 15, width: 15, marginRight: 5 }}
           />
           <View style={{ marginLeft: 5 }}>
             <Text
@@ -182,7 +225,7 @@ export default function ChooseServices() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     width: 360,
@@ -197,6 +240,7 @@ const styles = StyleSheet.create({
   card: {
     width: 320,
     marginBottom: 20,
+    backgroundColor: "white",
   },
   viewContainer: {
     flexDirection: "row",
