@@ -1,20 +1,21 @@
-import { StatusBar } from "expo-status-bar";
+import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { useState } from "react";
 import {
   Image,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
-import { Button, Card, Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { en, registerTranslation } from "react-native-paper-dates";
-import NavBar from "../components/navbar/NavBar";
 registerTranslation("en", en);
 
 export default function ExtraBaggage({ navigation }) {
   const [count, setCount] = useState(0);
+
+  const route = useRoute();
+  const { rate, selectedSpaceship } = route.params;
 
   const increment = () => {
     setCount(count + 1);

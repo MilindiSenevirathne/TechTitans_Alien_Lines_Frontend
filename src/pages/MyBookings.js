@@ -1,55 +1,64 @@
-import React, { useState } from "react";
+import { useState, useEffect } from 'react';
 import NavBar from "../components/navbar/NavBar";
-import { Text, TouchableOpacity, View, Image, FlatList, SafeAreaView } from "react-native";
+import { Text, TouchableOpacity, View, Image, FlatList, SafeAreaView, ActivityIndicator } from "react-native";
 import { PaperProvider, ThemeProvider, DefaultTheme } from "react-native-paper";
 import customTheme from "../components/styles/theme";
-
-const data = [
-    {
-        id: 1,
-        from: 'Los Angeles',
-        to: 'Ares Prime',
-        flight: '2346J',
-        passenger: '1 Adult',
-        price: '$645,000',
-        depature: '13 Aug 2160',
-        return: '28 Aug 2160',
-        image: require('../images/place1.png')
-    },
-    {
-        id: 2,
-        from: 'Los Angeles',
-        to: 'Jovian Skypoint',
-        flight: '8325B',
-        passenger: '2 Adults',
-        price: '$2,102,000',
-        depature: '05 Oct 2160',
-        return: '22 Oct 2160',
-        image: require('../images/place2.png')
-    }
-]
-
-const data2 = [
-    {
-        id: 1,
-        from: 'Los Angeles',
-        to: 'Ares Prime',
-        flight: '2346J',
-        passenger: '1 Adult',
-        price: '$645,000',
-        depature: '13 Aug 2160',
-        return: '28 Aug 2160',
-        image: require('../images/place3.jpg')
-    }
-]
+import Loading from '../components/common/Loading';
 
 export default function MyBookings({ navigation }) {
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState(data);
+
     const [isPending, setPending] = useState(true)
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+
+    const today = new Date();
+
+    const tripsPending = [];
+    const tripsUpcoming = [];
+
+    useEffect(() => {
+        getSpaceShuttleData();
+    }, []);
+
+    async function getSpaceShuttleData() {
+        setIsLoading(true);
+        const url = 'http://alienlines.eastus.cloudapp.azure.com:3000/api/booking';
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setData(data);
+            console.log('data', data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        } finally {
+            setIsLoading(false); // Stop loading
+        }
+    }
+
+
+    data?.forEach(trip => {
+        const depatureDate = new Date(trip.dep_date)
+
+        if (depatureDate < today) {
+            tripsUpcoming.push(trip)
+        } else {
+            tripsPending.push(trip)
+        }
+    })
 
     const renderTitle = () => {
         return (
-            <View>
+            <View style={{
+                height: 100,
+            }} >
                 <NavBar isLogged={true} />
                 <View style={{ padding: 15 }}>
                     <Text style={{ color: '#4C0259', fontSize: 18, fontWeight: '700' }}>My Bookings</Text>
@@ -85,40 +94,40 @@ export default function MyBookings({ navigation }) {
 
     const renderItem = ({ item, index }) => {
         return (
-            <View style={{ borderRadius: 10, borderColor: '#D3D1D1', borderWidth:1, marginTop:10 }}>
-                <View style={{flexDirection:'row-reverse', marginTop:8, marginRight:8}}>
-                    <View style={{flexDirection:'row', backgroundColor:isPending ? '#00C9BF': '#32BA7C', borderRadius:10, borderWidth:1, borderColor:'#00C9BF', width: isPending ? 60 : 70, justifyContent:'center', padding:2}}>
-                        <Image source={require('../images/badge.png')} style={{height:7, width:7, marginTop:2}}/>
-                        <Text style={{color:'#fff', fontSize:7, marginLeft:2}}>{isPending ? 'Pending' : 'Completed'}</Text>
+            <View style={{ borderRadius: 10, borderColor: '#D3D1D1', borderWidth: 1, marginTop: 10 }}>
+                <View style={{ flexDirection: 'row-reverse', marginTop: 8, marginRight: 8 }}>
+                    <View style={{ flexDirection: 'row', backgroundColor: isPending ? '#00C9BF' : '#32BA7C', borderRadius: 10, borderWidth: 1, borderColor: '#00C9BF', width: isPending ? 60 : 70, justifyContent: 'center', padding: 2 }}>
+                        <Image source={require('../images/badge.png')} style={{ height: 7, width: 7, marginTop: 2 }} />
+                        <Text style={{ color: '#fff', fontSize: 7, marginLeft: 2 }}>{isPending ? 'Pending' : 'Completed'}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', }}>
-                    <View style={{paddingLeft:10, paddingBottom:10, paddingRight:10, width:'30%'}}>
-                    <Image source={item.image} style={{ borderRadius: 10, height: 88, width: 88 }} />
+                    <View style={{ paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: '30%' }}>
+                        {/* <Image source={item.image ? item.image : require('../images/noimage.png')} style={{ borderRadius: 10, height: 88, width: 88 }} /> */}
                     </View>
-                    <View style={{width:'70%', marginLeft:15,padding:7}}>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={{fontSize:12, fontWeight:'700'}}>{item.from}</Text>
-                            <Text style={{fontSize:12, fontWeight:'700', marginLeft:2}}>{'->'}</Text>
-                            <Text style={{fontSize:12, fontWeight:'700', marginLeft:2}}>{item.to}</Text>
+                    <View style={{ width: '70%', marginLeft: 15, padding: 7 }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ fontSize: 12, fontWeight: '700' }}>{item._from}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '700', marginLeft: 2 }}>{'->'}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '700', marginLeft: 2 }}>{item._to}</Text>
                         </View>
                         <View>
-                            <Text style={{fontSize:12, fontWeight:'700',color:'#4C0259'}}>{item.flight}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '700', color: '#4C0259' }}>{item.shuttle_name}</Text>
                         </View>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={{fontSize:10, fontWeight:'500'}}>{item.passenger}</Text>
-                            <Image source={require('../images/dot.png')} style={{height:4, width:4, marginLeft:10, marginTop:5}}/>
-                            <Text style={{fontSize:10, fontWeight:'500', marginLeft:7}}>{item.price}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ fontSize: 10, fontWeight: '500' }}>{item.passengers.length + ' Adults'}</Text>
+                            <Image source={require('../images/dot.png')} style={{ height: 4, width: 4, marginLeft: 10, marginTop: 5 }} />
+                            <Text style={{ fontSize: 10, fontWeight: '500', marginLeft: 7 }}>{'$' + item.total_price}</Text>
                         </View>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={{fontSize:10, fontWeight:'500'}}>Depature</Text>
-                            <Text style={{fontSize:10, fontWeight:'500', marginLeft:3}}>:</Text>
-                            <Text style={{fontSize:10, fontWeight:'500', marginLeft:3}}>{item.depature}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ fontSize: 10, fontWeight: '500' }}>Depature</Text>
+                            <Text style={{ fontSize: 10, fontWeight: '500', marginLeft: 3 }}>:</Text>
+                            <Text style={{ fontSize: 10, fontWeight: '500', marginLeft: 3 }}>{new Date(item.dep_date).toLocaleDateString('en-US', options)}</Text>
                         </View>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={{fontSize:10, fontWeight:'500'}}>Return    </Text>
-                            <Text style={{fontSize:10, fontWeight:'500', marginLeft:3}}>:</Text>
-                            <Text style={{fontSize:10, fontWeight:'500', marginLeft:3}}>{item.return}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ fontSize: 10, fontWeight: '500' }}>Return    </Text>
+                            <Text style={{ fontSize: 10, fontWeight: '500', marginLeft: 3 }}>:</Text>
+                            <Text style={{ fontSize: 10, fontWeight: '500', marginLeft: 3 }}>{new Date(item.return_date).toLocaleDateString('en-US', options)}</Text>
                         </View>
                     </View>
                 </View>
@@ -128,23 +137,38 @@ export default function MyBookings({ navigation }) {
 
     const renderBookingDetails = () => {
         return (
-            <SafeAreaView style={{flex:1, alignSelf:'center', width:'90%'}}>
-                <FlatList
-                data={isPending ? data : data2}
-                renderItem={renderItem}
-                keyExtractor={(item, index) => index}
-            />
+            <SafeAreaView style={{ flex: 1, alignSelf: 'center', width: '90%' }}>
+                {(isPending && tripsPending.length == 0) || (!isPending && tripsUpcoming.length == 0) ? (
+                    <View style={{ justifyContent: 'center', marginTop: '30%' }}>
+                        {/* <Image source={require('../images/noData.png')} style={{ height: 250, width: 250, alignSelf: 'center' }} /> */}
+                        <Text style={{ fontSize: 18, fontWeight: '700', marginTop: 10, alignSelf: 'center' }}>No Data to Display</Text>
+                    </View>
+                ) : (
+                    <FlatList
+                        data={isPending ? tripsPending : tripsUpcoming}
+                        renderItem={renderItem}
+                        keyExtractor={(item, index) => index}
+                    />
+                )}
             </SafeAreaView>
         )
     }
 
     return (
-        <PaperProvider theme={customTheme}>
-            <ThemeProvider theme={customTheme}>
-                {renderTitle()}
-                {renderOptions()}
-                {renderBookingDetails()}
-            </ThemeProvider>
-        </PaperProvider>
+        <View style={{
+            height: '100%',
+        }} >
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <PaperProvider theme={customTheme}>
+                    <ThemeProvider theme={customTheme}>
+                        {renderTitle()}
+                        {renderOptions()}
+                        {renderBookingDetails()}
+                    </ThemeProvider>
+                </PaperProvider>
+            )}
+        </View>
     )
 }

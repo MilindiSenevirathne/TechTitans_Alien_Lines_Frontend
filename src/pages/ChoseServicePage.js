@@ -1,4 +1,6 @@
 import { StatusBar } from "expo-status-bar";
+import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import {
   Image,
@@ -13,6 +15,41 @@ import NavBar from "../components/navbar/NavBar";
 registerTranslation("en", en);
 
 export default function ChooseServices({ navigation }) {
+  const route = useRoute();
+  const { rate, selectedSpaceship } = route.params;
+
+  const nav = useNavigation();
+
+  const handleExtraBaggage = () => {
+    nav.navigate("ExtraBaggage", {
+      selectedSpaceship: selectedSpaceship,
+    });
+  };
+
+  const handleSeatBooking = () => {
+    nav.navigate("Seatbooking", {
+      selectedSpaceship: selectedSpaceship,
+    });
+  };
+
+  const handleSpecialMeal = () => {
+    nav.navigate("SpecialMeals", {
+      selectedSpaceship: selectedSpaceship,
+    });
+  };
+
+  const handleAssistance = () => {
+    nav.navigate("Assistance", {
+      selectedSpaceship: selectedSpaceship,
+    });
+  };
+
+  const handleManageToSummary = () => {
+    nav.navigate("SummaryPage", {
+      rate: rate,
+      selectedSpaceship: selectedSpaceship,
+    });
+  };
   return (
     <>
       <View style={{ height: "85%" }}>
@@ -22,10 +59,7 @@ export default function ChooseServices({ navigation }) {
             <StatusBar hidden />
 
             <Text style={styles.mainTitle}>Choose Services</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("ExtraBaggage")}
-              activeOpacity={1}
-            >
+            <TouchableOpacity onPress={handleExtraBaggage} activeOpacity={1}>
               <Card style={styles.card}>
                 <View style={styles.viewContainer}>
                   <View style={{ padding: 20 }}>
@@ -35,15 +69,13 @@ export default function ChooseServices({ navigation }) {
                     />
                   </View>
                   <View style={styles.settingContainer}>
-                    <Text style={styles.title}>Extra baggage</Text>
+                    <Text style={styles.title}>{from}</Text>
                     <Text style={styles.subtitle}>
                       Book MyBaggage Online with 30% Discount
                     </Text>
                   </View>
                   <View style={{ padding: 20 }}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate("ExtraBaggage")}
-                    >
+                    <TouchableOpacity onPress={handleExtraBaggage}>
                       <Image
                         source={require("../images/next.png")}
                         style={{ height: 30, width: 30 }}
@@ -54,10 +86,7 @@ export default function ChooseServices({ navigation }) {
               </Card>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Seatbooking")}
-              activeOpacity={1}
-            >
+            <TouchableOpacity onPress={handleSeatBooking} activeOpacity={1}>
               <Card style={styles.card}>
                 <View style={styles.viewContainer}>
                   <View style={{ padding: 20 }}>
@@ -73,9 +102,7 @@ export default function ChooseServices({ navigation }) {
                     </Text>
                   </View>
                   <View style={{ padding: 20 }}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate("Seatbooking")}
-                    >
+                    <TouchableOpacity onPress={handleSeatBooking}>
                       <Image
                         source={require("../images/next.png")}
                         style={{ height: 30, width: 30 }}
@@ -86,10 +113,7 @@ export default function ChooseServices({ navigation }) {
               </Card>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigation.navigate("SpecialMeals")}
-              activeOpacity={1}
-            >
+            <TouchableOpacity onPress={handleSpecialMeal} activeOpacity={1}>
               <Card style={styles.card}>
                 <View style={styles.viewContainer}>
                   <View style={{ padding: 20 }}>
@@ -105,9 +129,7 @@ export default function ChooseServices({ navigation }) {
                     </Text>
                   </View>
                   <View style={{ padding: 20 }}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate("SpecialMeals")}
-                    >
+                    <TouchableOpacity onPress={handleSpecialMeal}>
                       <Image
                         source={require("../images/next.png")}
                         style={{ height: 30, width: 30 }}
@@ -118,10 +140,7 @@ export default function ChooseServices({ navigation }) {
               </Card>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Assistance")}
-              activeOpacity={1}
-            >
+            <TouchableOpacity onPress={handleAssistance} activeOpacity={1}>
               <Card style={styles.card}>
                 <View style={styles.viewContainer}>
                   <View style={{ padding: 20 }}>
@@ -137,9 +156,7 @@ export default function ChooseServices({ navigation }) {
                     </Text>
                   </View>
                   <View style={{ padding: 20 }}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate("Assistance")}
-                    >
+                    <TouchableOpacity onPress={handleAssistance}>
                       <Image
                         source={require("../images/next.png")}
                         style={{ height: 30, width: 30 }}
@@ -194,7 +211,7 @@ export default function ChooseServices({ navigation }) {
                 fontWeight: "800",
               }}
             >
-              $645,000
+              ${rate}
             </Text>
           </View>
         </View>
@@ -207,6 +224,7 @@ export default function ChooseServices({ navigation }) {
             borderRadius: 8,
             justifyContent: "center",
           }}
+          onPress={handleManageToSummary}
         >
           <Text
             style={{

@@ -36,10 +36,93 @@ export default function HomePage({ navigation }) {
   const [childrenCount, setChildrenCount] = React.useState(0);
   const [infantsCount, setInfantsCount] = React.useState(0);
 
+
   //fromtoselection
   const [selectedFromStation, setSelectedFromStation] = React.useState(null);
   const [selectedToStation, setSelectedToStation] = React.useState(null);
   const [availableStations, setAvailableStations] = React.useState([]);
+
+    const navigateToSpaceships = () => {
+        nav.navigate('BookingPage', { shuttleType: 'LPT', passengerCount: 3, departureDate: '2023-08-20', departureId: 22, arrivalDate: '2023-08-20', arrivalId: 11, from: 'Los Angeles, Earth', to: 'Ares Prime, Mars' });
+    };
+    const navigateTosummary = () => {
+        nav.navigate('SummaryPage', {
+            summary: {
+                "id": 111,
+                "departureDateTime": "2023-08-20T00:00:00",
+                "arrivalDateTime": "2024-09-20T00:00:00",
+                "shuttleId": {
+                    "id": "4",
+                    "name": "Shuttle#1",
+                    "shuttleType": "LPT",
+                    "maxCapacity": 40,
+                    "imageUrl": "sss"
+                },
+                "departureStationId": {
+                    "id": 22,
+                    "name": "Solar",
+                    "planet": "Mars"
+                },
+                "arrivalStationId": {
+                    "id": 11,
+                    "name": "Aries",
+                    "planet": "Saturn"
+                },
+                "spaceShuttleScheduleRates": [
+                    {
+                        "id": 1,
+                        "name": "Basic",
+                        "price": 10000.0,
+                        "spaceShuttleScheduleId": 111
+                    },
+                    {
+                        "id": 2,
+                        "name": "Economic",
+                        "price": 20000.0,
+                        "spaceShuttleScheduleId": 111
+                    },
+                    {
+                        "id": 3,
+                        "name": "Business",
+                        "price": 40000.0,
+                        "spaceShuttleScheduleId": 111
+                    }
+                ],
+                "spaceShuttleScheduleServices": [
+                    {
+                        "id": 2,
+                        "name": "Personalised Foods",
+                        "description": "Customised food options",
+                        "price": 7000.0,
+                        "spaceShuttleScheduleId": 111
+                    },
+                    {
+                        "id": 1,
+                        "name": "Extra Oxygen",
+                        "description": "Provide extra oxygen",
+                        "price": 5000.0,
+                        "spaceShuttleScheduleId": 111
+                    }
+                ]
+            }, selectedPackage: {
+                "id": 2,
+                "name": "Economic",
+                "price": 20000.0,
+                "spaceShuttleScheduleId": 111
+            },
+            userdetails:{
+                "firstName": "Sachin",
+                "lastName": "Tendulkar",
+                "email": "",
+            }
+        });
+    };
+    //    for testing booking page
+    return (
+        <View style={styles.container}>
+            <ScrollView>
+                <NavBar isLogged={true} />
+
 
   useEffect(() => {
     fetch("http://alienlines.eastus.cloudapp.azure.com:3000/api/space-station/")
@@ -59,6 +142,7 @@ export default function HomePage({ navigation }) {
     countSetter((prevCount) => prevCount + 1);
   };
 
+
   const decreaseCount = (countSetter) => {
     if (countSetter !== 0) {
       countSetter((prevCount) => prevCount - 1);
@@ -67,6 +151,21 @@ export default function HomePage({ navigation }) {
 
   //modal visibility
   const refRBSheet = React.useRef(null);
+
+                    <Text>Sample Search Bar</Text>
+                    <View style={styles.textfield}>
+                        <SearchField />
+                    </View>
+                    <View style={styles.textfield}>
+                        <SearchField />
+                    </View>
+                </View>
+                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('PaymentIdPage')} />
+
+                {/*for testing booking page  */}
+                <Button title="Booking page" onPress={navigateToSpaceships} />
+                <Button title="Summary page" onPress={navigateTosummary} />
+
 
   const hideModal = () => {
     refRBSheet.current.close();
@@ -494,6 +593,7 @@ export default function HomePage({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -570,6 +670,13 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 2,
+
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
