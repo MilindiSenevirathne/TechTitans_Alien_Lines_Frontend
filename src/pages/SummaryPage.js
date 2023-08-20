@@ -69,7 +69,9 @@ const SummaryPage = () => {
   }
 
   const handleChange = () => {
-    nav.navigate('BookingPage', { shuttleType: summary.shuttleId.shuttleType, passengerCount: 1, departureDate: summary.departureDateTime, departureId: summary.departureStationId.id, arrivalDate: summary, arrivalId: summary.arrivalStationId.id, from: summary.departureStationId.name, to: summary.arrivalStationId.name });
+    if (summary) {
+      nav.navigate('BookingPage', { shuttleType: summary.shuttleId.shuttleType, passengerCount: 1, departureDate: summary.departureDateTime, departureId: summary.departureStationId.id, arrivalDate: summary, arrivalId: summary.arrivalStationId.id, from: summary.departureStationId.name, to: summary.arrivalStationId.name });
+    }
   }
   return (
     <ScrollView style={{

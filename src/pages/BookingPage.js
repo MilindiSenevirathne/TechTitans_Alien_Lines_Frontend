@@ -23,6 +23,7 @@ const BookingPage = ({ navigation }) => {
     const [data, setData] = useState(null);
     // Sample spaceship data
     const [spaceshipData, setSpaceshipData] = useState([]);
+    const nav = useNavigation();
 
     useEffect(() => {
         getSpaceShuttleData();
@@ -109,9 +110,8 @@ const BookingPage = ({ navigation }) => {
         ];
     };
 
-    const handleSelectPackage = () => {
-        let rate = selectPackage();
-        const nav = useNavigation();
+    const handleSelectPackage = async() => {
+        const rate = await selectPackage();
         nav.navigate('PassengerDetails', { rate: rate, selectedSpaceship: selectedSpaceship });
     }
 
