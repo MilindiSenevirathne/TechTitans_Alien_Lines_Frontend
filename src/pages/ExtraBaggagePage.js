@@ -15,7 +15,7 @@ export default function ExtraBaggage({ navigation }) {
   const [count, setCount] = useState(0);
 
   const route = useRoute();
-  const { rate, selectedSpaceship } = route.params;
+  const {selectedSpaceship } = route.params;
 
   const increment = () => {
     setCount(count + 1);

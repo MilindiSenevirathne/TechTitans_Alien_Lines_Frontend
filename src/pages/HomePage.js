@@ -48,80 +48,6 @@ export default function HomePage({ navigation }) {
     });
   };
 
-  const navigateTosummary = () => {
-    nav.navigate("SummaryPage", {
-      summary: {
-        id: 111,
-        departureDateTime: "2023-08-20T00:00:00",
-        arrivalDateTime: "2024-09-20T00:00:00",
-        shuttleId: {
-          id: "4",
-          name: "Shuttle#1",
-          shuttleType: "LPT",
-          maxCapacity: 40,
-          imageUrl: "sss",
-        },
-        departureStationId: {
-          id: 22,
-          name: "Solar",
-          planet: "Mars",
-        },
-        arrivalStationId: {
-          id: 11,
-          name: "Aries",
-          planet: "Saturn",
-        },
-        spaceShuttleScheduleRates: [
-          {
-            id: 1,
-            name: "Basic",
-            price: 10000.0,
-            spaceShuttleScheduleId: 111,
-          },
-          {
-            id: 2,
-            name: "Economic",
-            price: 20000.0,
-            spaceShuttleScheduleId: 111,
-          },
-          {
-            id: 3,
-            name: "Business",
-            price: 40000.0,
-            spaceShuttleScheduleId: 111,
-          },
-        ],
-        spaceShuttleScheduleServices: [
-          {
-            id: 2,
-            name: "Personalised Foods",
-            description: "Customised food options",
-            price: 7000.0,
-            spaceShuttleScheduleId: 111,
-          },
-          {
-            id: 1,
-            name: "Extra Oxygen",
-            description: "Provide extra oxygen",
-            price: 5000.0,
-            spaceShuttleScheduleId: 111,
-          },
-        ],
-      },
-      selectedPackage: {
-        id: 2,
-        name: "Economic",
-        price: 20000.0,
-        spaceShuttleScheduleId: 111,
-      },
-      userdetails: {
-        firstName: "Sachin",
-        lastName: "Tendulkar",
-        email: "",
-      },
-    });
-  };
-
   useEffect(() => {
     fetch("http://alienlines.eastus.cloudapp.azure.com:3000/api/space-station/")
       .then((response) => response.json())
@@ -438,7 +364,7 @@ export default function HomePage({ navigation }) {
                 <CommonButton
                   style={styles.searchButton}
                   lable={"Search"}
-                  commonBtnPress={() => navigation.navigate("BookingPage")}
+                  commonBtnPress={() => navigateToSpaceships()}
                 />
               </>
             )}
@@ -504,54 +430,58 @@ export default function HomePage({ navigation }) {
             contentContainerStyle={styles.scrollViewContent}
           >
             {cards.map((card, index) => (
-              <View key={index} style={styles.card}>
-                <Image source={card.image} style={styles.cardImage} />
-                <View
-                  style={{
-                    padding: 10,
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <View>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                      {card.title}
-                    </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("DestinationDetails")}
+              >
+                <View key={index} style={styles.card}>
+                  <Image source={card.image} style={styles.cardImage} />
+                  <View
+                    style={{
+                      padding: 10,
+                      flexDirection: "row",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <View>
+                      <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                        {card.title}
+                      </Text>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          marginTop: 5,
+                        }}
+                      >
+                        <Image
+                          source={require("../images/location.png")}
+                          style={{ height: 16, width: 16, marginRight: 5 }}
+                        />
+                        <Text style={{ fontSize: 16, color: "#616161" }}>
+                          {card.content}
+                        </Text>
+                      </View>
+                    </View>
                     <View
                       style={{
                         flexDirection: "row",
                         alignItems: "center",
-                        marginTop: 5,
+                        marginTop: 10,
                       }}
                     >
                       <Image
-                        source={require("../images/location.png")}
-                        style={{ height: 16, width: 16, marginRight: 5 }}
+                        source={require("../images/star.png")}
+                        style={{ marginLeft: 90, height: 16, width: 16 }}
                       />
-                      <Text style={{ fontSize: 16, color: "#616161" }}>
-                        {card.content}
+                      <Text
+                        style={{ marginLeft: 5, marginRight: 10, fontSize: 16 }}
+                      >
+                        {card.rating}
                       </Text>
                     </View>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginTop: 10,
-                    }}
-                  >
-                    <Image
-                      source={require("../images/star.png")}
-                      style={{ marginLeft: 90, height: 16, width: 16 }}
-                    />
-                    <Text
-                      style={{ marginLeft: 5, marginRight: 10, fontSize: 16 }}
-                    >
-                      {card.rating}
-                    </Text>
-                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
