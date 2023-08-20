@@ -43,6 +43,13 @@ export default function ChooseServices({ navigation }) {
       selectedSpaceship: selectedSpaceship,
     });
   };
+
+  const handleManageToSummary = () => {
+    nav.navigate("SummaryPage", {
+      rate: rate,
+      selectedSpaceship: selectedSpaceship,
+    });
+  };
   return (
     <>
       <View style={{ height: "85%" }}>
@@ -217,6 +224,7 @@ export default function ChooseServices({ navigation }) {
             borderRadius: 8,
             justifyContent: "center",
           }}
+          onPress={handleManageToSummary}
         >
           <Text
             style={{
