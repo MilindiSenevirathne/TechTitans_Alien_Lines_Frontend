@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Button,
   ScrollView,
@@ -18,13 +19,12 @@ import DropdownField from "../components/input/DropdownField";
 import SearchField from "../components/input/SearchField";
 import TextField from "../components/input/TextField";
 import NavBar from "../components/navbar/NavBar";
+import { useTheme } from "react-native-paper";
 registerTranslation("en", en);
 
 export default function HomePage({ navigation }) {
-  const modalShow = React.useRef(null);
   //   for testing booking page
   const nav = useNavigation();
-
   const navigateToSpaceships = () => {
     nav.navigate("BookingPage", {
       from: "Los Angeles, Earth",
@@ -33,15 +33,184 @@ export default function HomePage({ navigation }) {
     });
   };
 
+  //passenger counting
+  const [adultsCount, setAdultsCount] = React.useState(0);
+  const [childrenCount, setChildrenCount] = React.useState(0);
+  const [infantsCount, setInfantsCount] = React.useState(0);
+
+  //fromtoselection
+  const [selectedFromStation, setSelectedFromStation] = React.useState(null);
+  const [selectedToStation, setSelectedToStation] = React.useState(null);
+  const [availableStations, setAvailableStations] = React.useState([]);
+
+  useEffect(() => {
+    fetch("http://alienlines.eastus.cloudapp.azure.com:3000/api/space-station/")
+      .then((response) => response.json())
+      .then((data) => {
+        // Update the availableStations state with the fetched station data
+        setAvailableStations(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching space stations:", error);
+      });
+  }, []);
+
+  const [selectStep, setSelectStep] = React.useState("from");
+
+  const increaseCount = (countSetter) => {
+    countSetter((prevCount) => prevCount + 1);
+  };
+
+  const decreaseCount = (countSetter) => {
+    if (countSetter !== 0) {
+      countSetter((prevCount) => prevCount - 1);
+    }
+  };
+
   //modal visibility
   const refRBSheet = React.useRef(null);
 
-  const openBottomSheet = () => {
+  const hideModal = () => {
+    refRBSheet.current.close();
+  };
+  const [modalContent, setModalContent] = React.useState(null);
+
+  //Modal Contents
+  const fromToModalContent = (
+    <View style={styles.fromToModalContent}>
+      <Text style={styles.fromToModalTitle}>
+        {selectStep === "from" ? "Select From Station" : "Select To Station"}
+      </Text>
+      <View style={styles.fromToModalStations}>
+        {availableStations.map((station) => (
+          <TouchableOpacity
+            key={station.id}
+            onPress={() => {
+              if (selectStep === "from") {
+                setSelectedFromStation(station.name);
+                setSelectStep("to");
+              } else {
+                setSelectedToStation(station.name);
+                hideModal();
+              }
+            }}
+            style={styles.fromToModalStationItem}
+            disabled={station.name === selectedFromStation}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Image
+                source={require("../images/satellite.png")} // Replace with the actual icon image
+                style={{ width: 20, height: 20, marginRight: 10 }}
+              />
+              <Text
+                style={{
+                  color:
+                    station.name === selectedFromStation ? "gray" : "black",
+                }}
+              >
+                {station.name} - {station.planet}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
+  );
+
+  const passengersModalContent = (
+    <View>
+      <Text style={{ fontSize: 16, fontWeight: "bold" }}>Passengers</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginVertical: 10,
+        }}
+      >
+        <Text>Adults</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <TouchableOpacity onPress={() => decreaseCount(setAdultsCount)}>
+            <Image
+              source={require("../images/minus.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          </TouchableOpacity>
+          <Text style={{ marginHorizontal: 10 }}>{adultsCount}</Text>
+          <TouchableOpacity onPress={() => increaseCount(setAdultsCount)}>
+            <Image
+              source={require("../images/plus.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginVertical: 10,
+        }}
+      >
+        <Text>Children</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <TouchableOpacity onPress={() => decreaseCount(setChildrenCount)}>
+            <Image
+              source={require("../images/minus.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          </TouchableOpacity>
+          <Text style={{ marginHorizontal: 10 }}>{childrenCount}</Text>
+          <TouchableOpacity onPress={() => increaseCount(setChildrenCount)}>
+            <Image
+              source={require("../images/plus.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginVertical: 10,
+        }}
+      >
+        <Text>Infants</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <TouchableOpacity onPress={() => decreaseCount(setInfantsCount)}>
+            <Image
+              source={require("../images/minus.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          </TouchableOpacity>
+          <Text style={{ marginHorizontal: 10 }}>{infantsCount}</Text>
+          <TouchableOpacity onPress={() => increaseCount(setInfantsCount)}>
+            <Image
+              source={require("../images/plus.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+
+  //switch between contents
+  const openfromToModal = () => {
+    setModalContent(fromToModalContent);
     refRBSheet.current.open();
+    // Populate availableStations list (remove selectedFromStation from available stations)
+    const filteredStations = availableStations.filter(
+      (station) => station !== selectedFromStation
+    );
+    setAvailableStations(filteredStations);
   };
 
-  const hideBottomSheet = () => {
-    refRBSheet.current.close();
+  const openPassengersModal = () => {
+    setModalContent(passengersModalContent);
+    refRBSheet.current.open();
   };
 
   //collapsible card
@@ -58,14 +227,12 @@ export default function HomePage({ navigation }) {
         : require("../images/dropdownUpArrow.png")
     );
   };
+
   //    for testing booking page
   return (
     <View style={styles.container}>
       <ScrollView>
         <NavBar isLogged={true} />
-        <Text style={styles.text}>Navbar before login</Text>
-        <NavBar isLogged={false} />
-
         <View style={styles.container}>
           <Image
             source={require("../images/homeHeroBackground.png")} // Replace with your image path
@@ -116,113 +283,81 @@ export default function HomePage({ navigation }) {
                   />
                 </View>
                 {/* CommonDropdown Component for From and To Selection */}
-                <View style={styles.dropDownField}>
-                  <StatusBar style="auto" />
-                  <Button title="OPEN BOTTOM SHEET" onPress={openBottomSheet} />
-                  <CommonModal
-                    containerHeight={500}
-                    onOpen={refRBSheet}
-                    onClose={hideBottomSheet}
-                    firstTitle={"First"}
-                    secondTitle={"Second"}
-                    bottom={<CommonButton lable={"Check Rate"} />}
-                    content={
-                      <View>
-                        <DropdownField
-                          list={[
-                            {
-                              label: "FTL Drive",
-                              value: "ftlD",
-                            },
-                            {
-                              label: "Space Elevator",
-                              value: "spaceE",
-                            },
-                            {
-                              label: "Space Cruise",
-                              value: "spaceC",
-                            },
-                            {
-                              label: "Teleport",
-                              value: "teleport",
-                            },
-                          ]}
-                          label="Travelling Mode"
-                        />
-                      </View>
-                    }
+                <TouchableOpacity
+                  onPress={openfromToModal}
+                  style={styles.fromToContainer}
+                >
+                  <View style={styles.fromToField}>
+                    <Text style={styles.fromToLabel}>
+                      From: {selectedFromStation || "Select From Station"}
+                    </Text>
+                  </View>
+                  <View style={styles.fromToDivider} />
+                  <View style={styles.fromToField}>
+                    <Text style={styles.fromToLabel}>
+                      To: {selectedToStation || "Select To Station"}
+                    </Text>
+                  </View>
+                  <Image
+                    source={require("../images/two-arrow.png")}
+                    style={styles.plusIcon}
                   />
-                </View>
+                </TouchableOpacity>
 
-                <CalenderField label="Departure Date" />
-                <CalenderField label="Return Date" />
+                <CalenderField label="Departure" style={styles.calendarField} />
+                <CalenderField label="Return" style={styles.calendarField} />
+
+                <TouchableOpacity
+                  onPress={openPassengersModal}
+                  style={styles.passengerChip}
+                >
+                  <Text style={styles.passengerText}>
+                    Passengers: {adultsCount + childrenCount + infantsCount}
+                  </Text>
+                </TouchableOpacity>
+
+                <CommonModal
+                  containerHeight={500}
+                  onOpen={refRBSheet}
+                  onClose={hideModal}
+                  bottom={
+                    <CommonButton
+                      lable={"Save"}
+                      commonBtnPress={() => {
+                        // Perform actions with selectedFromStation and selectedToStation
+                        hideModal();
+                      }}
+                    />
+                  }
+                  content={modalContent}
+                />
+
                 <CommonButton
-                  label="Book Now"
-                  commonBtnPress={() => navigation.navigate("BookingPage")}
+                  style={styles.searchButton}
+                  lable={"Search"}
+                  commonBtnPress={() => navigation.navigate("MyBookings")}
                 />
               </>
             )}
           </View>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={toggleCardExpansion}
+          style={styles.cardContainer}
+        >
+          <View style={styles.card}>
+            {/* Header */}
+            <View style={styles.cardHeader}>
+              <Image
+                source={require("../images/status.png")}
+                style={styles.cardIcon}
+              />
+              <Text style={styles.cardTitle}>Spaceship Status</Text>
+              <Image source={arrowImageSource} style={styles.dropdownArrow} />
+            </View>
+          </View>
+        </TouchableOpacity>
 
-        {/* <View style={styles.container}>
-          <Text>Sample Text Input</Text>
-          <StatusBar style="auto" />
-          <View style={styles.textfield}>
-            <TextField label="Email" placeholder="Enter Email" />
-          </View>
-          <View style={styles.textfield}>
-            <TextField label="Email" placeholder="Enter Email" />
-          </View>
-
-          <Text>Sample Dropdown Input</Text>
-          <View style={styles.textfield}>
-            <DropdownField
-              list={[
-                {
-                  label: "Male",
-                  value: "male",
-                },
-                {
-                  label: "Female",
-                  value: "female",
-                },
-              ]}
-              label="Gender"
-            />
-          </View>
-          <View style={styles.textfield}>
-            <DropdownField
-              list={[
-                {
-                  label: "Male",
-                  value: "male",
-                },
-                {
-                  label: "Female",
-                  value: "female",
-                },
-              ]}
-              label="Gender"
-            />
-          </View>
-          <Text>Sample Calendar Input</Text>
-          <View style={styles.textfield}>
-            <CalenderField label="Birthday" />
-          </View>
-          <View style={styles.textfield}>
-            <CalenderField label="Birthday" />
-          </View>
-
-          <Text>Sample Search Bar</Text>
-          <View style={styles.textfield}>
-            <SearchField />
-          </View>
-          <View style={styles.textfield}>
-            <SearchField />
-          </View>
-        </View> */}
-        
         <CommonButton
           lable={"Press Here"}
           commonBtnPress={() => navigation.navigate("MyBookings")}
@@ -250,6 +385,17 @@ const styles = StyleSheet.create({
     width: 300,
   },
   dropDownField: {
+    marginTop: 10,
+    paddingTop: 0,
+    paddingBottom: 0,
+    marginBottom: 10,
+    width: "100%",
+  },
+  searchButton: {
+    marginBottom: 0,
+    width: "100%",
+  },
+  calendarField: {
     marginTop: 10,
     marginBottom: 10,
     width: "100%",
@@ -303,5 +449,60 @@ const styles = StyleSheet.create({
   dropdownArrow: {
     width: 20,
     height: 20,
+  },
+  passengerChip: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 25,
+  },
+  stationItem: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "lightgray",
+  },
+  fromToContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  fromToField: {
+    flex: 1,
+  },
+  fromToDivider: {
+    width: 1,
+    height: "100%",
+    backgroundColor: "gray",
+    marginHorizontal: 10,
+  },
+  plusIcon: {
+    width: 20,
+    height: 20,
+  },
+  fromToModalContent: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  fromToModalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  fromToModalStations: {
+    marginTop: 10,
+  },
+  fromToModalStationItem: {
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: "lightgray",
   },
 });
