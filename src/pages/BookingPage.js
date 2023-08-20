@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
@@ -110,8 +111,8 @@ const BookingPage = ({ navigation }) => {
 
     const handleSelectPackage = () => {
         let rate = selectPackage();
-        console.log('Selected package:', rate);
-        console.log('Selected spaceship:', selectedSpaceship);
+        const nav = useNavigation();
+        nav.navigate('PassengerDetails', { rate: rate, selectedSpaceship: selectedSpaceship });
     }
 
     return (
