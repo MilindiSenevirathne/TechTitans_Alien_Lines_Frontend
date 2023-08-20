@@ -38,13 +38,13 @@ export default function HomePage({ navigation }) {
   const navigateToSpaceships = () => {
     nav.navigate("BookingPage", {
       shuttleType: "LPT",
-      passengerCount: 3,
+      passengerCount: adultsCount,
       departureDate: "2023-08-20",
       departureId: 22,
       arrivalDate: "2023-08-20",
       arrivalId: 11,
-      from: "Los Angeles, Earth",
-      to: "Ares Prime, Mars",
+      from: selectedFromStation,
+      to: selectedToStation,
     });
   };
 
@@ -182,11 +182,11 @@ export default function HomePage({ navigation }) {
   };
 
   const [images, setImages] = React.useState([
-    "https://source.unsplash.com/1024x768/?nature",
+    "https://cdn.vox-cdn.com/thumbor/DDu__46wuVPezd1bqBThgWpm7nM=/35x0:1621x1189/1200x800/filters:focal(145x469:407x731)/cdn.vox-cdn.com/uploads/chorus_image/image/71029678/Mars_Perseverance_ZR0_0317_0695080841_957EBY_N0090000ZCAM03290_1100LMJ.0.png",
 
-    "https://source.unsplash.com/1024x768/?water",
+    "https://cdn.mos.cms.futurecdn.net/br4FkqpBujNhxsTfxgtXdE.jpg",
 
-    "https://source.unsplash.com/1024x768/?tree",
+    "https://www.komando.com/wp-content/uploads/2018/08/dreamstime_xxl_18549657.jpg",
   ]);
 
   const cards = [
@@ -200,13 +200,13 @@ export default function HomePage({ navigation }) {
       title: "Jupiter",
       content: "Jupiter",
       rating: "4.6",
-      image: require("../images/place1.png"),
+      image: require("../images/place2.png"),
     },
     {
-      title: "Solar City",
-      content: "Saturn",
+      title: "Mars",
+      content: "Mars",
       rating: "4.5",
-      image: require("../images/place1.png"),
+      image: require("../images/place3.jpg"),
     },
   ];
 
@@ -438,7 +438,7 @@ export default function HomePage({ navigation }) {
                 <CommonButton
                   style={styles.searchButton}
                   lable={"Search"}
-                  commonBtnPress={() => navigation.navigate("MyBookings")}
+                  commonBtnPress={() => navigation.navigate("BookingPage")}
                 />
               </>
             )}
@@ -449,7 +449,6 @@ export default function HomePage({ navigation }) {
           style={styles.cardContainer}
         >
           <View style={styles.cardBook}>
-            {/* Header */}
             <View style={styles.cardHeader}>
               <Image
                 source={require("../images/status.png")}
