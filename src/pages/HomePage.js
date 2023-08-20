@@ -23,106 +23,104 @@ registerTranslation("en", en);
 export default function HomePage({ navigation }) {
   //   for testing booking page
   const nav = useNavigation();
-  const navigateToSpaceships = () => {
-    nav.navigate("BookingPage", {
-      from: "Los Angeles, Earth",
-      to: "Ares Prime, Mars",
-      date: "2023-08-19",
-    });
-  };
+  const refRBSheet = React.useRef(null);
 
   //passenger counting
   const [adultsCount, setAdultsCount] = React.useState(0);
   const [childrenCount, setChildrenCount] = React.useState(0);
   const [infantsCount, setInfantsCount] = React.useState(0);
 
-
   //fromtoselection
   const [selectedFromStation, setSelectedFromStation] = React.useState(null);
   const [selectedToStation, setSelectedToStation] = React.useState(null);
   const [availableStations, setAvailableStations] = React.useState([]);
 
-    const navigateToSpaceships = () => {
-        nav.navigate('BookingPage', { shuttleType: 'LPT', passengerCount: 3, departureDate: '2023-08-20', departureId: 22, arrivalDate: '2023-08-20', arrivalId: 11, from: 'Los Angeles, Earth', to: 'Ares Prime, Mars' });
-    };
-    const navigateTosummary = () => {
-        nav.navigate('SummaryPage', {
-            summary: {
-                "id": 111,
-                "departureDateTime": "2023-08-20T00:00:00",
-                "arrivalDateTime": "2024-09-20T00:00:00",
-                "shuttleId": {
-                    "id": "4",
-                    "name": "Shuttle#1",
-                    "shuttleType": "LPT",
-                    "maxCapacity": 40,
-                    "imageUrl": "sss"
-                },
-                "departureStationId": {
-                    "id": 22,
-                    "name": "Solar",
-                    "planet": "Mars"
-                },
-                "arrivalStationId": {
-                    "id": 11,
-                    "name": "Aries",
-                    "planet": "Saturn"
-                },
-                "spaceShuttleScheduleRates": [
-                    {
-                        "id": 1,
-                        "name": "Basic",
-                        "price": 10000.0,
-                        "spaceShuttleScheduleId": 111
-                    },
-                    {
-                        "id": 2,
-                        "name": "Economic",
-                        "price": 20000.0,
-                        "spaceShuttleScheduleId": 111
-                    },
-                    {
-                        "id": 3,
-                        "name": "Business",
-                        "price": 40000.0,
-                        "spaceShuttleScheduleId": 111
-                    }
-                ],
-                "spaceShuttleScheduleServices": [
-                    {
-                        "id": 2,
-                        "name": "Personalised Foods",
-                        "description": "Customised food options",
-                        "price": 7000.0,
-                        "spaceShuttleScheduleId": 111
-                    },
-                    {
-                        "id": 1,
-                        "name": "Extra Oxygen",
-                        "description": "Provide extra oxygen",
-                        "price": 5000.0,
-                        "spaceShuttleScheduleId": 111
-                    }
-                ]
-            }, selectedPackage: {
-                "id": 2,
-                "name": "Economic",
-                "price": 20000.0,
-                "spaceShuttleScheduleId": 111
-            },
-            userdetails:{
-                "firstName": "Sachin",
-                "lastName": "Tendulkar",
-                "email": "",
-            }
-        });
-    };
-    //    for testing booking page
-    return (
-        <View style={styles.container}>
-            <ScrollView>
-                <NavBar isLogged={true} />
+  const navigateToSpaceships = () => {
+    nav.navigate("BookingPage", {
+      shuttleType: "LPT",
+      passengerCount: 3,
+      departureDate: "2023-08-20",
+      departureId: 22,
+      arrivalDate: "2023-08-20",
+      arrivalId: 11,
+      from: "Los Angeles, Earth",
+      to: "Ares Prime, Mars",
+    });
+  };
 
+  const navigateTosummary = () => {
+    nav.navigate("SummaryPage", {
+      summary: {
+        id: 111,
+        departureDateTime: "2023-08-20T00:00:00",
+        arrivalDateTime: "2024-09-20T00:00:00",
+        shuttleId: {
+          id: "4",
+          name: "Shuttle#1",
+          shuttleType: "LPT",
+          maxCapacity: 40,
+          imageUrl: "sss",
+        },
+        departureStationId: {
+          id: 22,
+          name: "Solar",
+          planet: "Mars",
+        },
+        arrivalStationId: {
+          id: 11,
+          name: "Aries",
+          planet: "Saturn",
+        },
+        spaceShuttleScheduleRates: [
+          {
+            id: 1,
+            name: "Basic",
+            price: 10000.0,
+            spaceShuttleScheduleId: 111,
+          },
+          {
+            id: 2,
+            name: "Economic",
+            price: 20000.0,
+            spaceShuttleScheduleId: 111,
+          },
+          {
+            id: 3,
+            name: "Business",
+            price: 40000.0,
+            spaceShuttleScheduleId: 111,
+          },
+        ],
+        spaceShuttleScheduleServices: [
+          {
+            id: 2,
+            name: "Personalised Foods",
+            description: "Customised food options",
+            price: 7000.0,
+            spaceShuttleScheduleId: 111,
+          },
+          {
+            id: 1,
+            name: "Extra Oxygen",
+            description: "Provide extra oxygen",
+            price: 5000.0,
+            spaceShuttleScheduleId: 111,
+          },
+        ],
+      },
+      selectedPackage: {
+        id: 2,
+        name: "Economic",
+        price: 20000.0,
+        spaceShuttleScheduleId: 111,
+      },
+      userdetails: {
+        firstName: "Sachin",
+        lastName: "Tendulkar",
+        email: "",
+      },
+    });
+  };
 
   useEffect(() => {
     fetch("http://alienlines.eastus.cloudapp.azure.com:3000/api/space-station/")
@@ -142,37 +140,76 @@ export default function HomePage({ navigation }) {
     countSetter((prevCount) => prevCount + 1);
   };
 
-
   const decreaseCount = (countSetter) => {
     if (countSetter !== 0) {
       countSetter((prevCount) => prevCount - 1);
     }
   };
 
-  //modal visibility
-  const refRBSheet = React.useRef(null);
-
-                    <Text>Sample Search Bar</Text>
-                    <View style={styles.textfield}>
-                        <SearchField />
-                    </View>
-                    <View style={styles.textfield}>
-                        <SearchField />
-                    </View>
-                </View>
-                <CommonButton lable={'Press Here'} commonBtnPress={() => navigation.navigate('PaymentIdPage')} />
-
-                {/*for testing booking page  */}
-                <Button title="Booking page" onPress={navigateToSpaceships} />
-                <Button title="Summary page" onPress={navigateTosummary} />
-
-
   const hideModal = () => {
     refRBSheet.current.close();
   };
   const [modalContent, setModalContent] = React.useState(null);
 
-  //Modal Contents
+  const openfromToModal = () => {
+    setModalContent(fromToModalContent);
+    refRBSheet.current.open();
+    // Populate availableStations list (remove selectedFromStation from available stations)
+    const filteredStations = availableStations.filter(
+      (station) => station !== selectedFromStation
+    );
+    setAvailableStations(filteredStations);
+  };
+
+  const openPassengersModal = () => {
+    setModalContent(passengersModalContent);
+    refRBSheet.current.open();
+  };
+
+  //collapsible card
+  const [isCardExpanded, setCardExpanded] = React.useState(false);
+  const [arrowImageSource, setArrowImageSource] = React.useState(
+    require("../images/dropdownDownArrow.png")
+  );
+
+  const toggleCardExpansion = () => {
+    setCardExpanded(!isCardExpanded);
+    setArrowImageSource(
+      isCardExpanded
+        ? require("../images/dropdownDownArrow.png")
+        : require("../images/dropdownUpArrow.png")
+    );
+  };
+
+  const [images, setImages] = React.useState([
+    "https://source.unsplash.com/1024x768/?nature",
+
+    "https://source.unsplash.com/1024x768/?water",
+
+    "https://source.unsplash.com/1024x768/?tree",
+  ]);
+
+  const cards = [
+    {
+      title: "Solar City",
+      content: "Saturn",
+      rating: "4.8",
+      image: require("../images/place1.png"),
+    },
+    {
+      title: "Jupiter",
+      content: "Jupiter",
+      rating: "4.6",
+      image: require("../images/place1.png"),
+    },
+    {
+      title: "Solar City",
+      content: "Saturn",
+      rating: "4.5",
+      image: require("../images/place1.png"),
+    },
+  ];
+
   const fromToModalContent = (
     <View style={styles.fromToModalContent}>
       <Text style={styles.fromToModalTitle}>
@@ -294,67 +331,6 @@ export default function HomePage({ navigation }) {
     </View>
   );
 
-  //switch between contents
-  const openfromToModal = () => {
-    setModalContent(fromToModalContent);
-    refRBSheet.current.open();
-    // Populate availableStations list (remove selectedFromStation from available stations)
-    const filteredStations = availableStations.filter(
-      (station) => station !== selectedFromStation
-    );
-    setAvailableStations(filteredStations);
-  };
-
-  const openPassengersModal = () => {
-    setModalContent(passengersModalContent);
-    refRBSheet.current.open();
-  };
-
-  //collapsible card
-  const [isCardExpanded, setCardExpanded] = React.useState(false);
-  const [arrowImageSource, setArrowImageSource] = React.useState(
-    require("../images/dropdownDownArrow.png")
-  );
-
-  const toggleCardExpansion = () => {
-    setCardExpanded(!isCardExpanded);
-    setArrowImageSource(
-      isCardExpanded
-        ? require("../images/dropdownDownArrow.png")
-        : require("../images/dropdownUpArrow.png")
-    );
-  };
-
-
-  const [images, setImages] = React.useState([
-    "https://source.unsplash.com/1024x768/?nature",
-
-    "https://source.unsplash.com/1024x768/?water",
-
-    "https://source.unsplash.com/1024x768/?tree",
-  ]);
-
-  const cards = [
-    {
-      title: "Solar City",
-      content: "Saturn",
-      rating: "4.8",
-      image: require("../images/place1.png"),
-    },
-    {
-      title: "Jupiter",
-      content: "Jupiter",
-      rating: "4.6",
-      image: require("../images/place1.png"),
-    },
-    {
-      title: "Solar City",
-      content: "Saturn",
-      rating: "4.5",
-      image: require("../images/place1.png"),
-    },
-  ];
-
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -362,7 +338,7 @@ export default function HomePage({ navigation }) {
 
         <View style={styles.container}>
           <Image
-            source={require("../images/homeHeroBackground.png")} // Replace with your image path
+            source={require("../images/homeHeroBackground.png")}
             style={styles.roundedImage}
           />
         </View>
@@ -472,7 +448,7 @@ export default function HomePage({ navigation }) {
           onPress={toggleCardExpansion}
           style={styles.cardContainer}
         >
-          <View style={styles.card}>
+          <View style={styles.cardBook}>
             {/* Header */}
             <View style={styles.cardHeader}>
               <Image
@@ -486,14 +462,9 @@ export default function HomePage({ navigation }) {
         </TouchableOpacity>
 
         <CommonButton
-          lable={"Press Here"}
+          lable={"Search"}
           commonBtnPress={() => navigation.navigate("MyBookings")}
         />
-
-        {/*for testing booking page  */}
-        <Button title="Booking page" onPress={navigateToSpaceships} />
-
-        {/* <SuccessErrorModal isError={true} title={'Payment Successful'} message={'klnknd vcscjhcscvh'} visible={true}/> */}
 
         <View>
           <Text style={styles.mainTitle}>Trending Destinations</Text>
@@ -536,8 +507,6 @@ export default function HomePage({ navigation }) {
             {cards.map((card, index) => (
               <View key={index} style={styles.card}>
                 <Image source={card.image} style={styles.cardImage} />
-                {/* <Text style={styles.cardTitlePlanet}>{card.title}</Text>
-                <Text>{card.content}</Text> */}
                 <View
                   style={{
                     padding: 10,
@@ -547,7 +516,7 @@ export default function HomePage({ navigation }) {
                 >
                   <View>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    {card.title}
+                      {card.title}
                     </Text>
                     <View
                       style={{
@@ -561,7 +530,7 @@ export default function HomePage({ navigation }) {
                         style={{ height: 16, width: 16, marginRight: 5 }}
                       />
                       <Text style={{ fontSize: 16, color: "#616161" }}>
-                      {card.content}
+                        {card.content}
                       </Text>
                     </View>
                   </View>
@@ -573,9 +542,9 @@ export default function HomePage({ navigation }) {
                     }}
                   >
                     <Image
-                        source={require("../images/star.png")}
-                        style={{ marginLeft: 90, height: 16, width: 16}}
-                      />
+                      source={require("../images/star.png")}
+                      style={{ marginLeft: 90, height: 16, width: 16 }}
+                    />
                     <Text
                       style={{ marginLeft: 5, marginRight: 10, fontSize: 16 }}
                     >
@@ -593,7 +562,6 @@ export default function HomePage({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -650,7 +618,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
   },
-  
+
   chipButtonSelected: {
     marginRight: 10,
     paddingTop: 10,
@@ -670,14 +638,8 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 2,
-
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-
     },
+
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,

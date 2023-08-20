@@ -36,7 +36,7 @@ export default function App() {
           <NavigationContainer>
 
             <Drawer.Navigator drawerContent={props => <SideNavbar {...props} />}
-              initialRouteName="Home"
+              initialRouteName="Loading"
               screenOptions={{ headerShown: false, drawerPosition: 'right' }}
             >
 
