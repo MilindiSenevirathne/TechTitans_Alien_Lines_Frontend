@@ -27,9 +27,11 @@
     "react-native": "0.72.3",
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-gesture-handler": "~2.12.0",
+    "react-native-image-slider-box": "^2.0.7",
     "react-native-paper": "^5.10.1",
     "react-native-paper-dates": "^0.18.14",
     "react-native-paper-dropdown": "^1.0.7",
+    "react-native-phone-number-input": "^2.1.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "~3.3.0",
     "react-native-safe-area-context": "^4.7.1",
@@ -37,11 +39,10 @@
     "react-native-screens": "^3.24.0",
     "react-native-svg": "^13.11.0",
     "react-native-timeline-flatlist": "^0.8.0",
+    "react-native-toggle-input": "^1.0.12",
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "~0.19.6",
-    "react-navigation": "^4.4.4",
-    "reanimated-bottom-sheet": "^1.0.0-alpha.22",
-    "toggle-switch-react-native": "^3.3.0"
+    "reanimated-bottom-sheet": "^1.0.0-alpha.22"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

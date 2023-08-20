@@ -49,7 +49,7 @@ const CommonButton = ({ lable, icon, commonBtnPress = () => { }, backgroundColor
                         color={fontColor}
                     >
                         <Text style={{
-                            fontFamily: 'inter',
+                            // fontFamily: 'inter',
                             fontSize: 15,
                             fontWeight: '800',
                             textTransform: isCapitalize ? "capitalize" : "none",
@@ -84,7 +84,7 @@ const CommonButton = ({ lable, icon, commonBtnPress = () => { }, backgroundColor
                         textColor={fontColor ?? '#FFFFFF'}
                     >
                         <Text style={{
-                            fontFamily: 'inter',
+                            // fontFamily: 'inter',
                             fontSize: 15,
                             fontWeight: '700',
                             color: fontColor ?? '#FFFFFF',
