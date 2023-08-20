@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import NavBar from "../components/navbar/NavBar";
-import {Text, StyleSheet, View, Image, FlatList, SafeAreaView} from "react-native";
+import {Text, StyleSheet, View, Image, FlatList, SafeAreaView, ScrollView, TouchableOpacity} from "react-native";
 import {PaperProvider, ThemeProvider, DefaultTheme} from "react-native-paper";
 import customTheme from "../components/styles/theme";
 import {CommonButton} from '../components/common/CommonButton';
@@ -16,14 +16,17 @@ export default function ProfileEdit({navigation, route}) {
     const [address, setAddress] = useState(route.params.address);
     const theme = useTheme();
 
+
     const renderProfileImage = () => {
         return (
             <View style={styles.container}>
                 <Image source={require('../images/profileCover.png')} style={styles.content}/>
-                <Image
-                    source={require('../images/profile.png')}
-                    style={styles.profileImage}
-                />
+                <View>
+                    <Image
+                        source={require('../images/profile.png')}
+                        style={styles.profileImage}
+                    />
+                </View>
                 <View>
                     <Text style={styles.title}>Tanya Edwards</Text>
                     <Text style={styles.subtitle}>St Fransico, CA</Text>
@@ -155,8 +158,11 @@ export default function ProfileEdit({navigation, route}) {
         <PaperProvider theme={customTheme}>
             <ThemeProvider theme={customTheme}>
                 <SafeAreaView style={{flex: 1}}>
-                    {renderProfileImage()}
-                    {renderProfileDetails()}
+                    <NavBar isLogged={true} />
+                    <ScrollView>
+                        {renderProfileImage()}
+                        {renderProfileDetails()}
+                    </ScrollView>
                 </SafeAreaView>
             </ThemeProvider>
         </PaperProvider>
@@ -178,7 +184,7 @@ const styles = StyleSheet.create({
         borderRadius: 60,
         resizeMode: 'contain',
         alignSelf: 'center',
-        marginTop: -60
+        marginTop: -80
     },
     title: {
         fontSize: 22,
@@ -196,5 +202,5 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: '90%',
         alignSelf: 'center'
-    },
+    }
 });

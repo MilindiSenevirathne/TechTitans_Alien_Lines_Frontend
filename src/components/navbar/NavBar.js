@@ -62,7 +62,11 @@ export default function NavBar({ isLogged}) {
       resizeMode: 'contain',
     },
   });
-  
+
+
+  const navigateToProfile = () => {
+    navigation.navigate('MyProfile');
+  };
 
   if (isLogged) {
     return (
@@ -74,10 +78,12 @@ export default function NavBar({ isLogged}) {
           />
         </View>
         <View style={styles.profileImageContainer}>
+          <TouchableOpacity onPress={navigateToProfile}>
           <Image
             source={require('../../images/profile.jpg')}
             style={styles.profileImage}
           />
+          </TouchableOpacity>
         </View>
         <View style={styles.menuIconContainer}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>

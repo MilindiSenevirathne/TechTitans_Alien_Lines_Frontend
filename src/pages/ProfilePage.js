@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import NavBar from "../components/navbar/NavBar";
-import {Text, StyleSheet, TouchableOpacity, View, Image, FlatList, SafeAreaView} from "react-native";
+import {Text, StyleSheet, TouchableOpacity, View, Image, FlatList, SafeAreaView, ScrollView} from "react-native";
 import {PaperProvider, ThemeProvider, DefaultTheme} from "react-native-paper";
 import customTheme from "../components/styles/theme";
 import {CommonButton} from '../components/common/CommonButton';
@@ -19,12 +19,12 @@ export default function MyProfile({navigation}) {
     const renderProfileImage = () => {
         return (
             <View style={styles.container}>
+                <TouchableOpacity onPress={handleEditImageClick}  style={styles.editIcon}>
+                    <Image source={require('../images/pencil.png')}/>
+                </TouchableOpacity>
                 <View>
                     <Image source={require('../images/profileCover.png')} style={styles.content}/>
                 </View>
-                <TouchableOpacity onPress={handleEditImageClick}>
-                    <Image source={require('../images/pencil.png')} style={styles.editIcon}/>
-                </TouchableOpacity>
                 <View>
                     <Image
                         source={require('../images/profile.png')}
@@ -58,8 +58,11 @@ export default function MyProfile({navigation}) {
         <PaperProvider theme={customTheme}>
             <ThemeProvider theme={customTheme}>
                 <SafeAreaView style={{flex: 1}}>
-                    {renderProfileImage()}
-                    {renderProfileDetails()}
+                    <NavBar isLogged={true} />
+                    <ScrollView>
+                        {renderProfileImage()}
+                        {renderProfileDetails()}
+                    </ScrollView>
                 </SafeAreaView>
             </ThemeProvider>
         </PaperProvider>
@@ -85,12 +88,12 @@ const TableRow = ({data1, data2}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 0,
-        marginBottom: 30
-        // borderColor: '#000000',
-        // borderBottomWidth: 2,
+        marginBottom: 30,
+        position: "relative"
     },
     content: {
         width: '100%',
+        // marginTop: -20
     },
     profileImage: {
         width: 120,
@@ -135,10 +138,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     editIcon: {
-        marginTop: -130,
-        marginBottom: 100,
-        alignSelf: 'flex-end',
-        marginRight: 30
-
+        position: "absolute",
+        zIndex: 1,
+        top: 10,
+        right: 10
     }
 });
