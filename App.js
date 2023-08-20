@@ -1,28 +1,34 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
 import { View } from 'react-native';
 import {
   PaperProvider,
   ThemeProvider
 } from 'react-native-paper';
-import { en, registerTranslation } from 'react-native-paper-dates';
+import SideNavbar from './src/components/navbar/SideNavBar';
 import customTheme from './src/components/styles/theme';
+import Assistance from './src/pages/AssistancePage';
 import BookingPage from './src/pages/BookingPage';
 import ChooseServices from './src/pages/ChoseServicePage';
+import DestinationDetails from "./src/pages/DestinationDetails";
 import ExtraBaggage from './src/pages/ExtraBaggagePage';
 import HomePage from './src/pages/HomePage';
 import LandingPage from './src/pages/LandingPage';
-import MyWalletPage from './src/pages/MyWalletPage';
 import LoadingPage from './src/pages/LoadingPage';
 import MyBookings from './src/pages/MyBookings';
+import MyWalletPage from './src/pages/MyWalletPage';
 import PassengerDetails from './src/pages/PassengerDetails';
+import PaymentIdPage from './src/pages/PaymentIdPage';
 import Seatbooking from './src/pages/SeatsBookingPage';
 import SpecialMeals from './src/pages/SpecialMealsPage';
+
 import Assistance from './src/pages/AssistancePage';
 import DestinationDetails from "./src/pages/DestinationDetails";
 import SideNavbar from './src/components/navbar/SideNavBar';
 import SummaryPage from './src/pages/SummaryPage';
 import PaymentIdPage from './src/pages/PaymentIdPage';
+import MyProfile from "./src/pages/ProfilePage";
+import ProfileEdit from "./src/pages/ProfileEdit";
 
 //const Drawer = createDrawerNavigator();
 const Drawer = createDrawerNavigator();
@@ -35,7 +41,7 @@ export default function App() {
           <NavigationContainer>
     
           <Drawer.Navigator drawerContent={props => <SideNavbar {...props}/>}
-             initialRouteName="Loading"
+             initialRouteName="Home"
               screenOptions={{ headerShown: false , drawerPosition: 'right'}}
             >
 
@@ -53,7 +59,9 @@ export default function App() {
               <Drawer.Screen name='Assistance' component={Assistance} />
               <Drawer.Screen name='SummaryPage' component={SummaryPage} />
               <Drawer.Screen name='DestinationDetails' component={DestinationDetails} />
-              <Drawer.Screen name='PaymentIdPage' component={PaymentIdPage} />
+            <Drawer.Screen name='PaymentIdPage' component={PaymentIdPage} />
+            <Drawer.Screen name='MyProfile' component={MyProfile} />
+            <Drawer.Screen name='ProfileEdit' component={ProfileEdit} />
             </Drawer.Navigator>
           </NavigationContainer>
         </View>
