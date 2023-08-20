@@ -18,7 +18,7 @@ export default function HomePage({ navigation }) {
     const nav = useNavigation();
 
     const navigateToSpaceships = () => {
-        nav.navigate('BookingPage', { from: 'Los Angeles, Earth', to: 'Ares Prime, Mars', date: '2023-08-19' });
+        nav.navigate('BookingPage', { shuttleType:'LPT', passengerCount: 3, departureDate:'2023-08-20', departureId:22, arrivalDate:'2023-08-20', arrivalId:11, from: 'Los Angeles, Earth', to:'Ares Prime, Mars' });
     };
     //    for testing booking page
     return (
