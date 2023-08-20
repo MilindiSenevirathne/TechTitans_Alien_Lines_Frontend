@@ -13,6 +13,7 @@ import ChooseServices from './src/pages/ChoseServicePage';
 import ExtraBaggage from './src/pages/ExtraBaggagePage';
 import HomePage from './src/pages/HomePage';
 import LandingPage from './src/pages/LandingPage';
+import MyWalletPage from './src/pages/MyWalletPage';
 import LoadingPage from './src/pages/LoadingPage';
 import MyBookings from './src/pages/MyBookings';
 import PassengerDetails from './src/pages/PassengerDetails';
@@ -43,6 +44,7 @@ export default function App() {
               <Stack.Screen name="Landing" component={LandingPage} />
               <Stack.Screen name='MyBookings' component={MyBookings}/>
               <Stack.Screen name='PassengerDetails' component={PassengerDetails}/>
+              <Stack.Screen name='MyWalletPage' component={MyWalletPage}/>
               <Stack.Screen name='ChooseServices' component={ChooseServices} />
               <Stack.Screen name='ExtraBaggage' component={ExtraBaggage} />
               <Stack.Screen name='Seatbooking' component={Seatbooking} />
