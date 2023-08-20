@@ -34,28 +34,15 @@ export default function HomePage({ navigation }) {
   };
 
   //modal visibility
-  const [isFromModalVisible, setFromModalVisible] = React.useState(false);
-const [isToModalVisible, setToModalVisible] = React.useState(false);
-const [selectedFromStation, setSelectedFromStation] = React.useState(null);
-const [selectedToStation, setSelectedToStation] = React.useState(null);
+  const refRBSheet = React.useRef(null);
 
-const openFromModal = () => {
-    setFromModalVisible(true);
+  const openBottomSheet = () => {
+    refRBSheet.current.open();
   };
-  
-  const closeFromModal = () => {
-    setFromModalVisible(false);
-  };
-  
-  const openToModal = () => {
-    setToModalVisible(true);
-  };
-  
-  const closeToModal = () => {
-    setToModalVisible(false);
-  };
-  
 
+  const hideBottomSheet = () => {
+    refRBSheet.current.close();
+  };
 
   //collapsible card
   const [isCardExpanded, setCardExpanded] = React.useState(false);
@@ -129,8 +116,44 @@ const openFromModal = () => {
                   />
                 </View>
                 {/* CommonDropdown Component for From and To Selection */}
+                <View style={styles.dropDownField}>
+                  <StatusBar style="auto" />
+                  <Button title="OPEN BOTTOM SHEET" onPress={openBottomSheet} />
+                  <CommonModal
+                    containerHeight={500}
+                    onOpen={refRBSheet}
+                    onClose={hideBottomSheet}
+                    firstTitle={"First"}
+                    secondTitle={"Second"}
+                    bottom={<CommonButton lable={"Check Rate"} />}
+                    content={
+                      <View>
+                        <DropdownField
+                          list={[
+                            {
+                              label: "FTL Drive",
+                              value: "ftlD",
+                            },
+                            {
+                              label: "Space Elevator",
+                              value: "spaceE",
+                            },
+                            {
+                              label: "Space Cruise",
+                              value: "spaceC",
+                            },
+                            {
+                              label: "Teleport",
+                              value: "teleport",
+                            },
+                          ]}
+                          label="Travelling Mode"
+                        />
+                      </View>
+                    }
+                  />
+                </View>
 
-                
                 <CalenderField label="Departure Date" />
                 <CalenderField label="Return Date" />
                 <CommonButton
@@ -142,10 +165,7 @@ const openFromModal = () => {
           </View>
         </TouchableOpacity>
 
-
-
-
-        <View style={styles.container}>
+        {/* <View style={styles.container}>
           <Text>Sample Text Input</Text>
           <StatusBar style="auto" />
           <View style={styles.textfield}>
@@ -201,7 +221,8 @@ const openFromModal = () => {
           <View style={styles.textfield}>
             <SearchField />
           </View>
-        </View>
+        </View> */}
+        
         <CommonButton
           lable={"Press Here"}
           commonBtnPress={() => navigation.navigate("MyBookings")}
@@ -231,7 +252,7 @@ const styles = StyleSheet.create({
   dropDownField: {
     marginTop: 10,
     marginBottom: 10,
-    width: '100%',
+    width: "100%",
   },
   imageContainer: {
     alignItems: "center",
@@ -249,7 +270,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom:20
+    marginBottom: 20,
   },
   card: {
     width: 300,
