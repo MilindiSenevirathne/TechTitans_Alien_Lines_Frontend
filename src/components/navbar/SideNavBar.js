@@ -52,7 +52,7 @@ const SideNavbar = ({ navigation }) => {
         </View>
       </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Home')} >
+      <TouchableOpacity onPress={() => navigation.navigate('MyWalletPage')} >
       <View style={styles.bodyContainer}>
         <View style={styles.bodyImageContainer}>
           <Image
@@ -68,7 +68,7 @@ const SideNavbar = ({ navigation }) => {
       <View style={styles.footerContainer}>
         <View style={styles.bodyImageContainer}>
           <Image
-            source={require('../../images/logout2.png')}
+            source={require('../../images/logout.png')}
             style={styles.bodyImage}
           />
         </View>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4C0259',
   },
   headerContainer: {
-    marginTop: 10,
+    marginTop: 20,
     flexDirection: 'row',
     backgroundColor: '#4C0259',
     justifyContent: 'center',
