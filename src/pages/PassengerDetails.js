@@ -271,7 +271,7 @@ export default function PassegerDetails({ navigation }) {
                 <Text
                   style={{ fontSize: 12, fontWeight: "500", marginBottom: 10 }}
                 >
-                  ${rate}
+                  ${rate.price}
                 </Text>
               </View>
             </TouchableOpacity>

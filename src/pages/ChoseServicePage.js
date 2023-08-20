@@ -16,7 +16,7 @@ registerTranslation("en", en);
 
 export default function ChooseServices({ navigation }) {
   const route = useRoute();
-  const { rate, selectedSpaceship } = route.params;
+  const { rate, selectedSpaceship,} = route.params;
 
   const nav = useNavigation();
 
@@ -46,8 +46,8 @@ export default function ChooseServices({ navigation }) {
 
   const handleManageToSummary = () => {
     nav.navigate("SummaryPage", {
-      rate: rate,
-      selectedSpaceship: selectedSpaceship,
+      selectedPackage: rate,
+      summary: selectedSpaceship,
     });
   };
   return (
@@ -69,7 +69,7 @@ export default function ChooseServices({ navigation }) {
                     />
                   </View>
                   <View style={styles.settingContainer}>
-                    <Text style={styles.title}>{from}</Text>
+                    <Text style={styles.title}>{selectedSpaceship.departureStationId.name}</Text>
                     <Text style={styles.subtitle}>
                       Book MyBaggage Online with 30% Discount
                     </Text>
@@ -211,7 +211,7 @@ export default function ChooseServices({ navigation }) {
                 fontWeight: "800",
               }}
             >
-              ${rate}
+              ${rate.price}
             </Text>
           </View>
         </View>
