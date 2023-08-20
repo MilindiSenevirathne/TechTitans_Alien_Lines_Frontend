@@ -11,7 +11,7 @@ import NavBar from '../components/navbar/NavBar';
 const SummaryPage = () => {
   const route = useRoute();
   const nav = useNavigation();
-  const { summary, selectedPackage } = route.params;
+  const { summary, selectedPackage, userDetails } = route.params;
 
   const [isLoading, setIsLoading] = useState(true);
   const [grossAmount, setgrossAmount] = useState(0);
@@ -58,6 +58,10 @@ const SummaryPage = () => {
 
   const handleContinue = () => {
     console.log('Continue clicked');
+    console.log('summary', summary);
+    console.log('selectedPackage', selectedPackage);
+    console.log('userDetails', userDetails);
+    nav.navigate('PaymentIdPage');
   }
 
   const handlepromocode = () => {
