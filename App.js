@@ -20,6 +20,7 @@ import SpecialMeals from './src/pages/SpecialMealsPage';
 import Assistance from './src/pages/AssistancePage';
 import customTheme from './src/components/styles/theme';
 import SideNavbar from './src/components/navbar/SideNavBar';
+import SummaryPage from './src/pages/SummaryPage';
 
 //const Drawer = createDrawerNavigator();
 const Drawer = createDrawerNavigator();
@@ -45,6 +46,7 @@ export default function App() {
               <Drawer.Screen name='Seatbooking' component={Seatbooking} />
               <Drawer.Screen name='SpecialMeals' component={SpecialMeals} />
               <Drawer.Screen name='Assistance' component={Assistance} />
+              <Drawer.Screen name='SummaryPage' component={SummaryPage} />
             </Drawer.Navigator>
           </NavigationContainer>
         </View>

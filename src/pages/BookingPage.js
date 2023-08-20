@@ -5,6 +5,9 @@ import { RadioButton } from 'react-native-paper';
 import { CommonButton } from '../components/common/CommonButton';
 import Timeline from 'react-native-timeline-flatlist'
 import Loading from '../components/common/Loading';
+import { getTimeFromDateString } from '../utils/timeUtils.js';
+import { formatDate } from '../utils/dateUtils.js';
+import { calculateTimeDifference } from '../utils/timeDifferUtils.js';
 
 const BookingPage = () => {
 
@@ -108,15 +111,6 @@ const BookingPage = () => {
     //     getSpaceshipList();
     //   }, []);
 
-    const getTimeFromDateString = (dateString) => {
-        const dateObject = new Date(dateString);
-        const hours = dateObject.getHours();
-        const minutes = dateObject.getMinutes();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
-        const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-        return `${formattedHours}:${formattedMinutes} ${ampm}`;
-    };
 
     const calculateMinPrice = (rates) => {
         if (rates.length === 0) {
@@ -126,30 +120,7 @@ const BookingPage = () => {
         const minPrice = Math.min(...prices);
         return minPrice;
     };
-
-    function calculateTimeDifference(startDateTime, endDateTime) {
-        const startDate = new Date(startDateTime);
-        const endDate = new Date(endDateTime);
-        const timeDifference = endDate - startDate;
-
-        const millisecondsPerDay = 24 * 60 * 60 * 1000;
-        const millisecondsPerHour = 60 * 60 * 1000;
-
-        const days = Math.floor(timeDifference / millisecondsPerDay);
-        const hours = Math.floor((timeDifference % millisecondsPerDay) / millisecondsPerHour);
-        const minutes = Math.floor((timeDifference % millisecondsPerHour) / (60 * 1000))
-        const formattedHours = hours.toString().padStart(2, '0');
-        const formattedDays = days.toString().padStart(3, '0');
-        const formattedMinutes = minutes.toString().padStart(2, '0');
-        return `${formattedDays}d ${formattedHours}h ${formattedMinutes}m`;
-    }
-
-    function formatDate(inputDateTime) {
-        const date = new Date(inputDateTime);
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
-        return formattedDate;
-    }
+    
 
     const handleShuttleDetailsClick = async (spaceship) => {
         setSelectedSpaceship(spaceship);
