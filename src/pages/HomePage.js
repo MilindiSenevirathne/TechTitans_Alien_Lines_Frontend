@@ -550,6 +550,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
   },
+  
   chipButtonSelected: {
     marginRight: 10,
     paddingTop: 10,
