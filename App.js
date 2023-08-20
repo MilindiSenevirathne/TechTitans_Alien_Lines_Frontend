@@ -13,6 +13,7 @@ import MyBookings from './src/pages/MyBookings';
 import LoadingPage from './src/pages/LoadingPage';
 import LandingPage from './src/pages/LandingPage';
 import PassengerDetails from './src/pages/PassengerDetails';
+import MyWalletPage from './src/pages/MyWalletPage';
 import customTheme from './src/components/styles/theme';
 
 const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ export default function App() {
               <Stack.Screen name="Landing" component={LandingPage} />
               <Stack.Screen name='MyBookings' component={MyBookings}/>
               <Stack.Screen name='PassengerDetails' component={PassengerDetails}/>
+              <Stack.Screen name='MyWalletPage' component={MyWalletPage}/>
             </Stack.Navigator>
           </NavigationContainer>
         </View>
