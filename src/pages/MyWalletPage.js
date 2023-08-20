@@ -18,7 +18,8 @@ import customTheme from '../components/styles/theme';
 import SuccessErrorModal from '../components/common/SuccessErrorModal';
 registerTranslation('en', en);
 import { Card } from 'react-native-paper';
-export default function HomePage({ navigation }) {
+
+export default function MyWalletPage({ navigation }) {
 
   const modalShow = React.useRef(null)
 
