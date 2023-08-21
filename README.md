@@ -5,7 +5,7 @@
 Welcome to the Aline Lines! This is a mobile application developed using React Native and Expo, allowing for easy development and deployment across iOS and Android platforms.
 
 This is the **Frontend** development repository. You can access the **Backend Repository** using folliwing link.
-[TechTitans_Alien_Lines_Backend](https://drive.google.com/drive/folders/1kjWYtYoXkBbiwQZWLK0q1d56X1Sgup5S?usp=drive_link)
+[TechTitans_Alien_Lines_Backend](https://github.com/MilindiSenevirathne/TechTitans_Alien_Lines_Backend)
 
 ## Getting Started
 
